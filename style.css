@@ -1,0 +1,156 @@
+body{
+  background-color:#e8e5da;
+  margin-left: 10%;
+  margin-right:10%;
+}
+header{
+  font-size: 24px;
+  text-align: center;
+  border: 6px double black;
+  border-radius:100px;
+  background-color: #dededebd;
+}
+
+footer{
+  border: 6px double black;
+  border-radius:100px;
+  background-color: #dededebd;
+  height: 250px;
+}
+
+#footerImg{
+  width: 172px;
+  float: left;
+  margin:25px;
+  margin-left:50px;
+ 
+}
+#footerImg img{
+  border-radius: 100px; /* Радиус скругления */
+  border: 3px solid white; /* Параметры рамки */
+  box-shadow: 0 0 7px #666; /* Параметры тени */
+}
+#footerImg img:hover{
+  visibility: visible;
+}
+#footerInfo{
+  margin-left: 200px;
+}
+#footerInfo h1{
+  text-align: center;
+  font-style:italic;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 36px;
+  color:white;
+  margin-top:7%;
+
+}
+
+.calendarJS{
+  display: flex;
+  justify-content: space-around;
+}
+.calendarJS table {
+  border-collapse: collapse;
+}
+
+.calendarJS td,
+th {
+  border: 1px solid black;
+  padding: 3px;
+  height: 25px;
+  text-align: center;
+}
+
+.calendarJS th {
+  font-weight: bold;
+  background-color: #E6E6E6;
+}
+#timeNow{
+  font-size: 2em;
+  font-style: italic;
+}
+
+.arrow {
+  padding: 0;
+  background: #ddd;
+  border-radius: 15px;
+  border: 1px solid gray;
+  font-size: 24px;
+  line-height: 24px;
+  color: #444;
+  display: inline-block;
+}
+
+.arrow:focus {
+  outline: none;
+}
+
+.arrow:hover {
+  background: #ccc;
+  cursor: pointer;
+}
+
+.ulLi ul {
+  height: 130px;
+  width: 9999px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* убрать между inline-block li лишние пробелы, которые есть в HTML */
+  /* http://davidwalsh.name/remove-whitespace-inline-block */
+  position: relative;
+  font-size: 0;
+}
+
+.ulLi ul img {
+  width: 130px;
+  height: 130px;
+  /* по умолчанию inline, но в ряде браузеров это даст лишнее пространство вокруг элементов */
+
+  display: block;
+}
+
+.ulLi ul li {
+  /* если в HTML между элементами <li>..</li> есть пробелы, то они будут видны на странице,
+чтобы их избежать, нужно либо писать <li>..</li><li>..</li> вплотную, либо не ставить закрывающие </li> */
+
+  display: inline-block;
+}
+.taskCarousel{
+  margin: 10px auto;
+  width: 450px;
+}
+.taskCarousel h3{
+  text-align: center;
+}
+.taskCarousel h3 a{
+  color: red;
+  text-decoration: none;
+  transition: color 0.3s ease-out;
+}
+.taskCarousel h3 a:hover{
+  color: rgb(95, 16, 16);
+}
+.border {
+  
+  height: 130px;
+  width: 436px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ccc;
+  background-color: #eee;
+  border-radius: 20px;
+}
+
+.ulLi {
+  width: 390px;
+  height: 130px;
+  overflow: hidden;
+}
+
+#listC {
+  left: 0px;
+  transition: left ease-in-out 0.75s;
+}
