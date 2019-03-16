@@ -2292,3 +2292,22 @@ right.onclick = function () {
 
   }
 }
+field.onclick = function(event){
+    
+  let ballSize = ball.clientWidth ;//размер мяча
+  let outLeft = field.offsetLeft + field.clientLeft;//положение относительно документа и границ
+  let outTop = field.offsetTop + field.clientTop;
+
+  let newTop  = event.pageY - outTop ;
+  if(newTop < (ballSize/2))newTop =(ballSize/2);// предотварщает смещение за верхнюю границу
+  let newLeft = event.pageX - outLeft;
+  if(newLeft < (ballSize/2))newLeft = (ballSize/2);// предотварщает смещение за левую границу
+
+  //границы площадки , размеры
+  let borderX = field.clientWidth - ballSize/2;
+  let borderY = field.clientHeight - ballSize/2;
+  
+
+  ball.style.top  = Math.min(newTop,borderY)  + 'px';// предотварщает смещение за нижнюю границу
+  ball.style.left = Math.min(newLeft,borderX) + 'px';// предотварщает смещение за правую границу
+}

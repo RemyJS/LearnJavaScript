@@ -124,12 +124,12 @@ th {
 .taskCarousel h3{
   text-align: center;
 }
-.taskCarousel h3 a{
+h3 a{
   color: red;
   text-decoration: none;
   transition: color 0.3s ease-out;
 }
-.taskCarousel h3 a:hover{
+h3 a:hover{
   color: rgb(95, 16, 16);
 }
 .border {
@@ -153,4 +153,23 @@ th {
 #listC {
   left: 0px;
   transition: left ease-in-out 0.75s;
+}
+/* футбольное поле  */
+#field {
+  width: 200px;
+  height: 150px;
+  border: 10px groove black;
+  background-color: #00FF00;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#ball {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -20px;
+  margin-top: -20px;
+  transition: all 0.75s;
 }
