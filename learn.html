@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <style>
+    body {
+      margin: 10px auto;
+      width: 470px;
+    }
+
+    h3 {
+      margin: 0;
+      padding-bottom: .3em;
+      font-size: 1.1em;
+    }
+
+    p {
+      margin: 0;
+      padding: 0 0 .5em;
+    }
+
+    .pane {
+      background: #edf5e1;
+      padding: 10px 20px 10px;
+      border-top: solid 2px #c4df9b;
+    }
+
+    .remove-button {
+      font-size: 110%;
+      color: darkred;
+      right: 10px;
+      width: 24px;
+      height: 24px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      float: right;
+    }
+
+    .tree3 span {
+      cursor: pointer;
+    }
+
+    .tree3 span:hover {
+      font-weight: bold;
+    }
+
+    .hide {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <div id="delMessages">
+    <div>
+      test
+    </div>
+    <div class="pane">
+      <button class="remove-button">[x]</button>
+      <h3>Лошадь</h3>
+      <p>Домашняя лошадь — животное семейства непарнокопытных, одомашненный и единственный сохранившийся подвид дикой
+        лошади, вымершей в дикой природе, за исключением небольшой популяции лошади Пржевальского.</p>
+    </div>
+    <div class="pane">
+      <button class="remove-button">[x]</button>
+      <h3>Осёл</h3>
+      <p>Домашний осёл или ишак — одомашненный подвид дикого осла, сыгравший важную историческую роль в развитии
+        хозяйства и культуры человека. Все одомашненные ослы относятся к африканским ослам.</p>
+    </div>
+    <div class="pane">
+      <button class="remove-button">[x]</button>
+      <h3>Корова, а также пара слов о диком быке, о волах и о тёлках. </h3>
+      <p>Коро́ва — самка домашнего быка, одомашненного подвида дикого быка, парнокопытного жвачного животного семейства
+        полорогих. Самцы вида называются быками, молодняк — телятами, кастрированные самцы — волами. Молодых (до первой
+        стельности) самок называют
+        тёлками.
+      </p>
+    </div>
+  </div>
+  <ul class="tree3">
+    <li>Животные
+      <ul>
+        <li>Млекопитающие
+          <ul>
+            <li>Коровы</li>
+            <li>Ослы</li>
+            <li>Собаки</li>
+            <li>Тигры</li>
+          </ul>
+        </li>
+        <li>Другие
+          <ul>
+            <li>Змеи</li>
+            <li>Птицы</li>
+            <li>Ящерицы</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Рыбы
+      <ul>
+        <li>Аквариумные
+          <ul>
+            <li>Гуппи</li>
+            <li>Скалярии</li>
+          </ul>
+
+        </li>
+        <li>Морские
+          <ul>
+            <li>Морская форель</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</body>
+<script>
+  delMessages.onclick = function (event) {
+    let target = event.target;
+    if (target.className != 'remove-button') return;
+    let removeButton = target.closest('.pane');
+    removeButton.style.display = 'none';
+  }
+  //задача 2 
+  let tree3 = document.querySelector('.tree3');
+  let arrayLi = tree3.getElementsByTagName('li');
+
+  let addSpan = function (elem) {
+    let span = document.createElement('span');
+    elem.insertBefore(span, elem.firstChild);
+    span.appendChild(span.nextSibling);
+  }
+  for (let i = 0; i < arrayLi.length; i++) {
+    addSpan(arrayLi[i]);
+  }
+
+  tree3.onclick = function (event) {
+    let target = event.target;
+    if (target.tagName != "SPAN") return;
+    let li = target.closest('li');
+    // console.log(li)
+    if (li.childElementCount > 1) {
+      // console.log(li.children[1]);
+      li.children[1].classList.toggle('hide');
+      // li.children[1].hidden = !li.children[1].hidden;
+    }
+  }
+</script>
+
+</html>
