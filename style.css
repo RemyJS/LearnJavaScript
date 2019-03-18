@@ -173,3 +173,75 @@ h3 a:hover{
   margin-top: -20px;
   transition: all 0.75s;
 }
+/* делегирование событий */
+.eventDelegationH3{
+  text-align: center;
+}
+.eventDelegation{
+  display: flex;
+  justify-content:space-around;
+}
+#delMessages{
+  width: 470px;
+}
+#delMessages h3 {
+  margin: 0;
+  padding-bottom: .3em;
+  font-size: 1.1em;
+}
+
+#delMessages p {
+  margin: 0;
+  padding: 0 0 .5em;
+}
+
+.pane {
+  background: #edf5e1;
+  padding: 10px 20px 10px;
+  border-top: solid 2px #c4df9b;
+}
+
+.remove-button {
+  font-size: 110%;
+  color: darkred;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  float: right;
+}
+
+.tree3 span {
+  cursor: pointer;
+}
+
+.tree3 span:hover {
+  font-weight: bold;
+}
+
+.hide {
+  display: none;
+}
+
+#grid {
+  border: 3px solid #9d9d9d;
+  border-spacing: 0px 2px;
+  border-radius: 12px;
+  background-color:#fff9cced;
+  padding: 0 10px;
+  
+}
+
+#grid td {
+  border-top: 1px solid #9d9d9d;
+}
+
+#grid th {
+  cursor: pointer;
+}
+
+#grid th:hover {
+  color:crimson;
+}

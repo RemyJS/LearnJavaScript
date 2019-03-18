@@ -5,18 +5,23 @@
 
   <meta charset="utf-8">
   <style>
-    body {
-      margin: 10px auto;
+    .eventDelegationH3{
+      text-align: center;
+    }
+    .eventDelegation{
+      display: flex;
+      justify-content:space-around;
+    }
+    #delMessages{
       width: 470px;
     }
-
-    h3 {
+    #delMessages h3 {
       margin: 0;
       padding-bottom: .3em;
       font-size: 1.1em;
     }
 
-    p {
+    #delMessages p {
       margin: 0;
       padding: 0 0 .5em;
     }
@@ -50,17 +55,39 @@
     .hide {
       display: none;
     }
+
+    #grid {
+      border: 3px solid #9d9d9d;
+      border-spacing: 0px 2px;
+      border-radius: 12px;
+      background-color:#fff9cced;
+      padding: 0 10px;
+      
+    }
+
+    #grid td {
+      border-top: 1px solid #9d9d9d;
+    }
+
+    #grid th {
+      cursor: pointer;
+    }
+
+    #grid th:hover {
+      color:crimson;
+    }
   </style>
 </head>
 
 <body>
-
+  <div class="eventDelegationH3">
+    <h3><a href="https://learn.javascript.ru/event-delegation">Делегирование событий</a></h3>
+  
+<div class="eventDelegation">
 
 
   <div id="delMessages">
-    <div>
-      test
-    </div>
+   
     <div class="pane">
       <button class="remove-button">[x]</button>
       <h3>Лошадь</h3>
@@ -120,8 +147,62 @@
       </ul>
     </li>
   </ul>
+
+  <table id="grid">
+    <thead>
+      <tr>
+        <th data-type="number">Возраст</th>
+        <th data-type="string">Имя</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>5</td>
+        <td>1)Вася</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>2)Петя</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>3)Женя</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>4)Маша</td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>5)Вася 2</td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>6)Петя 2 </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>7)Женя 2</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>8)Маша 2</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>9)Илья</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>10)Илья 2</td>
+      </tr>
+    </tbody>
+    </tab>
+  </div> 
+</div>
 </body>
 <script>
+  "use strict";
   delMessages.onclick = function (event) {
     let target = event.target;
     if (target.className != 'remove-button') return;
@@ -152,6 +233,39 @@
       // li.children[1].hidden = !li.children[1].hidden;
     }
   }
+
+  grid.onclick = function (event) {
+    let bTime = 0;
+    let d = new Date();
+    let target = event.target;
+    if (target.getAttribute('data-type') != 'number') return;
+
+    let bStep = 0;
+
+    function bubblesort(tab) { //БаблСортировка без рекурсии
+      let len = tab.rows.length;
+      let rows = tab.rows;
+      let i = 0;let  j = 0;
+      for (i = 1; i < len; i++) {
+       let cTd = rows[i];
+       let cValue = +rows[i].cells[0].innerHTML;
+        j = i - 1;
+        while (j > 0 && (+rows[j].cells[0].innerHTML) > cValue) {
+          console.log(+rows[j].cells[0].innerHTML);
+          rows[j - 1].insertAdjacentElement('afterEnd', cTd);
+          j--;
+          bStep++;
+        };
+        // rows[j] = cTd;
+        bStep++;
+      }
+
+    };
+    bubblesort(grid);
+    bTime += new Date() - d;
+    console.log(target, bTime + ' ms', bStep + ' Steps');
+  }
+  
 </script>
 
 </html>

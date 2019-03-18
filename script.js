@@ -2311,3 +2311,66 @@ field.onclick = function(event){
   ball.style.top  = Math.min(newTop,borderY)  + 'px';// предотварщает смещение за нижнюю границу
   ball.style.left = Math.min(newLeft,borderX) + 'px';// предотварщает смещение за правую границу
 }
+// делегирование событий
+delMessages.onclick = function (event) {
+  let target = event.target;
+  if (target.className != 'remove-button') return;
+  let removeButton = target.closest('.pane');
+  removeButton.style.display = 'none';
+}
+//задача 2 
+let tree3 = document.querySelector('.tree3');
+let arrayLi = tree3.getElementsByTagName('li');
+
+let addSpan = function (elem) {
+  let span = document.createElement('span');
+  elem.insertBefore(span, elem.firstChild);
+  span.appendChild(span.nextSibling);
+}
+for (let i = 0; i < arrayLi.length; i++) {
+  addSpan(arrayLi[i]);
+}
+
+tree3.onclick = function (event) {
+  let target = event.target;
+  if (target.tagName != "SPAN") return;
+  let li = target.closest('li');
+  // console.log(li)
+  if (li.childElementCount > 1) {
+    // console.log(li.children[1]);
+    li.children[1].classList.toggle('hide');
+    // li.children[1].hidden = !li.children[1].hidden;
+  }
+}
+
+grid.onclick = function (event) {
+  let bTime = 0;
+  let d = new Date();
+  let target = event.target;
+  if (target.getAttribute('data-type') != 'number') return;
+
+  let bStep = 0;
+
+  function bubblesort(tab) { //БаблСортировка без рекурсии
+    let len = tab.rows.length;
+    let rows = tab.rows;
+    let i = 0;
+    let j = 0;
+    for (i = 1; i < len; i++) {
+     let cTd = rows[i];
+     let  cValue = +rows[i].cells[0].innerHTML;
+      j = i - 1;
+      while (j > 0 && (+rows[j].cells[0].innerHTML) > cValue) {
+
+        rows[j - 1].insertAdjacentElement('afterEnd', cTd);
+        j--;
+        bStep++;
+      };
+      bStep++;
+    }
+
+  };
+  bubblesort(grid);
+  bTime += new Date() - d;
+  console.log(target, bTime + ' ms', bStep + ' Steps');
+}
