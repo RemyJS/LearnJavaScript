@@ -2347,7 +2347,12 @@ grid.onclick = function (event) {
   let bTime = 0;
   let d = new Date();
   let target = event.target;
-  if (target.getAttribute('data-type') != 'number') return;
+  let select;
+  if (target.getAttribute('data-type') == 'number'){
+    select = 0;
+  } else if (target.getAttribute('data-type') == 'string'){
+    select = 1;
+  } else return;
 
   let bStep = 0;
 
@@ -2358,10 +2363,16 @@ grid.onclick = function (event) {
     let j = 0;
     for (i = 1; i < len; i++) {
      let cTd = rows[i];
-     let  cValue = +rows[i].cells[0].innerHTML;
+     let  cValue;
+     if(select){
+       cValue = rows[i].cells[select].innerHTML;
+     }else{
+        cValue = +rows[i].cells[select].innerHTML;
+     }
+    
       j = i - 1;
-      while (j > 0 && (+rows[j].cells[0].innerHTML) > cValue) {
-
+      while (j > 0 && (rows[j].cells[select].innerHTML) > cValue) {
+        
         rows[j - 1].insertAdjacentElement('afterEnd', cTd);
         j--;
         bStep++;
