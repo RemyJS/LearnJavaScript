@@ -2385,3 +2385,25 @@ grid.onclick = function (event) {
   bTime += new Date() - d;
   console.log(target, bTime + ' ms', bStep + ' Steps');
 }
+// Поведение "подсказка"
+document.onmouseover = function(event){
+  let target = event.target;
+ 
+  if(!target.getAttribute('data-tooltip'))return;
+  let span = document.createElement('span');
+  span.className += 'spanTip';
+  span.innerHTML = target.getAttribute('data-tooltip');
+  target.insertAdjacentElement('beforebegin',span);
+  let top = target.getBoundingClientRect().top - span.offsetHeight - 5;
+  span.style.top = top +'px';
+  if(top < 0){
+    span.style.top = target.getBoundingClientRect().bottom + 5 +'px';
+  }
+};
+document.onmouseout = function(event){
+  let target = event.target;
+  if(!target.getAttribute('data-tooltip'))return;
+  let span = document.querySelector('.spanTip');
+  span.remove();
+
+}
