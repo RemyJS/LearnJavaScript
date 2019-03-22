@@ -2407,3 +2407,24 @@ document.onmouseout = function(event){
   span.remove();
 
 }
+// действия браузера по умолчанию
+contents.onclick = function (event) {
+  let target = event.target;
+  while (target != this) {
+    if (target.tagName == 'A') break;
+    target = target.parentNode;
+  }
+  if (target.tagName != 'A') return;
+  let msg = 'перейти по адресу ' + target.getAttribute('href');
+  let transfer = confirm(msg);
+  if (!transfer) return false;
+}
+thumbs.onclick = function(event){
+  let target = event.target;
+  if(target.tagName != 'A' && target.tagName != 'IMG' )return;
+  let a = target.parentNode.getAttribute('href')||target.getAttribute('href');
+  let t =  target.parentNode.getAttribute('title')||target.getAttribute('title');
+  largeImgForGallery.setAttribute('src',a);
+  largeImgForGallery.setAttribute('alt',t);
+  return false;
+}
