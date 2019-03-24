@@ -4,88 +4,93 @@
 <head>
   <meta charset="utf-8">
   <style>
-    #contents {
-      padding: 5px;
-      border: 1px green solid;
+    .selected {
+      background: #0f0;
     }
 
-    #largeImgForGallery {
-      border: solid 1px #ccc;
-      width: 550px;
-      height: 400px;
-      padding: 5px;
+    li {
+      cursor: pointer;
     }
-
-    #thumbs a {
-      border: solid 1px #ccc;
-      width: 100px;
-      height: 100px;
-      padding: 3px;
-      margin: 2px;
-      float: left;
+    .mouse-clicks{
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10%;
     }
-
-    #thumbs a:hover {
-      border-color: #FF9900;
-    }
-
   </style>
 </head>
 
 <body>
-  <div class="default-browser-action-wrap">
-
-    <div class="default-browser-action">
-      <h3><a href="https://learn.javascript.ru/task/catch-link-navigation">Поймать переход по ссылке</a></h3>
-      <fieldset id="contents">
-        <legend>#contents</legend>
-        <p>
-          Как насчет почитать <a href="http://wikipedia.org">Википедию</a>, или посетить <a href="#12"><i>W3.org</i></a>
-          и
-          узнать про современные стандарты?
-        </p>
-      </fieldset>
+  <div class="mouse-clicks">
+    <div class="mouse-clicks-tasks">
+      Клик на элементе выделяет только его.
+      <br> Ctrl(Cmd)+Клик добавляет/убирает элемент из выделенных.
+      <br> Shift+Клик добавляет промежуток от последнего кликнутого к выделению.
+      <br>
+    
+      <ul id='Vinni'>
+        <li>Кристофер Робин</li>
+        <li>Винни-Пух</li>
+        <li>Ослик Иа</li>
+        <li>Мудрая Сова</li>
+        <li>Кролик. Просто кролик.</li>
+      </ul>
     </div>
-
-    <div class="default-browser-action">
-      <h3><a href="https://learn.javascript.ru/task/image-gallery">Галерея изображений</a></h3>
-      <p><img id="largeImgForGallery" src="https://js.cx/gallery/img1-lg.jpg" alt="Large image"></p>
-
-      <div id="thumbs">
-        <!-- При наведении на изображение показывается встроенная подсказка браузера (title) -->
-        <a href="https://js.cx/gallery/img2-lg.jpg" title="Image 2"><img src="https://js.cx/gallery/img2-thumb.jpg"></a>
-        <a href="https://js.cx/gallery/img3-lg.jpg" title="Image 3"><img src="https://js.cx/gallery/img3-thumb.jpg"></a>
-        <a href="https://js.cx/gallery/img4-lg.jpg" title="Image 4"><img src="https://js.cx/gallery/img4-thumb.jpg"></a>
-        <a href="https://js.cx/gallery/img5-lg.jpg" title="Image 5"><img src="https://js.cx/gallery/img5-thumb.jpg"></a>
-        <a href="https://js.cx/gallery/img6-lg.jpg" title="Image 6"><img src="https://js.cx/gallery/img6-thumb.jpg"></a>
-      </div>
-    </div>
-
+    <div class="mouse-clicks-tasks"></div>
+    <div class="mouse-clicks-tasks"></div>
   </div>
 
-</body>
 
-<script>
-  contents.onclick = function (event) {
-    let target = event.target;
-    while (target != this) {
-      if (target.tagName == 'A') break;
-      target = target.parentNode;
+  <script>
+    "use strict";
+    // ... ваш код
+    let lastClick;
+    Vinni.onmousedown = function(event){
+      return false;//подсмотрел способ
     }
-    if (target.tagName != 'A') return;
-    let msg = 'перейти по адресу ' + target.getAttribute('href');
-    let transfer = confirm(msg);
-    if (!transfer) return false;
-  }
-  thumbs.onclick = function(event){
-    let target = event.target;
-    if(target.tagName != 'A' && target.tagName != 'IMG' )return;
-    let a = target.parentNode.getAttribute('href')||target.getAttribute('href');
-    let t =  target.parentNode.getAttribute('title')||target.getAttribute('title');
-    largeImgForGallery.setAttribute('src',a);
-    largeImgForGallery.setAttribute('alt',t);
-    return false;
-  }
-</script>
+    Vinni.onclick = function(event){
+      event.preventDefault();
+      let target = event.target;
+      if(target.tagName !="LI")return;
+      // console.log(event.type);
+
+      if(event.ctrlKey || event.metaKey){
+        // console.log('ctrl ',event.ctrlKey);
+        target.classList.toggle('selected');
+        lastClick = target;
+        return;
+      };
+      if(event.shiftKey){
+        
+        // console.log('shift ',event);
+        let len = this.childElementCount;
+        let clickA,clickB,start,end=0;
+
+        for(let i = 0; i<len;i++){
+          if(this.children[i]==target)clickA = i ;
+          if(this.children[i]==lastClick)clickB = i; 
+        }
+        start = Math.min(clickA,clickB);
+        end = Math.max(clickA,clickB);
+
+        for(start;start<=end;start++){
+          this.children[start].classList.add('selected');
+        }
+
+        lastClick = target;
+        return false;
+
+      }
+
+      // console.log('klick reset');  
+      let len = this.childElementCount;
+      for(let i = 0; i<len;i++){
+        this.children[i].classList.remove('selected');
+      }
+      target.classList.toggle('selected');
+      lastClick = target;
+    }
+  </script>
+
+</body>
 
 </html>
