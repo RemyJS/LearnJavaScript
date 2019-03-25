@@ -11,10 +11,20 @@
     li {
       cursor: pointer;
     }
-    .mouse-clicks{
-      display: flex;
+
+    .mouse-clicks {
+      /* display: flex; */
       justify-content: space-around;
       margin-top: 10%;
+    }
+
+    .tree2 li {
+      cursor: pointer;
+      border: 1px solid blue;
+      margin: 1px;
+    }
+    .tree2 span{
+      border: 1px solid red;
     }
   </style>
 </head>
@@ -26,7 +36,7 @@
       <br> Ctrl(Cmd)+Клик добавляет/убирает элемент из выделенных.
       <br> Shift+Клик добавляет промежуток от последнего кликнутого к выделению.
       <br>
-    
+
       <ul id='Vinni'>
         <li>Кристофер Робин</li>
         <li>Винни-Пух</li>
@@ -35,44 +45,81 @@
         <li>Кролик. Просто кролик.</li>
       </ul>
     </div>
-    <div class="mouse-clicks-tasks"></div>
-    <div class="mouse-clicks-tasks"></div>
+
+    <div class="mouse-clicks-tasks">
+      <ul class="tree2" id="tree2">
+        <li>Животные
+          <ul>
+            <li>Млекопитающие
+              <ul>
+                <li>Коровы</li>
+                <li>Ослы</li>
+                <li>Собаки</li>
+                <li>Тигры</li>
+              </ul>
+            </li>
+            <li>Другие
+              <ul>
+                <li>Змеи</li>
+                <li>Птицы</li>
+                <li>Ящерицы</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>Рыбы
+          <ul>
+            <li>Аквариумные
+              <ul>
+                <li>Гуппи</li>
+                <li>Скалярии</li>
+              </ul>
+
+            </li>
+            <li>Морские
+              <ul>
+                <li>Морская форель</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
   </div>
 
 
   <script>
     "use strict";
-    // ... ваш код
+    //tast#1
     let lastClick;
-    Vinni.onmousedown = function(event){
-      return false;//подсмотрел способ
+    Vinni.onmousedown = function (event) {
+      return false; //подсмотрел способ
     }
-    Vinni.onclick = function(event){
+    Vinni.onclick = function (event) {
       event.preventDefault();
       let target = event.target;
-      if(target.tagName !="LI")return;
-      // console.log(event.type);
-
-      if(event.ctrlKey || event.metaKey){
+      if (target.tagName != "LI") return;
+      //ctrl
+      if (event.ctrlKey || event.metaKey) {
         // console.log('ctrl ',event.ctrlKey);
         target.classList.toggle('selected');
         lastClick = target;
         return;
       };
-      if(event.shiftKey){
-        
-        // console.log('shift ',event);
+      //shift
+      if (event.shiftKey) {
         let len = this.childElementCount;
-        let clickA,clickB,start,end=0;
+        let clickA, clickB, start, end = 0;
 
-        for(let i = 0; i<len;i++){
-          if(this.children[i]==target)clickA = i ;
-          if(this.children[i]==lastClick)clickB = i; 
+        for (let i = 0; i < len; i++) {
+          if (this.children[i] == target) clickA = i;
+          if (this.children[i] == lastClick) clickB = i;
         }
-        start = Math.min(clickA,clickB);
-        end = Math.max(clickA,clickB);
+        start = Math.min(clickA, clickB);
+        end = Math.max(clickA, clickB);
 
-        for(start;start<=end;start++){
+        for (start; start <= end; start++) {
           this.children[start].classList.add('selected');
         }
 
@@ -80,14 +127,40 @@
         return false;
 
       }
-
-      // console.log('klick reset');  
+      //singleClick
       let len = this.childElementCount;
-      for(let i = 0; i<len;i++){
+      for (let i = 0; i < len; i++) {
         this.children[i].classList.remove('selected');
       }
       target.classList.toggle('selected');
       lastClick = target;
+    }
+
+    function clickText(event,target){
+      let bool;
+      let span = document.createElement('span');
+      span.innerText = target.firstChild.nodeValue;
+      target.insertBefore(span,target.firstChild);
+      console.log(span.getBoundingClientRect().right);
+      let y = span.getBoundingClientRect().bottom > event.clientY;
+      let x = span.getBoundingClientRect().right > event.clientX;
+      bool = (x&&y);
+ 
+      span.remove();
+      
+      return !bool;
+    }
+    tree2.onclick = function (evt) {
+      var evt = evt || event;
+      var target = evt.target || evt.srcElement;
+      
+      if(clickText(evt,target))return;
+      /* раскрыть-закрыть детей */
+      var node = target.getElementsByTagName('ul')[0];
+      if (!node) return; // нет детей
+      // console.log(node);
+      node.style.display = node.style.display ? '' : 'none';
+     
     }
   </script>
 
