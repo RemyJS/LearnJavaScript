@@ -2428,3 +2428,75 @@ thumbs.onclick = function(event){
   largeImgForGallery.setAttribute('alt',t);
   return false;
 }
+
+//tast#1
+let lastClick;
+Vinni.onmousedown = function (event) {
+  return false; //подсмотрел способ
+}
+Vinni.onclick = function (event) {
+  event.preventDefault();
+  let target = event.target;
+  if (target.tagName != "LI") return;
+  //ctrl
+  if (event.ctrlKey || event.metaKey) {
+    // console.log('ctrl ',event.ctrlKey);
+    target.classList.toggle('selected');
+    lastClick = target;
+    return;
+  };
+  //shift
+  if (event.shiftKey) {
+    let len = this.childElementCount;
+    let clickA, clickB, start, end = 0;
+
+    for (let i = 0; i < len; i++) {
+      if (this.children[i] == target) clickA = i;
+      if (this.children[i] == lastClick) clickB = i;
+    }
+    start = Math.min(clickA, clickB);
+    end = Math.max(clickA, clickB);
+
+    for (start; start <= end; start++) {
+      this.children[start].classList.add('selected');
+    }
+
+    lastClick = target;
+    return false;
+
+  }
+  //singleClick
+  let len = this.childElementCount;
+  for (let i = 0; i < len; i++) {
+    this.children[i].classList.remove('selected');
+  }
+  target.classList.toggle('selected');
+  lastClick = target;
+}
+
+function clickText(event,target){
+  let bool;
+  let span = document.createElement('span');
+  span.innerText = target.firstChild.nodeValue;
+  target.insertBefore(span,target.firstChild);
+  
+  let y = span.getBoundingClientRect().bottom > event.clientY;
+  let x = span.getBoundingClientRect().right > event.clientX;
+  bool = (x&&y);
+
+  span.remove();
+  
+  return !bool;
+}
+tree2.onclick = function (evt) {
+  var evt = evt || event;
+  var target = evt.target || evt.srcElement;
+  
+  if(clickText(evt,target))return;
+  /* раскрыть-закрыть детей */
+  var node = target.getElementsByTagName('ul')[0];
+  if (!node) return; // нет детей
+  // console.log(node);
+  node.style.display = node.style.display ? '' : 'none';
+ 
+}
