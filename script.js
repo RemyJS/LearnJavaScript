@@ -2428,7 +2428,7 @@ thumbs.onclick = function(event){
   largeImgForGallery.setAttribute('alt',t);
   return false;
 }
-
+// -------
 //tast#1
 let lastClick;
 Vinni.onmousedown = function (event) {

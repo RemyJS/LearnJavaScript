@@ -4,166 +4,164 @@
 <head>
   <meta charset="utf-8">
   <style>
-    .selected {
-      background: #0f0;
+    body {
+      height: 2000px;
+      /* подсказка должна работать при прокрутке */
     }
 
-    li {
-      cursor: pointer;
-    }
-
-    .mouse-clicks {
+    .mouse-move {
+      display: flex;
       display: flex;
       justify-content: space-around;
-      margin-top: 10%;
     }
 
-    .tree2 li {
-      cursor: pointer;
-      border: 1px solid blue;
-      margin: 1px;
+    .mouse-move-tasks {
+      border: 8px ridge black;
+      padding: 10px 40px;
     }
-    .tree2 span{
-      border: 1px solid red;
+
+    #house {
+      margin-top: 50px;
+      width: 400px;
+      border: 1px solid brown;
+    }
+
+    #roof {
+      width: 0;
+      height: 0;
+      border-left: 200px solid transparent;
+      border-right: 200px solid transparent;
+      border-bottom: 20px solid brown;
+      margin-top: -20px;
+    }
+
+    p {
+      text-align: justify;
+      margin: 10px 3px;
+    }
+
+    .spanTip {
+      position: fixed;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.856);
+      border: 2px solid rgb(67, 145, 64);
+      border-radius: 13px;
+      padding: 10px;
+      display: inline-block;
+    }
+
+    .clock-hoverintent {
+      border: 1px dashed black;
+      padding: 5px;
+      display: inline-block;
+      background: yellow;
+      /* position: absolute; */
+      left: 0;
+      top: 0;
+    }
+
+    #tooltipH {
+      /* position: absolute; */
+      background: #eee;
+      border: 1px brown solid;
+      padding: 3px;
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
-  <div class="mouse-clicks">
-    <div class="mouse-clicks-tasks">
-      Клик на элементе выделяет только его.
-      <br> Ctrl(Cmd)+Клик добавляет/убирает элемент из выделенных.
-      <br> Shift+Клик добавляет промежуток от последнего кликнутого к выделению.
-      <br>
 
-      <ul id='Vinni'>
-        <li>Кристофер Робин</li>
-        <li>Винни-Пух</li>
-        <li>Ослик Иа</li>
-        <li>Мудрая Сова</li>
-        <li>Кролик. Просто кролик.</li>
-      </ul>
+  <div class="mouse-move">
+    <div class="mouse-move-tasks">
+      <h3><a
+          href="https://learn.javascript.ru/mousemove-mouseover-mouseout-mouseenter-mouseleave#povedenie-vlozhennaya-podskazka">Поведение
+          "вложенная подсказка</a></h3>
+
+
+      <div data-tooltip="Это – внутренность дома" id="house">
+        <div data-tooltip="Это – крыша" id="roof"></div>
+
+        <p>Жили-были на свете три поросёнка. Три брата.</p>
+
+        <p>Все одинакового роста, кругленькие, розовые, с одинаковыми весёлыми хвостиками.</p>
+
+        <p>Даже имена у них были похожи. Звали поросят Ниф-Ниф, Нуф-Нуф и Наф-Наф. Всё лето они кувыркались в зелёной
+          траве,
+          грелись на солнышке, нежились в лужах.</p>
+
+        <p>Но вот наступила осень. <a href="http://ru.wikipedia.org/wiki/Три_поросёнка"
+            data-tooltip="Читать дальше&hellip;">Наведи на меня</a></p>
+
+      </div>
+
     </div>
+    <div class="mouse-move-tasks">
 
-    <div class="mouse-clicks-tasks">
-      <ul class="tree2" id="tree2">
-        <li>Животные
-          <ul>
-            <li>Млекопитающие
-              <ul>
-                <li>Коровы</li>
-                <li>Ослы</li>
-                <li>Собаки</li>
-                <li>Тигры</li>
-              </ul>
-            </li>
-            <li>Другие
-              <ul>
-                <li>Змеи</li>
-                <li>Птицы</li>
-                <li>Ящерицы</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>Рыбы
-          <ul>
-            <li>Аквариумные
-              <ul>
-                <li>Гуппи</li>
-                <li>Скалярии</li>
-              </ul>
+      <div id="clockH" class="clock-hoverintent">
+        <span class="hours">12</span> :
+        <span class="minutes">30</span> :
+        <span class="seconds">00</span>
+      </div>
 
-            </li>
-            <li>Морские
-              <ul>
-                <li>Морская форель</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
+      <div id="tooltipH" hidden>Tooltip</div>
+
     </div>
-
   </div>
 
 
-  <script>
-    "use strict";
-    //tast#1
-    let lastClick;
-    Vinni.onmousedown = function (event) {
-      return false; //подсмотрел способ
-    }
-    Vinni.onclick = function (event) {
-      event.preventDefault();
-      let target = event.target;
-      if (target.tagName != "LI") return;
-      //ctrl
-      if (event.ctrlKey || event.metaKey) {
-        // console.log('ctrl ',event.ctrlKey);
-        target.classList.toggle('selected');
-        lastClick = target;
-        return;
-      };
-      //shift
-      if (event.shiftKey) {
-        let len = this.childElementCount;
-        let clickA, clickB, start, end = 0;
-
-        for (let i = 0; i < len; i++) {
-          if (this.children[i] == target) clickA = i;
-          if (this.children[i] == lastClick) clickB = i;
-        }
-        start = Math.min(clickA, clickB);
-        end = Math.max(clickA, clickB);
-
-        for (start; start <= end; start++) {
-          this.children[start].classList.add('selected');
-        }
-
-        lastClick = target;
-        return false;
-
-      }
-      //singleClick
-      let len = this.childElementCount;
-      for (let i = 0; i < len; i++) {
-        this.children[i].classList.remove('selected');
-      }
-      target.classList.toggle('selected');
-      lastClick = target;
-    }
-
-    function clickText(event,target){
-      let bool;
-      let span = document.createElement('span');
-      span.innerText = target.firstChild.nodeValue;
-      target.insertBefore(span,target.firstChild);
-      console.log(span.getBoundingClientRect().right);
-      let y = span.getBoundingClientRect().bottom > event.clientY;
-      let x = span.getBoundingClientRect().right > event.clientX;
-      bool = (x&&y);
- 
-      span.remove();
-      
-      return !bool;
-    }
-    tree2.onclick = function (evt) {
-      var evt = evt || event;
-      var target = evt.target || evt.srcElement;
-      
-      if(clickText(evt,target))return;
-      /* раскрыть-закрыть детей */
-      var node = target.getElementsByTagName('ul')[0];
-      if (!node) return; // нет детей
-      // console.log(node);
-      node.style.display = node.style.display ? '' : 'none';
-     
-    }
-  </script>
-
 </body>
+<script>
+  "use strict";
+  // Поведение "подсказка"
+  house.onmouseover = function (event) {
+    let target = event.target;
+
+    while (target != this) {
+      if (target.getAttribute('data-tooltip')) break; //искать у родителя
+      target = target.parentElement;
+    }
+    // console.log(target);
+    // if (!target.getAttribute('data-tooltip')) return;
+    let span = document.createElement('span');
+    span.className += 'spanTip';
+    span.innerHTML = target.getAttribute('data-tooltip');
+    target.insertAdjacentElement('beforebegin', span);
+    let top = target.getBoundingClientRect().top - span.offsetHeight - 5;
+    span.style.top = top + 'px';
+    if (top < 0) {
+      span.style.top = target.getBoundingClientRect().bottom + 5 + 'px';
+    }
+    // центр над элементом
+    let left = target.getBoundingClientRect().left + (target.offsetWidth - span.offsetWidth) / 2;
+    if (left < 0) left = 0;
+    span.style.left = left + 'px';
+  };
+  house.onmouseout = function (event) {
+    let target = event.target;
+    // if (!target.getAttribute('data-tooltip')) return;
+    while (target != this) {
+      if (target.getAttribute('data-tooltip')) break;
+      target = target.parentElement;
+    }
+    let span = document.querySelector('.spanTip');
+    span.remove();
+
+  }
+  let timerClockH;
+  clockH.onmouseenter = function(){
+    let self = this;
+    timerClockH = setTimeout(
+      function(){
+        console.log(self);
+        tooltipH.hidden = false;
+      }
+      ,300);
+  }
+  clockH.onmouseleave = function(){
+    tooltipH.hidden = true;
+    clearTimeout(timerClockH);
+  }
+</script>
 
 </html>
