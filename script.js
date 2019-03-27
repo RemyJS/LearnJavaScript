@@ -2386,7 +2386,8 @@ grid.onclick = function (event) {
   console.log(target, bTime + ' ms', bStep + ' Steps');
 }
 // Поведение "подсказка"
-document.onmouseover = function(event){
+let behaviorTooltip = document.querySelector(".behaviorTooltip");
+behaviorTooltip.onmouseover = function(event){
   let target = event.target;
  
   if(!target.getAttribute('data-tooltip'))return;
@@ -2400,7 +2401,7 @@ document.onmouseover = function(event){
     span.style.top = target.getBoundingClientRect().bottom + 5 +'px';
   }
 };
-document.onmouseout = function(event){
+behaviorTooltip.onmouseout = function(event){
   let target = event.target;
   if(!target.getAttribute('data-tooltip'))return;
   let span = document.querySelector('.spanTip');
@@ -2499,4 +2500,54 @@ tree2.onclick = function (evt) {
   // console.log(node);
   node.style.display = node.style.display ? '' : 'none';
  
+}
+
+ // Поведение "подсказка"2
+ house.onmouseover = function (event) {
+  let target = event.target;
+
+  while (target != this) {
+    if (target.getAttribute('data-tooltip')) break; //искать у родителя
+    target = target.parentElement;
+  }
+  // console.log(target);
+  // if (!target.getAttribute('data-tooltip')) return;
+  let span = document.createElement('span');
+  span.className += 'spanTip';
+  span.innerHTML = target.getAttribute('data-tooltip');
+  target.insertAdjacentElement('beforebegin', span);
+  let top = target.getBoundingClientRect().top - span.offsetHeight - 5;
+  span.style.top = top + 'px';
+  if (top < 0) {
+    span.style.top = target.getBoundingClientRect().bottom + 5 + 'px';
+  }
+  // центр над элементом
+  let left = target.getBoundingClientRect().left + (target.offsetWidth - span.offsetWidth) / 2;
+  if (left < 0) left = 0;
+  span.style.left = left + 'px';
+};
+house.onmouseout = function (event) {
+  let target = event.target;
+  // if (!target.getAttribute('data-tooltip')) return;
+  while (target != this) {
+    if (target.getAttribute('data-tooltip')) break;
+    target = target.parentElement;
+  }
+  let span = document.querySelector('.spanTip');
+  span.remove();
+
+}
+let timerClockH;
+clockH.onmouseenter = function(){
+  let self = this;
+  timerClockH = setTimeout(
+    function(){
+      console.log(self);
+      tooltipH.hidden = false;
+    }
+    ,150);
+}
+clockH.onmouseleave = function(){
+  tooltipH.hidden = true;
+  clearTimeout(timerClockH);
 }

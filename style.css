@@ -316,4 +316,34 @@ li {
 .tree2 span{
   border: 1px solid red;
 }
-/*  */
+/* движение мыши */
+.mouse-move {
+  display: flex;
+  display: flex;
+  justify-content: space-around;
+}
+
+.mouse-move-tasks {
+  border: 8px ridge black;
+  padding: 10px 40px;
+}
+
+#house {
+  margin-top: 50px;
+  width: 400px;
+  border: 1px solid brown;
+}
+
+#roof {
+  width: 0;
+  height: 0;
+  border-left: 200px solid transparent;
+  border-right: 200px solid transparent;
+  border-bottom: 20px solid brown;
+  margin-top: -20px;
+}
+
+#house p {
+  text-align: justify;
+  margin: 10px 3px;
+}

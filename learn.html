@@ -4,164 +4,76 @@
 <head>
   <meta charset="utf-8">
   <style>
-    body {
-      height: 2000px;
-      /* подсказка должна работать при прокрутке */
+    .drag-slider {
+      border-radius: 5px;
+      background: #E0E0E0;
+      background: -moz-linear-gradient(left top, #E0E0E0, #EEEEEE) repeat scroll 0 0 transparent;
+      background: -webkit-gradient(linear, left top, right bottom, from(#E0E0E0), to(#EEEEEE));
+      background: linear-gradient(left top, #E0E0E0, #EEEEEE);
+      width: 310px;
+      height: 15px;
+      margin: 5px;
     }
 
-    .mouse-move {
-      display: flex;
-      display: flex;
-      justify-content: space-around;
+    .thumb {
+      width: 10px;
+      height: 25px;
+      border-radius: 3px;
+      position: relative;
+      left: 10px;
+      top: -5px;
+      background: blue;
+      cursor: pointer;
     }
 
-    .mouse-move-tasks {
-      border: 8px ridge black;
-      padding: 10px 40px;
-    }
+    #sliderField {
+      border: 1px solid green;
 
-    #house {
-      margin-top: 50px;
-      width: 400px;
-      border: 1px solid brown;
-    }
-
-    #roof {
-      width: 0;
-      height: 0;
-      border-left: 200px solid transparent;
-      border-right: 200px solid transparent;
-      border-bottom: 20px solid brown;
-      margin-top: -20px;
-    }
-
-    p {
-      text-align: justify;
-      margin: 10px 3px;
-    }
-
-    .spanTip {
-      position: fixed;
-      text-align: center;
-      background-color: rgba(255, 255, 255, 0.856);
-      border: 2px solid rgb(67, 145, 64);
-      border-radius: 13px;
-      padding: 10px;
-      display: inline-block;
-    }
-
-    .clock-hoverintent {
-      border: 1px dashed black;
-      padding: 5px;
-      display: inline-block;
-      background: yellow;
-      /* position: absolute; */
-      left: 0;
-      top: 0;
-    }
-
-    #tooltipH {
-      /* position: absolute; */
-      background: #eee;
-      border: 1px brown solid;
-      padding: 3px;
-      text-align: center;
     }
   </style>
 </head>
 
 <body>
-
-  <div class="mouse-move">
-    <div class="mouse-move-tasks">
-      <h3><a
-          href="https://learn.javascript.ru/mousemove-mouseover-mouseout-mouseenter-mouseleave#povedenie-vlozhennaya-podskazka">Поведение
-          "вложенная подсказка</a></h3>
-
-
-      <div data-tooltip="Это – внутренность дома" id="house">
-        <div data-tooltip="Это – крыша" id="roof"></div>
-
-        <p>Жили-были на свете три поросёнка. Три брата.</p>
-
-        <p>Все одинакового роста, кругленькие, розовые, с одинаковыми весёлыми хвостиками.</p>
-
-        <p>Даже имена у них были похожи. Звали поросят Ниф-Ниф, Нуф-Нуф и Наф-Наф. Всё лето они кувыркались в зелёной
-          траве,
-          грелись на солнышке, нежились в лужах.</p>
-
-        <p>Но вот наступила осень. <a href="http://ru.wikipedia.org/wiki/Три_поросёнка"
-            data-tooltip="Читать дальше&hellip;">Наведи на меня</a></p>
-
+  <div class="gragndrop">
+    <div class="gragndrop-tasks" id="sliderField">
+      <h3><a href="https://learn.javascript.ru/task/slider">Слайдер</a></h3>
+      <div id="dragSlider" class="drag-slider">
+        <div class="thumb" id="thumb"></div>
       </div>
-
     </div>
-    <div class="mouse-move-tasks">
-
-      <div id="clockH" class="clock-hoverintent">
-        <span class="hours">12</span> :
-        <span class="minutes">30</span> :
-        <span class="seconds">00</span>
-      </div>
-
-      <div id="tooltipH" hidden>Tooltip</div>
-
-    </div>
+    <div class="gragndrop-tasks"></div>
   </div>
-
-
 </body>
 <script>
-  "use strict";
-  // Поведение "подсказка"
-  house.onmouseover = function (event) {
-    let target = event.target;
+  thumb.onmousedown = function (e) {
 
-    while (target != this) {
-      if (target.getAttribute('data-tooltip')) break; //искать у родителя
-      target = target.parentElement;
-    }
-    // console.log(target);
-    // if (!target.getAttribute('data-tooltip')) return;
-    let span = document.createElement('span');
-    span.className += 'spanTip';
-    span.innerHTML = target.getAttribute('data-tooltip');
-    target.insertAdjacentElement('beforebegin', span);
-    let top = target.getBoundingClientRect().top - span.offsetHeight - 5;
-    span.style.top = top + 'px';
-    if (top < 0) {
-      span.style.top = target.getBoundingClientRect().bottom + 5 + 'px';
-    }
-    // центр над элементом
-    let left = target.getBoundingClientRect().left + (target.offsetWidth - span.offsetWidth) / 2;
-    if (left < 0) left = 0;
-    span.style.left = left + 'px';
-  };
-  house.onmouseout = function (event) {
-    let target = event.target;
-    // if (!target.getAttribute('data-tooltip')) return;
-    while (target != this) {
-      if (target.getAttribute('data-tooltip')) break;
-      target = target.parentElement;
-    }
-    let span = document.querySelector('.spanTip');
-    span.remove();
+    moveAt(e);
 
-  }
-  let timerClockH;
-  clockH.onmouseenter = function(){
-    let self = this;
-    timerClockH = setTimeout(
-      function(){
-        console.log(self);
-        tooltipH.hidden = false;
+    thumb.style.zIndex = 999;
+
+    function moveAt(e) {
+      let left = e.pageX - dragSlider.offsetLeft;
+
+      if (left > dragSlider.offsetWidth - 10) {
+        left = dragSlider.offsetWidth - 10;
+      } else if (left < 0) {
+        left = 0;
       }
-      ,300);
-  }
-  clockH.onmouseleave = function(){
-    tooltipH.hidden = true;
-    clearTimeout(timerClockH);
-  }
+      thumb.style.left = left + 'px';
+      // console.log(thumb.style.left);
+    }
+
+    document.onmousemove = function (e) {
+      moveAt(e);
+    };
+
+    document.onmouseup = function () {
+      document.onmousemove = null;
+      document.onmouseup = null;
+    };
+  };
+
+  
 </script>
 
 </html>
