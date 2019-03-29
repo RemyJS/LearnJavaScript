@@ -2,78 +2,230 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <style>
-    .drag-slider {
-      border-radius: 5px;
-      background: #E0E0E0;
-      background: -moz-linear-gradient(left top, #E0E0E0, #EEEEEE) repeat scroll 0 0 transparent;
-      background: -webkit-gradient(linear, left top, right bottom, from(#E0E0E0), to(#EEEEEE));
-      background: linear-gradient(left top, #E0E0E0, #EEEEEE);
-      width: 310px;
-      height: 15px;
-      margin: 5px;
-    }
+   <meta charset="utf-8">
+   <style>
+      .drag-slider {
+         border-radius: 5px;
+         background: #E0E0E0;
+         background: -moz-linear-gradient(left top, #E0E0E0, #EEEEEE) repeat scroll 0 0 transparent;
+         background: -webkit-gradient(linear, left top, right bottom, from(#E0E0E0), to(#EEEEEE));
+         background: linear-gradient(left top, #E0E0E0, #EEEEEE);
+         width: 310px;
+         height: 15px;
+         margin: 5px;
+      }
 
-    .thumb {
-      width: 10px;
-      height: 25px;
-      border-radius: 3px;
-      position: relative;
-      left: 10px;
-      top: -5px;
-      background: blue;
-      cursor: pointer;
-    }
+      .thumb {
+         width: 10px;
+         height: 25px;
+         border-radius: 3px;
+         position: relative;
+         left: 10px;
+         top: -5px;
+         background: blue;
+         cursor: pointer;
+      }
 
-    #sliderField {
-      border: 1px solid green;
+      #sliderField {
+         border: 1px solid green;
+      }
 
-    }
-  </style>
+      .gragndrop-task2 {
+         border: 5px ridge black;
+         background-image: url(image/avengersendwakanda.jpg);
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-position: center center;
+         background-attachment: fixed;
+         /* margin:40px; */
+      }
+
+      #fieldHeroes {
+         background: url(https://js.cx/drag-heroes/field.png);
+         width: 800px;
+         height: 600px;
+         float: left;
+      }
+
+      /* герои и мяч (переносимые элементы) */
+
+      .hero {
+         background: url(https://js.cx/drag-heroes/heroes.png);
+         width: 130px;
+         height: 128px;
+         float: left;
+         border: 1px solid red;
+      }
+
+      #hero1 {
+         background-position: 0 0;
+      }
+
+      #hero2 {
+         background-position: 0 -128px;
+      }
+
+      #hero3 {
+         background-position: -120px 0;
+      }
+
+      #hero4 {
+         background-position: -125px -128px;
+      }
+
+      #hero5 {
+         background-position: -248px -128px;
+      }
+
+      #hero6 {
+         background-position: -244px 0;
+      }
+
+      .draggable {
+         cursor: pointer;
+      }
+   </style>
 </head>
 
-<body>
-  <div class="gragndrop">
-    <div class="gragndrop-tasks" id="sliderField">
-      <h3><a href="https://learn.javascript.ru/task/slider">Слайдер</a></h3>
-      <div id="dragSlider" class="drag-slider">
-        <div class="thumb" id="thumb"></div>
+<body style="height:2000px">
+   <div class="gragndrop">
+      <div class="gragndrop-tasks" id="sliderField">
+         <h3><a href="https://learn.javascript.ru/task/slider">Слайдер</a></h3>
+         <div id="dragSlider" class="drag-slider">
+            <div class="thumb" id="thumb"></div>
+         </div>
       </div>
-    </div>
-    <div class="gragndrop-tasks"></div>
-  </div>
+
+      <div class="gragndrop-task2" id="sheroes">
+         <h3><a href="https://learn.javascript.ru/task/drag-heroes">Расставить супергероев по полю</a></h3>
+         <h2>Расставьте супергероев по полю.</h2>
+
+         <p>Супергерои и мяч -- это элементы с классом "draggable". Сделайте так, чтобы их можно было переносить.</p>
+
+         <p>Важно: если супергероя подносят к низу или верху страницы, она должна автоматически прокручиваться. Если
+            страница помещается на вашем экране целиком и не имеет вертикальной прокрутки -- сделайте окно браузера
+            меньше,
+            чтобы протестировать эту возможность.</p>
+
+         <p>Да, и ещё: супергерои ни при каких условиях не должны попасть за край экрана.</p>
+
+         <div id="fieldHeroes">
+
+         </div>
+
+         <div class="hero draggable" id="hero1"></div>
+         <div class="hero draggable" id="hero2"></div>
+         <div class="hero draggable" id="hero3"></div>
+         <div class="hero draggable" id="hero4"></div>
+         <div class="hero draggable" id="hero5"></div>
+         <div class="hero draggable" id="hero6"></div>
+
+         <img src="https://js.cx/drag-heroes/ball.png" class="draggable">
+
+         <div style="clear:both"></div>
+      </div>
+   </div>
 </body>
 <script>
-  thumb.onmousedown = function (e) {
+   thumb.onmousedown = function (e) {
 
-    moveAt(e);
-
-    thumb.style.zIndex = 999;
-
-    function moveAt(e) {
-      let left = e.pageX - dragSlider.offsetLeft;
-
-      if (left > dragSlider.offsetWidth - 10) {
-        left = dragSlider.offsetWidth - 10;
-      } else if (left < 0) {
-        left = 0;
-      }
-      thumb.style.left = left + 'px';
-      // console.log(thumb.style.left);
-    }
-
-    document.onmousemove = function (e) {
       moveAt(e);
-    };
 
-    document.onmouseup = function () {
-      document.onmousemove = null;
-      document.onmouseup = null;
-    };
-  };
+      thumb.style.zIndex = 999;
 
-  
+      function moveAt(e) {
+         let left = e.pageX - dragSlider.offsetLeft;
+
+         if (left > dragSlider.offsetWidth - 10) {
+            left = dragSlider.offsetWidth - 10;
+         } else if (left < 0) {
+            left = 0;
+         }
+         thumb.style.left = left + 'px';
+         // console.log(thumb.style.left);
+      }
+
+      document.onmousemove = function (e) {
+         moveAt(e);
+      };
+
+      document.onmouseup = function () {
+         document.onmousemove = null;
+         document.onmouseup = null;
+      };
+   };
+   //superHeroes
+
+   sheroes.onmousedown = function (e) {
+      let target = e.target;
+      target.ondragstart = function () {
+         return false;
+      };
+
+      if (!target.classList.contains('draggable')) return;
+      let coords = getCoords(target);
+      let shiftX = e.pageX - coords.left;
+      let shiftY = e.pageY - coords.top;
+      // console.log(target.offsetWidth,target.offsetHeight);
+
+      target.style.position = 'absolute';
+      moveAt(e)
+      target.style.zIndex = 999;
+
+      function moveAt(e) {
+         let left = e.pageX - shiftX;
+         let top = e.pageY - shiftY;
+
+         if (left > (sheroes.clientLeft + sheroes.offsetLeft + sheroes.clientWidth) - target
+            .offsetWidth
+         ) { //определнеие рамки поля( толщина бордер+отступ слева + ширина поля - ширина элемента)
+            left = (sheroes.clientLeft + sheroes.offsetLeft + sheroes.clientWidth) - target.offsetWidth;
+
+         } else if (left < sheroes.clientLeft + sheroes.offsetLeft) {
+            left = sheroes.clientLeft + sheroes.offsetLeft; //толщина + отступ слева
+         }
+
+         if (top > sheroes.clientHeight + sheroes.offsetTop + sheroes.clientTop - target
+            .offsetHeight) { //высота поля+ отступ поля сверху+ бордер сверху - элемента высота
+            // console.log('top > ')
+            top = sheroes.clientHeight + sheroes.offsetTop + sheroes.clientTop - target.offsetHeight;
+
+         } else if (top < (sheroes.clientTop + sheroes.offsetTop)) { // < бордер + отступ
+            // console.log('top<0')
+            top = sheroes.clientTop + sheroes.offsetTop;
+         }
+
+         target.style.left = left + 'px';
+         target.style.top = top + 'px';
+      }
+
+      sheroes.onmousemove = function (e) {
+         //движение только в поле sheroes , движение вне поля не двигает элемент в поле
+         moveAt(e);
+      };
+      // sheroes.onmouseleave = function () {
+      //    console.log('ch')
+      //    sheroes.onmousemove = null; //отключение при выходе за границы поля
+      // }
+
+      document.onmouseup = function () {
+         sheroes.onmousemove = null; // отключение при подъеме мыши
+         document.onmouseup = null;
+      };
+
+      target.ondragstart = function () {
+         return false;
+      };
+
+      function getCoords(elem) { // кроме IE8-
+         var box = elem.getBoundingClientRect();
+         return {
+            top: box.top + pageYOffset,
+            left: box.left + pageXOffset
+         };
+      }
+   }
+   // end sheroes tasks
 </script>
 
 </html>

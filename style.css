@@ -1,55 +1,64 @@
-body{
-  background-color:#e8e5da;
+body {
+  background-color: #e8e5da;
   margin-left: 10%;
-  margin-right:10%;
+  margin-right: 10%;
 }
-header{
+
+header {
   font-size: 24px;
   text-align: center;
   border: 6px double black;
-  border-radius:100px;
+  border-radius: 100px;
   background-color: #dededebd;
 }
 
-footer{
+footer {
   border: 6px double black;
-  border-radius:100px;
+  border-radius: 100px;
   background-color: #dededebd;
   height: 250px;
 }
 
-#footerImg{
+#footerImg {
   width: 172px;
   float: left;
-  margin:25px;
-  margin-left:50px;
- 
+  margin: 25px;
+  margin-left: 50px;
+
 }
-#footerImg img{
-  border-radius: 100px; /* Радиус скругления */
-  border: 3px solid white; /* Параметры рамки */
-  box-shadow: 0 0 7px #666; /* Параметры тени */
+
+#footerImg img {
+  border-radius: 100px;
+  /* Радиус скругления */
+  border: 3px solid white;
+  /* Параметры рамки */
+  box-shadow: 0 0 7px #666;
+  /* Параметры тени */
 }
-#footerImg img:hover{
+
+#footerImg img:hover {
   visibility: visible;
 }
-#footerInfo{
+
+#footerInfo {
   margin-left: 200px;
 }
-#footerInfo h1{
+
+#footerInfo h1 {
   text-align: center;
-  font-style:italic;
+  font-style: italic;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 36px;
-  color:white;
-  margin-top:7%;
+  color: white;
+  margin-top: 7%;
 
 }
 
-.calendarJS{
+.calendarJS {
   display: flex;
   justify-content: space-around;
 }
+
 .calendarJS table {
   border-collapse: collapse;
 }
@@ -66,7 +75,8 @@ th {
   font-weight: bold;
   background-color: #E6E6E6;
 }
-#timeNow{
+
+#timeNow {
   font-size: 2em;
   font-style: italic;
 }
@@ -117,23 +127,28 @@ th {
 
   display: inline-block;
 }
-.taskCarousel{
+
+.taskCarousel {
   margin: 10px auto;
   width: 450px;
 }
-.taskCarousel h3{
+
+.taskCarousel h3 {
   text-align: center;
 }
-h3 a{
+
+h3 a {
   color: red;
   text-decoration: none;
   transition: color 0.3s ease-out;
 }
-h3 a:hover{
+
+h3 a:hover {
   color: rgb(95, 16, 16);
 }
+
 .border {
-  
+
   height: 130px;
   width: 436px;
   display: flex;
@@ -154,6 +169,7 @@ h3 a:hover{
   left: 0px;
   transition: left ease-in-out 0.75s;
 }
+
 /* футбольное поле  */
 #field {
   width: 400px;
@@ -173,17 +189,21 @@ h3 a:hover{
   margin-top: -20px;
   transition: all 0.75s;
 }
+
 /* делегирование событий */
-.eventDelegationH3{
+.eventDelegationH3 {
   text-align: center;
 }
-.eventDelegation{
+
+.eventDelegation {
   display: flex;
-  justify-content:space-around;
+  justify-content: space-around;
 }
-#delMessages{
+
+#delMessages {
   width: 470px;
 }
+
 #delMessages h3 {
   margin: 0;
   padding-bottom: .3em;
@@ -229,9 +249,9 @@ h3 a:hover{
   border: 3px solid #9d9d9d;
   border-spacing: 0px 2px;
   border-radius: 12px;
-  background-color:#fff9cced;
+  background-color: #fff9cced;
   padding: 0 10px;
-  
+
 }
 
 #grid td {
@@ -243,10 +263,10 @@ h3 a:hover{
 }
 
 #grid th:hover {
-  color:crimson;
+  color: crimson;
 }
 
-.spanTip{
+.spanTip {
   position: fixed;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.856);
@@ -255,11 +275,13 @@ h3 a:hover{
   padding: 10px;
   display: inline-block;
 }
+
 /* действие браузера по умолчанию */
-.default-browser-action-wrap{
+.default-browser-action-wrap {
   display: flex;
-  justify-content:space-around;
+  justify-content: space-around;
 }
+
 #contents {
   padding: 5px;
   border: 1px green solid;
@@ -284,6 +306,7 @@ h3 a:hover{
 #thumbs a:hover {
   border-color: #FF9900;
 }
+
 #thumbs li {
   list-style: none;
 }
@@ -293,6 +316,7 @@ h3 a:hover{
   padding: 0;
   height: 150px;
 }
+
 /*  */
 .selected {
   background: #0f0;
@@ -313,9 +337,11 @@ li {
   border: 1px solid blue;
   margin: 1px;
 }
-.tree2 span{
+
+.tree2 span {
   border: 1px solid red;
 }
+
 /* движение мыши */
 .mouse-move {
   display: flex;
@@ -346,4 +372,93 @@ li {
 #house p {
   text-align: justify;
   margin: 10px 3px;
+}
+
+/* drag-n-drop */
+.drag-slider {
+  border-radius: 5px;
+  background: #E0E0E0;
+  background: -moz-linear-gradient(left top, #E0E0E0, #EEEEEE) repeat scroll 0 0 transparent;
+  background: -webkit-gradient(linear, left top, right bottom, from(#E0E0E0), to(#EEEEEE));
+  background: linear-gradient(left top, #E0E0E0, #EEEEEE);
+  width: 310px;
+  height: 15px;
+  margin: 5px;
+}
+
+.thumb {
+  width: 10px;
+  height: 25px;
+  border-radius: 3px;
+  position: relative;
+  left: 10px;
+  top: -5px;
+  background: blue;
+  cursor: pointer;
+}
+
+#sliderField {
+  /* border: 1px solid green; */
+  background: white;
+  text-align: center;
+  width: 380px;
+}
+
+.gragndrop-task2 {
+  border: 5px ridge black;
+  background-image: url(image/avengersendwakanda.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* background-attachment: fixed; */
+  /* margin:40px; */
+  font-size: 1.2em;
+  font-weight: bold;
+  /* text-shadow: 0 0 15px rgba(255, 255, 255, .5), 0 0 10px rgba(255, 255, 255, .5); */
+  text-shadow: 1px 1px 10px  #FFFFFF;
+}
+
+#fieldHeroes {
+  background: url(https://js.cx/drag-heroes/field.png);
+  width: 800px;
+  height: 600px;
+  float: left;
+}
+
+/* герои и мяч (переносимые элементы) */
+
+.hero {
+  background: url(https://js.cx/drag-heroes/heroes.png);
+  width: 130px;
+  height: 128px;
+  float: left;
+  border: 1px solid red;
+}
+
+#hero1 {
+  background-position: 0 0;
+}
+
+#hero2 {
+  background-position: 0 -128px;
+}
+
+#hero3 {
+  background-position: -120px 0;
+}
+
+#hero4 {
+  background-position: -125px -128px;
+}
+
+#hero5 {
+  background-position: -248px -128px;
+}
+
+#hero6 {
+  background-position: -244px 0;
+}
+
+.draggable {
+  cursor: pointer;
 }

@@ -2551,3 +2551,105 @@ clockH.onmouseleave = function(){
   tooltipH.hidden = true;
   clearTimeout(timerClockH);
 }
+// drag'n'drop
+
+thumb.onmousedown = function (e) {
+
+  moveAt(e);
+
+  thumb.style.zIndex = 999;
+
+  function moveAt(e) {
+     let left = e.pageX - dragSlider.offsetLeft;
+
+     if (left > dragSlider.offsetWidth - 10) {
+        left = dragSlider.offsetWidth - 10;
+     } else if (left < 0) {
+        left = 0;
+     }
+     thumb.style.left = left + 'px';
+     // console.log(thumb.style.left);
+  }
+
+  document.onmousemove = function (e) {
+     moveAt(e);
+  };
+
+  document.onmouseup = function () {
+     document.onmousemove = null;
+     document.onmouseup = null;
+  };
+};
+//superHeroes
+
+sheroes.onmousedown = function (e) {
+  let target = e.target;
+  target.ondragstart = function () {
+     return false;
+  };
+
+  if (!target.classList.contains('draggable')) return;
+  let coords = getCoords(target);
+  let shiftX = e.pageX - coords.left;
+  let shiftY = e.pageY - coords.top;
+  // console.log(target.offsetWidth,target.offsetHeight);
+
+  target.style.position = 'absolute';
+  moveAt(e)
+  target.style.zIndex = 999;
+
+  function moveAt(e) {
+     let left = e.pageX - shiftX;
+     let top = e.pageY - shiftY;
+
+     if (left > (sheroes.clientLeft + sheroes.offsetLeft + sheroes.clientWidth) - target
+        .offsetWidth
+     ) { //определнеие рамки поля( толщина бордер+отступ слева + ширина поля - ширина элемента)
+        left = (sheroes.clientLeft + sheroes.offsetLeft + sheroes.clientWidth) - target.offsetWidth;
+
+     } else if (left < sheroes.clientLeft + sheroes.offsetLeft) {
+        left = sheroes.clientLeft + sheroes.offsetLeft; //толщина + отступ слева
+     }
+
+     if (top > sheroes.clientHeight + sheroes.offsetTop + sheroes.clientTop - target
+        .offsetHeight) { //высота поля+ отступ поля сверху+ бордер сверху - элемента высота
+        // console.log('top > ')
+        top = sheroes.clientHeight + sheroes.offsetTop + sheroes.clientTop - target.offsetHeight;
+
+     } else if (top < (sheroes.clientTop + sheroes.offsetTop)) { // < бордер + отступ
+        // console.log('top<0')
+        top = sheroes.clientTop + sheroes.offsetTop;
+     }
+
+     target.style.left = left + 'px';
+     target.style.top = top + 'px';
+  }
+
+  sheroes.onmousemove = function (e) {
+     //движение только в поле sheroes , движение вне поля не двигает элемент в поле
+     moveAt(e);
+  };
+  // sheroes.onmouseleave = function () {
+  //    console.log('ch')
+  //    sheroes.onmousemove = null; //отключение при выходе за границы поля
+  // }
+
+  document.onmouseup = function () {
+     sheroes.onmousemove = null; // отключение при подъеме мыши
+     document.onmouseup = null;
+  };
+
+  target.ondragstart = function () {
+     return false;
+  };
+
+  function getCoords(elem) { // кроме IE8-
+     var box = elem.getBoundingClientRect();
+     return {
+        top: box.top + pageYOffset,
+        left: box.left + pageXOffset
+     };
+  }
+}
+// end sheroes tasks
+//end drag'n'drop 
