@@ -462,3 +462,41 @@ li {
 .draggable {
   cursor: pointer;
 }
+/* mwheel */
+.mousewheel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+}
+
+.scaleDiv {
+  border: 2px solid red;
+  width: 300px;
+  height: 100px;
+  font-size: 1.2em;
+  padding-top: 30px;
+  text-align: center;
+  margin: 1px;
+}
+
+.mousewheel2 {
+  /* border: 5px ridge black; */
+  height: 500px;
+  position: relative;
+  width: 800px;
+}
+
+.mFooter {
+  position: absolute;
+  bottom: 0;
+}
+
+.sreamer_mon {
+  background-image: url(image/mon.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+/* end mousewheel */
