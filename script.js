@@ -2711,3 +2711,71 @@ tmarea.onwheel = function (event) {
 	return;
 }
 // endmousewheel
+//keybordkeys
+   // вспомогательная функция, если понадобится
+
+   function getChar(event) {
+		if (event.which == null) {
+			 if (event.keyCode < 32) return null;
+			 return String.fromCharCode(event.keyCode) // IE
+		}
+
+		if (event.which != 0 && event.charCode != 0) {
+			 if (event.which < 32) return null;
+			 return String.fromCharCode(event.which) // остальные
+		}
+
+		return null; // специальная клавиша
+ }
+ onlynum.onkeypress = function (e) {
+		let char = getChar(e);
+		// console.log(typeof(char),e.keyCode);
+		if (char) {
+			 if (e.keyCode < 48 || e.keyCode > 58) return false;
+		}
+ }
+
+ //task 2 
+ function checkPressButtons(pressButtons) {
+		for (const key in pressButtons) {
+			 if (pressButtons.hasOwnProperty(key)) {
+					const element = pressButtons[key];
+					if (element == false) return false;
+			 }
+		}
+		return true;
+ }
+ function runOnKeys(func) {
+		let pressButtons = {};
+		let arr = [].slice.call(arguments, 1);
+		for (let i = 0; i < arr.length; i++) {
+			 pressButtons[arr[i]] = false;
+		}
+		document.onkeydown = function (e) {
+			 if (pressButtons.hasOwnProperty(e.keyCode)) {
+					pressButtons[e.keyCode] = true;
+					// console.log(pressButtons);
+			 }
+			 if (checkPressButtons(pressButtons)) {
+					for (let i = 0; i < arr.length; i++) {
+						 pressButtons[arr[i]] = false;
+					}
+					func();
+			 }
+		};
+
+		document.onkeyup = function (e) {
+			 if (pressButtons.hasOwnProperty(e.keyCode)) {
+					pressButtons[e.keyCode] = false;
+					// console.log(pressButtons);
+			 }
+		}
+ }
+
+ runOnKeys(
+		function () { alert("Вы зажали несколько клавишь одновременно!") },
+		"Q".charCodeAt(0),
+		"W".charCodeAt(0),
+		"V".charCodeAt(0)
+ );
+ //end keybord keys
