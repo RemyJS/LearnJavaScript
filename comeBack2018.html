@@ -500,6 +500,120 @@
          код ниже выведет alert при одновременном нажатии клавиш "Q" и "W" и "V"
       </div>
    </div>
+   <!-- onload onerror -->
+   <div class="onload-onerror">
+    <div id="onload-onerror1">
+       <h3><a href="https://learn.javascript.ru/onload-onerror#krasivyy-alt">Красивый альт</a></h3>
+       <!-- Google -->
+       <div id="searchbox">
+          <div style="width:114px;height:40px;font-size:32px;letter-spacing:3px" class="img-replace">
+             <span style="color:#1A53F7">G</span><span style="color:#E42131">o</span><span
+                style="color:#FEB819">o</span><span style="color:#164AF2">g</span><span
+                style="color:#00a315">l</span><span style="color:#E42131">e</span>
+          </div>
+
+          <!-- Яндекс -->
+          <div style="width:101px;height:40px;font-size:32px" class="img-replace">
+             <span style="color:#F00">Я</span>ндекс
+          </div>
+
+          <!-- Bing -->
+          <div class="bing">bing</div>
+       </div>
+
+       <hr>
+       <!-- картинки (для bing картинки специально нет, чтобы протестировать случай "загрузка не удалась") -->
+       <div id="imgforsearch">
+          <img src="https://js.cx/search/yandex.png" width="114" height="40" alt="Яндекс">
+          <img src="https://js.cx/search/google.png" width="101" height="40" alt="Google">
+          <img src="https://js.cx/search/bing.png" width="101" height="40" alt="Файла нет (bing)">
+       </div>
+    </div>
+    <div class="onload-onerror2">
+       <h3><a href="https://learn.javascript.ru/onload-onerror#zagruzit-izobrazheniya-s-kollbekom">Загрузка изображения</a></h3>
+       <!-- <h3><a href="imgWithCallback.html">Перейти к решению</a></h3> -->
+       <pre>
+          function preloadImages(sources, callback) {
+            /* ваш код */
+            let len = sources.length;
+            let count = 0;
+            function onLoad() {
+              count++;
+              if (count == len) callback();
+            }
+            for (let i = 0; i < len; i++) {
+              let img = document.createElement('img');
+              img.src = sources[i];
+              document.body.appendChild(img);
+              img.onload = onLoad();
+            }
+      
+          }
+          
+              // ---------- Проверка ----------
+          
+              /* файлы для загрузки */
+              var sources = [
+                "https://js.cx/images-load/1.jpg",
+                "https://js.cx/images-load/2.jpg",
+                "https://js.cx/images-load/3.jpg"
+              ];
+              for (var i = 0; i < sources.length; i++) {
+                sources[i] += '?' + Math.random(); // добавляем параметр, чтобы без кеша (для теста)
+              }
+          
+              /** если картинка загружена, то можно будет сразу получить её ширину
+               * создадим все картинки и проверим, есть ли у них ширина
+               */
+              function testLoaded() {
+                var widthSum = 0;
+                for (var i = 0; i < sources.length; i++) {
+                  var img = document.createElement('img');
+                  img.src = sources[i];
+                  widthSum += img.width;
+                }
+                // каждое изображение 100x100, общая ширина должна быть 300px
+                alert(widthSum);
+              }
+          
+              // до загрузки - выведет 0
+              testLoaded();
+          
+              // после загрузки - выведет 300
+              preloadImages(sources, testLoaded);
+       </pre>
+    </div>
+    <div class="onload-onerror3">
+       <h3><a href="https://learn.javascript.ru/onload-onerror#skript-s-kollbekom">Скрипт с коллбэком</a></h3>
+       <pre>
+             function addScript(src, callback) {
+                /* ваш код */
+                let script = document.createElement('script');
+                script.src = src;
+                document.body.appendChild(script);
+                script.onload = function(){
+                  callback();
+                }
+              }
+          
+              addScript("go.js", function() {
+                go();
+              });
+       </pre>
+    </div>
+    <div class="onload-onerror4"></div>
+ </div>
+<!-- form elements -->
+<div id="formElement">
+    <h3><a href="https://learn.javascript.ru/form-elements#dobavte-optsiyu-k-selektu">Добавьте опцию к селекту</a></h3>
+    <form name='addOption'>
+       <select>
+          <option value="Rock">Рок html</option>
+          <option value="Blues" selected>Блюз html</option>
+       </select>
+    </form>
+
+ </div>
   <footer>
     <aside id="footerImg">
       <img src="image/c200b4179efc64314949b09fef49f999.jpg" alt="foto">

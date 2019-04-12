@@ -2779,3 +2779,28 @@ tmarea.onwheel = function (event) {
 		"V".charCodeAt(0)
  );
  //end keybord keys
+//  onload onerror 
+   //first task
+   let searchImg = imgforsearch.getElementsByTagName('img');
+   let dsb = searchbox.getElementsByTagName('div');
+   for (let i = 0; i < searchImg.length; i++) {
+      searchImg[i].onload = function () {
+         dsb[i].innerHTML='';
+         dsb[i].appendChild(this);
+      }
+      searchImg[i].onerror = function () {
+         this.hidden = true;
+         console.log("Ошибка: " + this.src);
+      };
+   }
+// form elements 
+let formTask1 = document.forms.addOption;
+let selectT1 = formTask1.elements[0];
+(function () {
+	 let span = document.createElement('span');
+	 let i = selectT1.options.selectedIndex;
+	 span.innerHTML = 'выбранное значение по умолчанию ' + selectT1.options[i].innerText;
+	 formElement.appendChild(span);
+	 let newOption = new Option('классика js','classic',true,true);
+	 selectT1.appendChild(newOption);
+}());
