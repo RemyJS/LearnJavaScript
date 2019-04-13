@@ -19,18 +19,48 @@
          color: blue;
          font-family: serif;
          position: fixed;
-         top:10px;
+         top: 10px;
       }
-      #mouse1 {
-      display: inline-block;
-      cursor: pointer;
-      margin: 0;
-      position: relative;
-    }
 
-    #mouse1:focus {
-      outline: 1px dashed black;
-    }
+      #mouse1 {
+         display: inline-block;
+         cursor: pointer;
+         margin: 0;
+         position: relative;
+      }
+
+      #mouse1:focus {
+         outline: 1px dashed black;
+      }
+
+      /* 3 */
+      #view1,
+      #area1 {
+         height: 150px;
+         width: 400px;
+         font-family: sans-serif;
+         font-size: 14px;
+      }
+
+      #view1 {
+         /* padding + border = 3px */
+
+         padding: 2px;
+         border: 1px solid black;
+      }
+
+      #area1 {
+         display: none;
+         /* replace padding with border (still 3px not to shift the contents) */
+
+         border: 3px groove blue;
+         padding: 0px;
+      }
+
+      #area1:focus {
+         outline: none;
+         /* remove focus border in Safari */
+      }
    </style>
    <title>тесты</title>
 </head>
@@ -42,10 +72,10 @@
             <a href="https://learn.javascript.ru/focus-blur#uluchshennyy-pleysholder">Улучшенный плейсхолдер</a>
             <div>
                <p>Красивый placeholder:</p>
-               <form >
-                     <input type="email" data-placeholder="E-mail">
+               <form>
+                  <input type="email" data-placeholder="E-mail">
 
-                  
+
                </form>
 
             </div>
@@ -55,9 +85,9 @@
          <h3>
             <a href=""></a>
             <div>
-                  <p>Кликните на мышонка и передвигайте его, нажимая клавиши со стрелками.</p>
+               <p>Кликните на мышонка и передвигайте его, нажимая клавиши со стрелками.</p>
 
-                  <pre id="mouse1" tabindex="1">
+               <pre id="mouse1" tabindex="1">
                  _   _
                 (q\_/p)
                  /. .\
@@ -71,10 +101,20 @@
             </div>
          </h3>
       </div>
-      <div class="focus-blur3">
+      <div id="focusBlur3">
          <h3>
-            <a href=""></a>
-            <div></div>
+            <a href="https://learn.javascript.ru/focus-blur#goryachie-klavishi">Горячие клавиши</a>
+            <div>
+
+               <ul>
+                  <li>Ctrl-E to start editing.</li>
+                  <li>While editing: Ctrl-S to save, Esc to cancel.</li>
+               </ul>
+
+
+               <textarea id="area1"></textarea>
+               <div id="view1">Text</div>
+            </div>
          </h3>
       </div>
       <div class="focus-blur4">
@@ -99,7 +139,7 @@
 </body>
 <script>
    //задача 1 
-   
+
    (function () {
       var input = focusBlur1.querySelector('[data-placeholder]');
 
@@ -111,45 +151,67 @@
          input.classList.add('placeholder');
          input.value = input.dataset.placeholder;
       }
-      function fcs(){
-        let tip = document.createElement('span');
-        tip.innerHTML = this.dataset.placeholder;
-        tip.classList.add ('placeholder-tooltip');
-        let top = this.getBoundingClientRect().top - 25;
-        tip.style.top = top +'px';
-        this.parentElement.insertBefore(tip,input);
-        this.value = '';
-        this.classList.remove('placeholder');
+      function fcs() {
+         let tip = document.createElement('span');
+         tip.innerHTML = this.dataset.placeholder;
+         tip.classList.add('placeholder-tooltip');
+         let top = this.getBoundingClientRect().top - 25;
+         tip.style.top = top + 'px';
+         this.parentElement.insertBefore(tip, input);
+         this.value = '';
+         this.classList.remove('placeholder');
       }
-      function blr (){
+      function blr() {
          let del = focusBlur1.querySelector('.placeholder-tooltip');
          let info = focusBlur1.querySelector('.placeholder-tooltip').innerText;
-         if(this.value == ''||this.value == 'E-mail'){
+         if (this.value == '' || this.value == 'E-mail') {
             this.dataset.placeholder = info;
             this.value = info;
             this.classList.add('placeholder');
          }
-         del.remove();     
-        
+         del.remove();
+
       }
       // ...ваш код для input...
-      input.addEventListener('focus',fcs,true);
+      input.addEventListener('focus', fcs, true);
 
-      input.addEventListener('blur',blr,true);
+      input.addEventListener('blur', blr, true);
    }());
    //2 
-   mouse1.onfocus = function(){
+   mouse1.onfocus = function () {
       let height = this.offsetHeight;
-      let width = this.offsetWidth ; 
+      let width = this.offsetWidth;
 
-      mouse1.onkeydown = function (event){
+      mouse1.onkeydown = function (event) {
          let e = event.which;
-            if(e==37)mouse1.style.left =(parseInt(mouse1.style.left)||0)-width +'px';
-            if(e==38)mouse1.style.top  =(parseInt(mouse1.style.top)||0)-height+'px';
-            if(e==39)mouse1.style.left =(parseInt(mouse1.style.left)||0)+width +'px';
-            if(e==40)mouse1.style.top  =(parseInt(mouse1.style.top)||0)+height+'px';   
+         if (e == 37) mouse1.style.left = (parseInt(mouse1.style.left) || 0) - width + 'px';
+         if (e == 38) mouse1.style.top = (parseInt(mouse1.style.top) || 0) - height + 'px';
+         if (e == 39) mouse1.style.left = (parseInt(mouse1.style.left) || 0) + width + 'px';
+         if (e == 40) mouse1.style.top = (parseInt(mouse1.style.top) || 0) + height + 'px';
       }
    }
+   //3
+   document.onkeydown = function (e) {
+      if(e.keyCode == 27){
+         area1.style.display = 'none';
+         view1.style.display = 'block';   
+      }
+      if (!e.ctrlKey) return;
+      e.preventDefault();
+      if (e.keyCode == 69) {
+         area1.value = view1.innerText;
+         area1.style.display = 'block';
+         view1.style.display = 'none';
+         area1.focus();   
+      }
+      if(e.keyCode == 83){
+         view1.innerText = area1.value;
+         area1.style.display = 'none';
+         view1.style.display = 'block';   
+      }
+
+   }
+   //4
 </script>
 
 </html>
