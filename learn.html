@@ -61,6 +61,21 @@
          outline: none;
          /* remove focus border in Safari */
       }
+
+      /* 5 */
+      #plhldr {
+         color: red;
+         position: absolute;
+         margin: -1.2em 0 0 0.2em;
+      }
+
+      /* 6 */
+      #capsIndicator {
+         color: red;
+         display: none;
+         font-weight: bold;
+         /* visibility: hidden; */
+      }
    </style>
    <title>тесты</title>
 </head>
@@ -83,57 +98,78 @@
       </div>
       <div class="focus-blur2">
          <h3>
-            <a href=""></a>
-            <div>
-               <p>Кликните на мышонка и передвигайте его, нажимая клавиши со стрелками.</p>
+            <a href="https://learn.javascript.ru/focus-blur#myshonok-na-klaviaturnom-privode">Мышонок на "клавиатурном"
+               приводе</a>
 
-               <pre id="mouse1" tabindex="1">
-                 _   _
-                (q\_/p)
-                 /. .\
-                =\_t_/=   __
-                 /   \   (
-                ((   ))   )
-                /\) (/\  /
-                \  Y  /-'
-                 nn^nn
-                </pre>
-            </div>
          </h3>
+         <div>
+            <p>Кликните на мышонка и передвигайте его, нажимая клавиши со стрелками.</p>
+
+            <pre id="mouse1" tabindex="1">
+              _   _
+             (q\_/p)
+              /. .\
+             =\_t_/=   __
+              /   \   (
+             ((   ))   )
+             /\) (/\  /
+             \  Y  /-'
+              nn^nn
+             </pre>
+         </div>
       </div>
       <div id="focusBlur3">
          <h3>
             <a href="https://learn.javascript.ru/focus-blur#goryachie-klavishi">Горячие клавиши</a>
-            <div>
 
-               <ul>
-                  <li>Ctrl-E to start editing.</li>
-                  <li>While editing: Ctrl-S to save, Esc to cancel.</li>
-               </ul>
-
-
-               <textarea id="area1"></textarea>
-               <div id="view1">Text</div>
-            </div>
          </h3>
+         <div>
+
+            <ul>
+               <li>Ctrl-E to start editing.</li>
+               <li>While editing: Ctrl-S to save, Esc to cancel.</li>
+            </ul>
+
+
+            <textarea id="area1"></textarea>
+            <div id="view1">Text</div>
+         </div>
       </div>
       <div class="focus-blur4">
          <h3>
-            <a href=""></a>
-            <div></div>
+            <a href="https://learn.javascript.ru/focus-blur#redaktirovanie-td-po-kliku">Редактирование TD по клику</a>
+
          </h3>
+         <a href="clickEdit.html">Открыть страницу с решением</a>
       </div>
       <div class="focus-blur5">
          <h3>
-            <a href=""></a>
-            <div></div>
+            <a href="https://learn.javascript.ru/focus-blur#krasivyy-pleysholder-dlya-input">Красивый placeholder for
+               the imput</a>
+
          </h3>
+         <div>
+            <div>Добро пожаловать</div>
+            <input type="password" id="inputPl">
+
+            <div id="plhldr">Скажи пароль, друг</div>
+
+            <div>.. и заходи</div>
+         </div>
       </div>
       <div class="focus-blur6">
          <h3>
-            <a href=""></a>
-            <div></div>
+            <a href="https://learn.javascript.ru/focus-blur#pole-preduprezhdayuschee-o-vklyuchennom-capslock">Поле,
+               предупреждающее о включенном CapsLock</a>
          </h3>
+
+         <div>
+               <div id="capsIndicator">Внимание: нажат CapsLock!</div>
+            Введите текст(например, пароль) с нажатым CapsLock:
+            <input id="capsInput" type="text" />
+
+           
+         </div>
       </div>
    </div>
 </body>
@@ -192,9 +228,9 @@
    }
    //3
    document.onkeydown = function (e) {
-      if(e.keyCode == 27){
+      if (e.keyCode == 27) {
          area1.style.display = 'none';
-         view1.style.display = 'block';   
+         view1.style.display = 'block';
       }
       if (!e.ctrlKey) return;
       e.preventDefault();
@@ -202,16 +238,37 @@
          area1.value = view1.innerText;
          area1.style.display = 'block';
          view1.style.display = 'none';
-         area1.focus();   
+         area1.focus();
       }
-      if(e.keyCode == 83){
+      if (e.keyCode == 83) {
          view1.innerText = area1.value;
          area1.style.display = 'none';
-         view1.style.display = 'block';   
+         view1.style.display = 'block';
       }
 
    }
-   //4
+   //5
+   plhldr.onclick = function () {
+      inputPl.focus();
+   }
+   inputPl.onfocus = function () {
+      plhldr.hidden = true;
+   }
+   // 6
+   let CLstate;
+   capsInput.onkeydown = function(event){
+      CLstate = event.getModifierState("CapsLock");
+      capsInput.onfocus();
+   }
+   capsInput.onfocus = function () {
+      if (CLstate) {
+         capsIndicator.style.display = 'block';
+         // capsIndicator.hidden = false;
+      } else {
+         capsIndicator.style.display = '';
+         // capsIndicator.hidden = true;
+      }
+   }
 </script>
 
 </html>

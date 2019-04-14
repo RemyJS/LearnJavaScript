@@ -526,3 +526,74 @@ li {
   font-family: sans-serif;
   border: 1px solid black;
 }
+/* focus blur */
+    /* стиль для input с плейсхолдером */
+
+    .placeholder {
+      color: blue;
+      font-family: serif;
+   }
+
+   /* стиль для подсказки над элементом (вместо плейсхолдера при фокусировке) */
+
+   .placeholder-tooltip {
+      color: blue;
+      font-family: serif;
+      position: fixed;
+      top: 10px;
+   }
+
+   #mouse1 {
+      display: inline-block;
+      cursor: pointer;
+      margin: 0;
+      position: relative;
+   }
+
+   #mouse1:focus {
+      outline: 1px dashed black;
+   }
+
+   /* 3 */
+   #view1,
+   #area1 {
+      height: 150px;
+      width: 400px;
+      font-family: sans-serif;
+      font-size: 14px;
+   }
+
+   #view1 {
+      /* padding + border = 3px */
+
+      padding: 2px;
+      border: 1px solid black;
+   }
+
+   #area1 {
+      display: none;
+      /* replace padding with border (still 3px not to shift the contents) */
+
+      border: 3px groove blue;
+      padding: 0px;
+   }
+
+   #area1:focus {
+      outline: none;
+      /* remove focus border in Safari */
+   }
+
+   /* 5 */
+   #plhldr {
+      color: red;
+      position: absolute;
+      margin: -1.2em 0 0 0.2em;
+   }
+
+   /* 6 */
+   #capsIndicator {
+      color: red;
+      display: none;
+      font-weight: bold;
+      /* visibility: hidden; */
+   }

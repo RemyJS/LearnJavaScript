@@ -2712,95 +2712,191 @@ tmarea.onwheel = function (event) {
 }
 // endmousewheel
 //keybordkeys
-   // вспомогательная функция, если понадобится
+// вспомогательная функция, если понадобится
 
-   function getChar(event) {
-		if (event.which == null) {
-			 if (event.keyCode < 32) return null;
-			 return String.fromCharCode(event.keyCode) // IE
-		}
+function getChar(event) {
+	if (event.which == null) {
+		if (event.keyCode < 32) return null;
+		return String.fromCharCode(event.keyCode) // IE
+	}
 
-		if (event.which != 0 && event.charCode != 0) {
-			 if (event.which < 32) return null;
-			 return String.fromCharCode(event.which) // остальные
-		}
+	if (event.which != 0 && event.charCode != 0) {
+		if (event.which < 32) return null;
+		return String.fromCharCode(event.which) // остальные
+	}
 
-		return null; // специальная клавиша
- }
- onlynum.onkeypress = function (e) {
-		let char = getChar(e);
-		// console.log(typeof(char),e.keyCode);
-		if (char) {
-			 if (e.keyCode < 48 || e.keyCode > 58) return false;
-		}
- }
+	return null; // специальная клавиша
+}
+onlynum.onkeypress = function (e) {
+	let char = getChar(e);
+	// console.log(typeof(char),e.keyCode);
+	if (char) {
+		if (e.keyCode < 48 || e.keyCode > 58) return false;
+	}
+}
 
- //task 2 
- function checkPressButtons(pressButtons) {
-		for (const key in pressButtons) {
-			 if (pressButtons.hasOwnProperty(key)) {
-					const element = pressButtons[key];
-					if (element == false) return false;
-			 }
+//task 2 
+function checkPressButtons(pressButtons) {
+	for (const key in pressButtons) {
+		if (pressButtons.hasOwnProperty(key)) {
+			const element = pressButtons[key];
+			if (element == false) return false;
 		}
-		return true;
- }
- function runOnKeys(func) {
-		let pressButtons = {};
-		let arr = [].slice.call(arguments, 1);
-		for (let i = 0; i < arr.length; i++) {
-			 pressButtons[arr[i]] = false;
+	}
+	return true;
+}
+function runOnKeys(func) {
+	let pressButtons = {};
+	let arr = [].slice.call(arguments, 1);
+	for (let i = 0; i < arr.length; i++) {
+		pressButtons[arr[i]] = false;
+	}
+	document.onkeydown = function (e) {
+		if (pressButtons.hasOwnProperty(e.keyCode)) {
+			pressButtons[e.keyCode] = true;
+			// console.log(pressButtons);
 		}
-		document.onkeydown = function (e) {
-			 if (pressButtons.hasOwnProperty(e.keyCode)) {
-					pressButtons[e.keyCode] = true;
-					// console.log(pressButtons);
-			 }
-			 if (checkPressButtons(pressButtons)) {
-					for (let i = 0; i < arr.length; i++) {
-						 pressButtons[arr[i]] = false;
-					}
-					func();
-			 }
-		};
+		if (checkPressButtons(pressButtons)) {
+			for (let i = 0; i < arr.length; i++) {
+				pressButtons[arr[i]] = false;
+			}
+			func();
+		}
+	};
 
-		document.onkeyup = function (e) {
-			 if (pressButtons.hasOwnProperty(e.keyCode)) {
-					pressButtons[e.keyCode] = false;
-					// console.log(pressButtons);
-			 }
+	document.onkeyup = function (e) {
+		if (pressButtons.hasOwnProperty(e.keyCode)) {
+			pressButtons[e.keyCode] = false;
+			// console.log(pressButtons);
 		}
- }
+	}
+}
 
- runOnKeys(
-		function () { alert("Вы зажали несколько клавишь одновременно!") },
-		"Q".charCodeAt(0),
-		"W".charCodeAt(0),
-		"V".charCodeAt(0)
- );
- //end keybord keys
+runOnKeys(
+	function () { alert("Вы зажали несколько клавишь одновременно!") },
+	"Q".charCodeAt(0),
+	"W".charCodeAt(0),
+	"V".charCodeAt(0)
+);
+//end keybord keys
 //  onload onerror 
-   //first task
-   let searchImg = imgforsearch.getElementsByTagName('img');
-   let dsb = searchbox.getElementsByTagName('div');
-   for (let i = 0; i < searchImg.length; i++) {
-      searchImg[i].onload = function () {
-         dsb[i].innerHTML='';
-         dsb[i].appendChild(this);
-      }
-      searchImg[i].onerror = function () {
-         this.hidden = true;
-         console.log("Ошибка: " + this.src);
-      };
-   }
+//first task
+let searchImg = imgforsearch.getElementsByTagName('img');
+let dsb = searchbox.getElementsByTagName('div');
+for (let i = 0; i < searchImg.length; i++) {
+	searchImg[i].onload = function () {
+		dsb[i].innerHTML = '';
+		dsb[i].appendChild(this);
+	}
+	searchImg[i].onerror = function () {
+		this.hidden = true;
+		console.log("Ошибка: " + this.src);
+	};
+}
 // form elements 
 let formTask1 = document.forms.addOption;
 let selectT1 = formTask1.elements[0];
+
+let spanOption = document.createElement('span');
+let i = selectT1.options.selectedIndex;
+spanOption.innerHTML = 'выбранное значение по умолчанию ' + selectT1.options[i].innerText;
+formElement.appendChild(spanOption);
+let newOption = new Option('классика js', 'classic', true, true);
+selectT1.appendChild(newOption);
+
+// forus blur 
+//задача 1 
+
 (function () {
-	 let span = document.createElement('span');
-	 let i = selectT1.options.selectedIndex;
-	 span.innerHTML = 'выбранное значение по умолчанию ' + selectT1.options[i].innerText;
-	 formElement.appendChild(span);
-	 let newOption = new Option('классика js','classic',true,true);
-	 selectT1.appendChild(newOption);
+	var input = focusBlur1.querySelector('[data-placeholder]');
+
+	showPlaceholder(input);
+
+	// Показать placeholder внутри input
+	// Также можно сделать это при помощи вёрстки, отдельным элементом
+	function showPlaceholder(input) {
+		input.classList.add('placeholder');
+		input.value = input.dataset.placeholder;
+	}
+	function fcs() {
+		let tip = document.createElement('span');
+		tip.innerHTML = this.dataset.placeholder;
+		tip.classList.add('placeholder-tooltip');
+		let top = this.getBoundingClientRect().top - 25;
+		tip.style.top = top + 'px';
+		this.parentElement.insertBefore(tip, input);
+		this.value = '';
+		this.classList.remove('placeholder');
+	}
+	function blr() {
+		let del = focusBlur1.querySelector('.placeholder-tooltip');
+		let info = focusBlur1.querySelector('.placeholder-tooltip').innerText;
+		if (this.value == '' || this.value == 'E-mail') {
+			this.dataset.placeholder = info;
+			this.value = info;
+			this.classList.add('placeholder');
+		}
+		del.remove();
+
+	}
+	// ...ваш код для input...
+	input.addEventListener('focus', fcs, true);
+
+	input.addEventListener('blur', blr, true);
 }());
+//2 
+mouse1.onfocus = function () {
+	let height = this.offsetHeight;
+	let width = this.offsetWidth;
+
+	mouse1.onkeydown = function (event) {
+		let e = event.which;
+		if (e == 37) mouse1.style.left = (parseInt(mouse1.style.left) || 0) - width + 'px';
+		if (e == 38) mouse1.style.top = (parseInt(mouse1.style.top) || 0) - height + 'px';
+		if (e == 39) mouse1.style.left = (parseInt(mouse1.style.left) || 0) + width + 'px';
+		if (e == 40) mouse1.style.top = (parseInt(mouse1.style.top) || 0) + height + 'px';
+	}
+}
+//3
+document.onkeydown = function (e) {
+	if (e.keyCode == 27) {
+		area1.style.display = 'none';
+		view1.style.display = 'block';
+	}
+	if (!e.ctrlKey) return;
+	e.preventDefault();
+	if (e.keyCode == 69) {
+		area1.value = view1.innerText;
+		area1.style.display = 'block';
+		view1.style.display = 'none';
+		area1.focus();
+	}
+	if (e.keyCode == 83) {
+		view1.innerText = area1.value;
+		area1.style.display = 'none';
+		view1.style.display = 'block';
+	}
+
+}
+//5
+plhldr.onclick = function () {
+	inputPl.focus();
+}
+inputPl.onfocus = function () {
+	plhldr.hidden = true;
+}
+// 6
+let CLstate;
+capsInput.onkeydown = function (event) {
+	CLstate = event.getModifierState("CapsLock");
+	capsInput.onfocus();
+}
+capsInput.onfocus = function () {
+	if (CLstate) {
+		capsIndicator.style.display = 'block';
+		// capsIndicator.hidden = false;
+	} else {
+		capsIndicator.style.display = '';
+		// capsIndicator.hidden = true;
+	}
+}
