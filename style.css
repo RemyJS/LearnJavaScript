@@ -597,3 +597,18 @@ li {
       font-weight: bold;
       /* visibility: hidden; */
    }
+   /* event change  */
+   .calcCredit td select,
+   .calcCredit td input {
+     width: 150px;
+   }
+
+   #diagramCredit td {
+     vertical-align: bottom;
+     text-align: center;
+     padding: 10px;
+   }
+
+   #diagramCredit div {
+     margin: auto;
+   }

@@ -2900,3 +2900,47 @@ capsInput.onfocus = function () {
 		// capsIndicator.hidden = true;
 	}
 }
+// event change 
+function compound (x,n,chked){
+	const PR = 0.12;
+	let sum;
+ if(chked){
+		// SUM = X * (1 + p*d/y)n
+		let prc = 1+ PR + 0.00683; 
+		sum =Math.round(x * Math.pow(prc ,n/12));
+ }else{
+		 sum = Math.round(x *Math.pow(1+PR,n/12));
+ }
+ let green = document.getElementById('height-after');
+ let height = (sum/x)*100||100;
+ green.style.height = height +'px';
+ // console.log(sum/x);
+ moneyBefore.innerHTML = x||0;
+ moneyAfter.innerHTML =sum;
+ return sum;
+}
+// moneyInput.oncut = 
+moneyInput.onpaste = moneyInput.oninput = function(){
+ let curMoney = moneyInput.value;
+ let i = termMonths.selectedIndex;
+ let term = +termMonths[i].value;
+ let cap = capitalization.checked;
+ let res = compound(curMoney,term,cap);
+ console.log(res);
+}
+termMonths.onchange = function (){
+ let curMoney = moneyInput.value;
+ let i = termMonths.selectedIndex;
+ let term = +termMonths[i].value;
+ let cap = capitalization.checked;
+ let res = compound(curMoney,term,cap);
+ console.log(res);
+}
+capitalization.onchange = function (){
+ let curMoney = moneyInput.value;
+ let i = termMonths.selectedIndex;
+ let term = +termMonths[i].value;
+ let cap = capitalization.checked;
+ let res = compound(curMoney,term,cap);
+ console.log(res);
+}

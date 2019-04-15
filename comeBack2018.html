@@ -705,6 +705,63 @@
        </div>
     </div>
  </div>
+ <!-- event change -->
+ <div class="events-change">
+  <h3><a href="https://learn.javascript.ru/events-change#avtovychislenie-protsentov-po-vkladu">Автовычисление процентов по вкладу</a></h3>
+  <h3>Калькулятор процентов, из расчёта 12% годовых.</h3>
+  <form name="calcCredit">
+    <table>
+      <tr>
+        <td>Сумма</td>
+        <td>
+          <input id="moneyInput" type="text" value="10000">
+        </td>
+      </tr>
+      <tr>
+        <td>Срок в месяцах</td>
+        <td>
+          <select id='termMonths'>
+            <option value="3">3 (минимум)</option>
+            <option value="6">6 (полгода)</option>
+            <option value="12" selected>12 (год)</option>
+            <option value="18">18 (1.5 года)</option>
+            <option value="24">24 (2 года)</option>
+            <option value="30">30 (2.5 года)</option>
+            <option value="36">36 (3 года)</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>С капитализацией</td>
+        <td>
+          <input id="capitalization" type="checkbox">
+        </td>
+      </tr>
+    </table>
+
+
+  </form>
+
+
+  <table id="diagramCredit">
+    <tr>
+      <th>Было:</th>
+      <th>Станет:</th>
+    </tr>
+    <tr>
+      <th id="moneyBefore"></th>
+      <th id="moneyAfter"></th>
+    </tr>
+    <tr>
+      <td>
+        <div style="background: red;width:40px;height:100px"></div>
+      </td>
+      <td>
+        <div style="background: green;width:40px;height:0" id="height-after"></div>
+      </td>
+    </tr>
+  </table>
+</div>
   <footer>
     <aside id="footerImg">
       <img src="image/c200b4179efc64314949b09fef49f999.jpg" alt="foto">
