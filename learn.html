@@ -4,143 +4,107 @@
 <head>
   <meta charset="utf-8">
   <style>
-    .calcCredit td select,
-    .calcCredit td input {
-      width: 150px;
+    #prompt-form {
+      display: inline-block;
+      padding: 5px 5px 5px 70px;
+      width: 200px;
+      border: 1px solid black;
+      background: white url(https://js.cx/clipart/prompt.png) no-repeat left 5px;
+      vertical-align: middle;
     }
 
-    #diagramCredit td {
-      vertical-align: bottom;
+    #prompt-form-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      width: 100%;
+      height: 100%;
       text-align: center;
-      padding: 10px;
     }
 
-    #diagramCredit div {
-      margin: auto;
+    #prompt-form-container:before {
+      display: inline-block;
+      height: 100%;
+      content: '';
+      vertical-align: middle;
+    }
+
+    #prompt-form input[name="text"] {
+      display: block;
+      margin: 5px;
+      width: 180px;
     }
   </style>
 </head>
 
 <body>
-  <div class="events-change">
-     <h3><a href="https://learn.javascript.ru/events-change#avtovychislenie-protsentov-po-vkladu">Автовычисление процентов по вкладу</a></h3>
-     <h3>Калькулятор процентов, из расчёта 12% годовых.</h3>
-     <form name="calcCredit">
-       <table>
-         <tr>
-           <td>Сумма</td>
-           <td>
-             <input id="moneyInput" type="text" value="10000">
-           </td>
-         </tr>
-         <tr>
-           <td>Срок в месяцах</td>
-           <td>
-             <select id='termMonths'>
-               <option value="3">3 (минимум)</option>
-               <option value="6">6 (полгода)</option>
-               <option value="12" selected>12 (год)</option>
-               <option value="18">18 (1.5 года)</option>
-               <option value="24">24 (2 года)</option>
-               <option value="30">30 (2.5 года)</option>
-               <option value="36">36 (3 года)</option>
-             </select>
-           </td>
-         </tr>
-         <tr>
-           <td>С капитализацией</td>
-           <td>
-             <input id="capitalization" type="checkbox">
-           </td>
-         </tr>
-       </table>
-   
-   
-     </form>
-   
-   
-     <table id="diagramCredit">
-       <tr>
-         <th>Было:</th>
-         <th>Станет:</th>
-       </tr>
-       <tr>
-         <th id="moneyBefore"></th>
-         <th id="moneyAfter"></th>
-       </tr>
-       <tr>
-         <td>
-           <div style="background: red;width:40px;height:100px"></div>
-         </td>
-         <td>
-           <div style="background: green;width:40px;height:0" id="height-after"></div>
-         </td>
-       </tr>
-     </table>
+  <div class="formsSumbit">
+    <div class="fSumbit1">
+      <h3><a href="https://learn.javascript.ru/forms-submit#modalnoe-dialogovoe-okno">Модальное диалоговое окно</a></h3>
+      <button id="showHidePrompt">показать форму</button>
+      <div id="prompt-form-container" hidden>
+        <form id="prompt-form">
+          <div id="promptMessage">Введите, пожалуйста...
+            <br>Что-то..</div>
+          <input name="text" type="text">
+          <input type="submit" value="Ок">
+          <input type="button" name="cancel" value="Отмена">
+        </form>
+      </div>
+    </div>
+    <div class="fSumbit2"></div>
   </div>
+
+
+
 
 </body>
 <script>
-   // вспомогательная функция для получения символа из события keypress
-   // (вдруг понадобится))
-   function getChar(event) {
-     if (event.which == null) {
-       if (event.keyCode < 32) return null;
-       return String.fromCharCode(event.keyCode) // IE
-     }
+  let form = document.getElementById('prompt-form');
+  let textForm = form.children[1];
+  let smbtForm = form.children[2];
+  let cnlForm = form.children[3];
 
-     if (event.which != 0 && event.charCode != 0) {
-       if (event.which < 32) return null;
-       return String.fromCharCode(event.which) // остальные
-     }
+  cnlForm.onkeydown = function(e){
+    if(e.keyCode == 9 && !e.shiftKey) {
+      textForm.focus();
+      return false;
+    }
+  }
+  textForm.onkeydown = function(e){
+    if(e.keyCode == 9 && e.shiftKey) {
+      cnlForm.focus();
+      return false;
+    }
+  }
+  showHidePrompt.onclick = function () {
+    let show = document.getElementById('prompt-form-container');
+    show.hidden = false;
+    textForm.focus();
+  }
 
-     return null; // специальная клавиша
-   }
+  document.onkeydown = function(e){
+    if(e.keyCode !=27)return;
+    let show = document.getElementById('prompt-form-container');
+    if(show.hidden == false)show.hidden = true;
+    console.log(show.hidden);
+  }
+  function showPrompt(text, callback) {
+    promptMessage.innerHTML = text;
+    form.onsubmit = function () {
+      let val = textForm.value;
+      console.log(val);
+      callback('Вы ввели: '+val);
+      // return false;
+    };
+  }
+  cnlForm.onclick = function(){
+    let show = document.getElementById('prompt-form-container');
+    show.hidden = true;
+  }
 
-   // ваш код...
+  showPrompt('hello', function (vl) {alert(vl)});
+</script>
 
-   function compound (x,n,chked){
-       const PR = 0.12;
-       let sum;
-      if(chked){
-         // SUM = X * (1 + p*d/y)n
-         let prc = 1+ PR + 0.00683; 
-         sum =Math.round(x * Math.pow(prc ,n/12));
-      }else{
-          sum = Math.round(x *Math.pow(1+PR,n/12));
-      }
-      let green = document.getElementById('height-after');
-      let height = (sum/x)*100||100;
-      green.style.height = height +'px';
-      // console.log(sum/x);
-      moneyBefore.innerHTML = x||0;
-      moneyAfter.innerHTML =sum;
-      return sum;
-   }
-   // moneyInput.oncut = 
-   moneyInput.onpaste = moneyInput.oninput = function(){
-      let curMoney = moneyInput.value;
-      let i = termMonths.selectedIndex;
-      let term = +termMonths[i].value;
-      let cap = capitalization.checked;
-      let res = compound(curMoney,term,cap);
-      console.log(res);
-   }
-   termMonths.onchange = function (){
-      let curMoney = moneyInput.value;
-      let i = termMonths.selectedIndex;
-      let term = +termMonths[i].value;
-      let cap = capitalization.checked;
-      let res = compound(curMoney,term,cap);
-      console.log(res);
-   }
-   capitalization.onchange = function (){
-      let curMoney = moneyInput.value;
-      let i = termMonths.selectedIndex;
-      let term = +termMonths[i].value;
-      let cap = capitalization.checked;
-      let res = compound(curMoney,term,cap);
-      console.log(res);
-   }
- </script>
 </html>
