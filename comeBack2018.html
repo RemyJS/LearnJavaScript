@@ -762,6 +762,73 @@
     </tr>
   </table>
 </div>
+<!-- forms-submit -->
+<div class="formsSumbit">
+    <div class="fSumbit1">
+      <h3><a href="https://learn.javascript.ru/forms-submit#modalnoe-dialogovoe-okno">Модальное диалоговое окно</a></h3>
+      <button id="showHidePrompt">показать форму</button>
+      <div id="prompt-form-container" hidden>
+        <form id="prompt-form">
+          <div id="promptMessage">Введите, пожалуйста...
+            <br>Что-то..</div>
+          <input name="text" type="text">
+          <input type="submit" value="Ок">
+          <input type="button" name="cancel" value="Отмена">
+        </form>
+      </div>
+    </div>
+    <div class="fSumbit2">
+      <h3><a href="https://learn.javascript.ru/forms-submit#validatsiya-formy">Валидация формы</a></h3>
+      <div>
+        <form id='validateform'>
+          <table>
+            <tr>
+              <td>От кого</td>
+              <td>
+                <input name="from" type="text">
+                <span class="warning" hidden>укажите отправителя</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Ваш пароль</td>
+              <td>
+                <input name="password" type="password">
+                <span class="warning" hidden>Введите пароль</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Повторите пароль</td>
+              <td>
+                <input name="password2" type="password">
+                <span class="warning" hidden>Пароль не совпадает</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Куда</td>
+              <td>
+                <select name="to">
+                  <option></option>
+                  <option value="1">Отдел снабжения</option>
+                  <option value="2">Отдел разработки</option>
+                  <option value="3">Директору</option>
+                </select>
+                <span class="warning" hidden>Укажите получателя</span>
+              </td>
+            </tr>
+          </table>
+      
+          Сообщение:
+          <label>
+            <!-- <span class="warning" hidden>как насчет текста?</span> -->
+            <textarea name="message" style="display:block;width:400px;height:100px"></textarea>
+            <span class="warning" hidden>как насчет текста?</span><br>
+          </label>
+      
+          <input type="button" onclick="validate(this.form)" value="Проверить">
+        </form>
+      </div>
+    </div>
+  </div>
   <footer>
     <aside id="footerImg">
       <img src="image/c200b4179efc64314949b09fef49f999.jpg" alt="foto">

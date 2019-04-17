@@ -2944,3 +2944,125 @@ capitalization.onchange = function (){
  let res = compound(curMoney,term,cap);
  console.log(res);
 }
+// forms-submit
+let formModal = document.getElementById('prompt-form');
+let textForm = formModal.children[1];
+let smbtForm = formModal.children[2];
+let cnlForm = formModal.children[3];
+
+cnlForm.onkeydown = function(e){
+	if(e.keyCode == 9 && !e.shiftKey) {
+		textForm.focus();
+		return false;
+	}
+}
+textForm.onkeydown = function(e){
+	if(e.keyCode == 9 && e.shiftKey) {
+		cnlForm.focus();
+		return false;
+	}
+}
+showHidePrompt.onclick = function () {
+	let show = document.getElementById('prompt-form-container');
+	show.hidden = false;
+	textForm.focus();
+}
+
+document.onkeydown = function(e){
+	if(e.keyCode !=27)return;
+	let show = document.getElementById('prompt-form-container');
+	if(show.hidden == false)show.hidden = true;
+	console.log(show.hidden);
+}
+function showPrompt(text, callback) {
+	promptMessage.innerHTML = text;
+	formModal.onsubmit = function () {
+		let val = textForm.value;
+		console.log(val);
+		callback('Вы ввели: '+val);
+		// return false;
+	};
+}
+cnlForm.onclick = function(){
+	let show = document.getElementById('prompt-form-container');
+	show.hidden = true;
+}
+
+showPrompt('изменено через функцию', function (vl) {alert(vl)});
+// 2
+/*
+function validate(form) {
+		if(form.from.value.trim() == ""){
+			form.from.nextElementSibling.hidden = false;
+			form.from.style.borderColor = 'red';
+			form.from.focus();
+			return false;
+		}else{
+			form.from.style.borderColor = '';
+			form.from.nextElementSibling.hidden = true;
+		}
+		if(form.password.value.trim()==''){
+			form.password.nextElementSibling.hidden = false;
+			form.password.style.borderColor = 'red';
+			form.password.focus();
+			return false;
+		}else{
+			form.password.style.borderColor = '';
+			form.password.nextElementSibling.hidden = true;
+		}
+		if(form.password2.value!=form.password.value ){
+			form.password2.nextElementSibling.hidden = false;
+			form.password2.style.borderColor = 'red';
+			form.password.style.borderColor = 'red';
+			form.password2.focus();
+			return false;
+		}else{
+			form.password2.style.borderColor = '';
+			form.password.style.borderColor = '';
+			form.password2.nextElementSibling.hidden = true;
+		}
+		if(form.to.value == ""){
+			form.to.nextElementSibling.hidden = false;
+			form.to.style.borderColor = 'red';
+			form.to.focus();
+			return false;
+		}else{
+			form.to.style.borderColor = '';
+			form.to.nextElementSibling.hidden = true;
+		}
+		if(form.message.value.trim() == ""){
+			form.message.previousElementSibling.hidden = false;
+			form.message.style.borderColor = 'red';
+			form.message.focus();
+			return false;
+		}else{
+			form.message.style.borderColor = '';
+			form.message.previousElementSibling.hidden = true;
+		}
+	}
+	*/
+		function validate(form) {
+			let flag = true;
+			for (let i = 0; i < form.length - 1; i++) {
+				if (form[i].value.trim() == "") {
+					form[i].nextElementSibling.hidden = false;
+					form[i].style.borderColor = 'red';
+					flag = false;
+				} else {
+					form[i].nextElementSibling.hidden = true;
+					form[i].style.borderColor = '';
+				}
+			}
+			if (form.password2.value != form.password.value) {
+					form.password2.nextElementSibling.hidden = false;
+					form.password2.style.borderColor = 'red';
+					form.password.style.borderColor = 'red';
+					flag = false;
+				} else {
+					form.password2.style.borderColor = '';
+					form.password.style.borderColor = '';
+					form.password2.nextElementSibling.hidden = true;
+				}
+			// console.log(form,flag);
+			return(flag);  
+		}
