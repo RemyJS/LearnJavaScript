@@ -4,237 +4,277 @@
 <head>
   <meta charset="utf-8">
   <style>
-    #prompt-form {
-      display: inline-block;
-      padding: 5px 5px 5px 70px;
-      width: 200px;
-      border: 1px solid black;
-      background: white url(https://js.cx/clipart/prompt.png) no-repeat left 5px;
-      vertical-align: middle;
+    .hour2 {
+      color: green
     }
 
-    #prompt-form-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1000;
-      width: 100%;
-      height: 100%;
-      text-align: center;
+    .min2 {
+      color: blue
     }
 
-    #prompt-form-container:before {
-      display: inline-block;
-      height: 100%;
-      content: '';
-      vertical-align: middle;
+    .sec2 {
+      color: red
     }
 
-    #prompt-form input[name="text"] {
-      display: block;
+    /* не копировать */
+    .drag-slider {
+      border-radius: 5px;
+      background: #E0E0E0;
+      background: -moz-linear-gradient(left top, #E0E0E0, #EEEEEE) repeat scroll 0 0 transparent;
+      background: -webkit-gradient(linear, left top, right bottom, from(#E0E0E0), to(#EEEEEE));
+      background: linear-gradient(left top, #E0E0E0, #EEEEEE);
+      width: 310px;
+      height: 15px;
       margin: 5px;
-      width: 180px;
     }
-    .warning {
-      color:red;
+
+    .thumb {
+      width: 10px;
+      height: 25px;
+      border-radius: 3px;
+      position: relative;
+      left: 10px;
+      top: -5px;
+      background: blue;
+      cursor: pointer;
+    }
+
+    /* 3 not copy */
+    .selected {
+      background: #0f0;
     }
   </style>
 </head>
 
 <body>
-  <div class="formsSumbit">
-    <div class="fSumbit1">
-      <h3><a href="https://learn.javascript.ru/forms-submit#modalnoe-dialogovoe-okno">Модальное диалоговое окно</a></h3>
-      <button id="showHidePrompt">показать форму</button>
-      <div id="prompt-form-container" hidden>
-        <form id="prompt-form">
-          <div id="promptMessage">Введите, пожалуйста...
-            <br>Что-то..</div>
-          <input name="text" type="text">
-          <input type="submit" value="Ок">
-          <input type="button" name="cancel" value="Отмена">
-        </form>
+  <div class="widgets-structure">
+    <div class="struckture1">
+      <h3><a href="https://learn.javascript.ru/widgets-structure#chasiki">Часики</a></h3>
+      <div>
+        <div id="clock2" class="clock2">
+          <span class="hour2">00</span>:<span class="min2">00</span>:<span class="sec2">00</span>
+        </div>
+        <input type="button" onclick="pageClock.start()" value="Старт">
+        <input type="button" onclick="pageClock.stop()" value="Стоп">
+
+        <input type="button"
+          onclick="alert('Часы должны останавливаться во время alert,\nи продолжать корректно работать после нажатия на ОК')"
+          value="alert для проверки корректного возобновления">
       </div>
     </div>
-    <div class="fSumbit2">
-      <h3><a href="https://learn.javascript.ru/forms-submit#validatsiya-formy">Валидация формы</a></h3>
+    <div class="struckture2">
+      <h3><a href="https://learn.javascript.ru/widgets-structure#slayder-komponent">Слайдер компонент</a></h3>
       <div>
-        <form id='validateform'>
-          <table>
-            <tr>
-              <td>От кого</td>
-              <td>
-                <input name="from" type="text">
-                <span class="warning" hidden>укажите отправителя</span>
-              </td>
-            </tr>
-            <tr>
-              <td>Ваш пароль</td>
-              <td>
-                <input name="password" type="password">
-                <span class="warning" hidden>Введите пароль</span>
-              </td>
-            </tr>
-            <tr>
-              <td>Повторите пароль</td>
-              <td>
-                <input name="password2" type="password">
-                <span class="warning" hidden>Пароль не совпадает</span>
-              </td>
-            </tr>
-            <tr>
-              <td>Куда</td>
-              <td>
-                <select name="to">
-                  <option></option>
-                  <option value="1">Отдел снабжения</option>
-                  <option value="2">Отдел разработки</option>
-                  <option value="3">Директору</option>
-                </select>
-                <span class="warning" hidden>Укажите получателя</span>
-              </td>
-            </tr>
-          </table>
-      
-          Сообщение:
-          <label>
-            <!-- <span class="warning" hidden>как насчет текста?</span> -->
-            <textarea name="message" style="display:block;width:400px;height:100px"></textarea>
-            <span class="warning" hidden>как насчет текста?</span><br>
-          </label>
-      
-          <input type="button" onclick="validate(this.form)" value="Проверить">
-        </form>
+        <div id="slider2" class="drag-slider">
+          <div class="thumb">
+
+          </div>
+        </div>
       </div>
+    </div>
+    <div class="struckture3">
+      <h3><a href="https://learn.javascript.ru/widgets-structure#komponent-spisok-s-vydeleniem">Компонент: список с
+          выделением</a></h3>
+      <div>
+        Клик на элементе выделяет только его.
+        <br> Ctrl(Cmd)+Клик добавляет/убирает элемент из выделенных.
+        <br> Shift+Клик добавляет промежуток от последнего кликнутого к выделению.
+        <br> 
+
+        <ul id='vinniUlComponent'>
+          <li>Кристофер Робин</li>
+          <li>Винни-Пух</li>
+          <li>Ослик Иа</li>
+          <li>Мудрая Сова</li>
+          <li>Кролик. Просто кролик.</li>
+          <span>Неправильные пчелы, выбрать нельзя</span>
+          <li><span>Правильные пчелы</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="struckture4">
+      <h3><a href=""></a></h3>
+      <div></div>
+    </div>
+    <div class="struckture5">
+      <h3><a href=""></a></h3>
+      <div></div>
+    </div>
+    <div class="struckture6">
+      <h3><a href=""></a></h3>
+      <div></div>
     </div>
   </div>
-
-
-
-
 </body>
 <script>
-  let formModal = document.getElementById('prompt-form');
-  let textForm = formModal.children[1];
-  let smbtForm = formModal.children[2];
-  let cnlForm = formModal.children[3];
 
-  cnlForm.onkeydown = function(e){
-    if(e.keyCode == 9 && !e.shiftKey) {
-      textForm.focus();
-      return false;
-    }
-  }
-  textForm.onkeydown = function(e){
-    if(e.keyCode == 9 && e.shiftKey) {
-      cnlForm.focus();
-      return false;
-    }
-  }
-  showHidePrompt.onclick = function () {
-    let show = document.getElementById('prompt-form-container');
-    show.hidden = false;
-    textForm.focus();
-  }
+  // .. ваш код Clock
+  function Clock2(options) {
+    let spans = options.elem.getElementsByTagName('span');
+    let hour = spans[0];
+    let min = spans[1];
+    let sec = spans[2];
+    let timerId;
 
-  document.onkeydown = function(e){
-    if(e.keyCode !=27)return;
-    let show = document.getElementById('prompt-form-container');
-    if(show.hidden == false)show.hidden = true;
-    console.log(show.hidden);
-  }
-  function showPrompt(text, callback) {
-    promptMessage.innerHTML = text;
-    formModal.onsubmit = function () {
-      let val = textForm.value;
-      console.log(val);
-      callback('Вы ввели: '+val);
-      // return false;
-    };
-  }
-  cnlForm.onclick = function(){
-    let show = document.getElementById('prompt-form-container');
-    show.hidden = true;
-  }
-
-  showPrompt('изменено через функцию', function (vl) {alert(vl)});
-  // 2
-  /*
-  function validate(form) {
-      if(form.from.value.trim() == ""){
-        form.from.nextElementSibling.hidden = false;
-        form.from.style.borderColor = 'red';
-        form.from.focus();
-        return false;
-      }else{
-        form.from.style.borderColor = '';
-        form.from.nextElementSibling.hidden = true;
-      }
-      if(form.password.value.trim()==''){
-        form.password.nextElementSibling.hidden = false;
-        form.password.style.borderColor = 'red';
-        form.password.focus();
-        return false;
-      }else{
-        form.password.style.borderColor = '';
-        form.password.nextElementSibling.hidden = true;
-      }
-      if(form.password2.value!=form.password.value ){
-        form.password2.nextElementSibling.hidden = false;
-        form.password2.style.borderColor = 'red';
-        form.password.style.borderColor = 'red';
-        form.password2.focus();
-        return false;
-      }else{
-        form.password2.style.borderColor = '';
-        form.password.style.borderColor = '';
-        form.password2.nextElementSibling.hidden = true;
-      }
-      if(form.to.value == ""){
-        form.to.nextElementSibling.hidden = false;
-        form.to.style.borderColor = 'red';
-        form.to.focus();
-        return false;
-      }else{
-        form.to.style.borderColor = '';
-        form.to.nextElementSibling.hidden = true;
-      }
-      if(form.message.value.trim() == ""){
-        form.message.previousElementSibling.hidden = false;
-        form.message.style.borderColor = 'red';
-        form.message.focus();
-        return false;
-      }else{
-        form.message.style.borderColor = '';
-        form.message.previousElementSibling.hidden = true;
-      }
+    function start() {
+      timerId = setInterval(showTime, 1000);
     }
-    */
-      function validate(form) {
-        let flag = true;
-        for (let i = 0; i < form.length - 1; i++) {
-          if (form[i].value.trim() == "") {
-            form[i].nextElementSibling.hidden = false;
-            form[i].style.borderColor = 'red';
-            flag = false;
-          } else {
-            form[i].nextElementSibling.hidden = true;
-            form[i].style.borderColor = '';
-          }
+
+    function stop() {
+      return clearInterval(timerId);
+    }
+    function showTime() {
+      let time = getDate();
+      hour.innerHTML = time.h;
+      min.innerHTML = time.m;
+      sec.innerHTML = time.s;
+    }
+    function getDate() {
+      let date = new Date;
+
+      let h = date.getHours();
+      if (h < 10) {
+        h = "0" + h
+      };
+      let m = date.getMinutes();
+      if (m < 10) {
+        m = "0" + m
+      };
+      let s = date.getSeconds();
+      if (s < 10) {
+        s = "0" + s
+      };
+      let res = { h, m, s }
+      return res;
+    }
+    this.start = start;
+    this.stop = stop;
+  };
+
+  let pageClock = new Clock2({
+    elem: document.getElementById('clock2')
+  });
+  // 2 
+  function SliderComponent(options) {
+    let slider = options.elem;
+    // let slider = elem.querySelector('.drag-slider')
+    let thumb = slider.querySelector('.thumb');
+
+    thumb.onmousedown = function (event) {
+
+      moveAt(event);
+      thumb.style.zIndex = 999;
+
+      function moveAt(e) {
+        let left = e.pageX - slider.offsetLeft;
+
+        if (left > slider.offsetWidth - 10) {
+          left = slider.offsetWidth - 10;
+        } else if (left < 0) {
+          left = 0;
         }
-        if (form.password2.value != form.password.value) {
-            form.password2.nextElementSibling.hidden = false;
-            form.password2.style.borderColor = 'red';
-            form.password.style.borderColor = 'red';
-            flag = false;
-          } else {
-            form.password2.style.borderColor = '';
-            form.password.style.borderColor = '';
-            form.password2.nextElementSibling.hidden = true;
-          }
-        // console.log(form,flag);
-        return(flag);  
+        thumb.style.left = left + 'px';
+        // console.log(thumb.style.left);
       }
+      document.onmousemove = function (event) {
+        moveAt(event);
+      };
+
+      document.onmouseup = function () {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      };
+    }
+    // console.log(thumb.parentElement == options.elem);
+  }
+  let sliderComponent = new SliderComponent({ elem: slider2 });
+  // 3
+  function ListSelect(options) {
+
+    let elem = options.elem;
+    let li = elem.querySelectorAll('li');
+    let length = li.length;
+    let lastClick;
+
+    addCursor();
+    addButton();
+
+    function addCursor() {
+      for (let i = 0; i < length; i++) {
+        li[i].style.cursor = 'pointer';
+      }
+    }
+
+    function addButton() {
+      let but = document.createElement('button');
+      but.innerHTML = 'getSelected()';
+      but.onclick = getSelected;
+      elem.parentElement.appendChild(but);
+    }
+
+    elem.onmousedown = function () {
+      return false;
+    }
+
+    elem.onclick = function (event) {
+      let target = event.target.closest('li');
+      if(!target)return;
+      event.preventDefault();
+      // ctrl click 
+      if (event.ctrlKey || event.metaKey) {
+        target.classList.toggle('selected');
+        lastClick = target;
+        return;
+      }
+      // shift key 
+      if (event.shiftKey) {
+        let clickA, clickB, start, end = 0;
+        for (let i = 0; i < length; i++) {
+          if (li[i] == target) clickA = i;
+          if (li[i] == lastClick) clickB = i;
+        }
+
+        if (!lastClick) {
+          clickB = clickA;//первый клик + shift выделяет элемент
+        }
+
+        start = Math.min(clickA, clickB);
+        end = Math.max(clickA, clickB);
+
+        for (start; start <= end; start++) {
+          li[start].classList.add('selected');
+        }
+        lastClick = target;
+        return false;
+      }
+      // single click
+      for (let i = 0; i < length; i++) {
+        li[i].classList.remove('selected');
+      }
+
+      target.classList.add('selected');
+      lastClick = target;
+      return
+    }
+
+    function getSelected() {
+      let selected = elem.querySelectorAll('.selected');
+      let len = selected.length;
+      let arr = [];
+      for (let i = 0; i < len; i++) {
+        arr[i] = selected[i].innerText;
+      }
+      if (arr.length == 0) {
+        alert('Ничего не выбрано')
+      } else {
+        alert(arr);
+      }
+      return arr;
+    }
+
+    this.getSelected = getSelected;
+  };
+  let listSelect1 = new ListSelect({ elem: document.getElementById('vinniUlComponent') })
 </script>
 
 </html>
