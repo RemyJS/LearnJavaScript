@@ -43,6 +43,18 @@
     .selected {
       background: #0f0;
     }
+    /* 4 */
+    .voter {
+      font-family: 'DejaVu Sans Mono', 'Lucida Console', 'Menlo', 'Monaco', monospace;
+      font-size: 18px;
+    }
+
+    .up-voiter,
+    .down-voiter {
+      cursor: pointer;
+      color: blue;
+      font-weight: bold;
+    }
   </style>
 </head>
 
@@ -93,16 +105,34 @@
       </div>
     </div>
     <div class="struckture4">
-      <h3><a href=""></a></h3>
-      <div></div>
+      <h3><a href="https://learn.javascript.ru/widgets-structure#golosovalka">Голосовалка</a></h3>
+      <div>
+        <div id="voter" class="voter">
+          <span class="down-voiter">—</span>
+          <span class="vote">0</span>
+          <span class="up-voiter">+</span>
+        </div>
+      </div>
     </div>
     <div class="struckture5">
-      <h3><a href=""></a></h3>
-      <div></div>
+      <h3><a href="https://learn.javascript.ru/widgets-structure#golosovalka-v-prototipnom-stile-oop">Голосовалка в прототипном стиле</a></h3>
+      <div>
+        <div id="voterProto" class="voter">
+          <span class="down-voiter">—</span>
+          <span class="vote">0</span>
+          <span class="up-voiter">+</span>
+        </div>
+      </div>
     </div>
     <div class="struckture6">
-      <h3><a href=""></a></h3>
-      <div></div>
+      <h3><a href="https://learn.javascript.ru/widgets-structure#dobavit-dvoynoy-golos-v-golosovalku">Добавить двойной голос в голосовалку</a></h3>
+      <div>
+        <div id="voterProto2" class="voter">
+          <span class="down-voiter">—</span>
+          <span class="vote">0</span>
+          <span class="up-voiter">+</span>
+        </div>
+      </div>
     </div>
   </div>
 </body>
@@ -275,6 +305,88 @@
     this.getSelected = getSelected;
   };
   let listSelect1 = new ListSelect({ elem: document.getElementById('vinniUlComponent') })
+  // 4
+  function Voter(options) {
+      let elem = options.elem;
+
+      let up = elem.querySelector('.up-voiter');
+      let down = elem.querySelector('.down-voiter');
+      let voit = elem.querySelector('.vote');
+
+      up.onmousedown = function(){return false};
+      up.onclick = function(){
+        let val = +voit.innerHTML;
+        val++;
+        voit.innerHTML = val;
+      }
+      down.onmousedown = function(){return false};
+      down.onclick = function(){
+        let val = +voit.innerHTML;
+        val--;
+        voit.innerHTML = val;
+      }
+      function setVote(c){
+        voit.innerHTML = c;
+      }
+      this.setVote = setVote;
+    }
+
+    let voter1 = new Voter({
+      elem: document.getElementById('voter')
+    });
+
+    voter1.setVote(1);
+// 4
+    function VoterProt (options){
+      let elem = this._elem = options.elem;
+      this._val = elem.querySelector('.vote');
+
+      elem.onmousedown = function(){return false};
+      elem.onclick = this.onclick.bind(this);
+      
+    }
+    VoterProt.prototype.setVote = function(c){
+      this._val.innerHTML = c; 
+    }
+    VoterProt.prototype.increment = function(){
+       this._val.innerHTML = +this._val.innerHTML + 1;
+    }
+    VoterProt.prototype.decrement = function(){
+        this._val.innerHTML = +this._val.innerHTML - 1;
+    }
+    VoterProt.prototype.onclick = function (event){
+      if(event.target.closest('.down-voiter')){
+        // this._val.innerHTML = +this._val.innerHTML -1;
+        this.decrement();
+      }else if(event.target.closest('.up-voiter')){
+        // this._val.innerHTML = +this._val.innerHTML +1;
+        this.increment();
+      }
+    }
+
+    let voter2 = new VoterProt({elem:document.getElementById('voterProto')});
+    voter2.setVote(3);
+// 5 
+    function StepVoter(options){
+      VoterProt.apply(this,arguments);
+      this._step = options.step;
+    }
+    StepVoter.prototype = Object.create(VoterProt.prototype);
+    StepVoter.prototype.constructor = StepVoter;
+
+    StepVoter.prototype.increment = function(){
+      this._val.innerHTML = +this._val.innerHTML + this._step;
+    }
+    StepVoter.prototype.decrement = function(){
+      this._val.innerHTML = +this._val.innerHTML - this._step;
+    }
+
+    
+let voter3 = new StepVoter({
+  elem: document.getElementById('voterProto2'),
+  step: 2 // увеличивать/уменьшать сразу на 2 пункта
+});
+console.log(voter3);
 </script>
 
 </html>

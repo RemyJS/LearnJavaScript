@@ -647,3 +647,26 @@ li {
   .warning {
     color:red;
   }
+  /* widget  */
+  .hour2 {
+    color: green
+  }
+
+  .min2 {
+    color: blue
+  }
+
+  .sec2 {
+    color: red
+  }
+  .voter {
+    font-family: 'DejaVu Sans Mono', 'Lucida Console', 'Menlo', 'Monaco', monospace;
+    font-size: 18px;
+  }
+
+  .up-voiter,
+  .down-voiter {
+    cursor: pointer;
+    color: blue;
+    font-weight: bold;
+  }

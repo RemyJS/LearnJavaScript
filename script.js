@@ -3066,3 +3066,251 @@ function validate(form) {
 			// console.log(form,flag);
 			return(flag);  
 		}
+		// widget 
+		function Clock2(options) {
+			let spans = options.elem.getElementsByTagName('span');
+			let hour = spans[0];
+			let min = spans[1];
+			let sec = spans[2];
+			let timerId;
+	
+			function start() {
+				timerId = setInterval(showTime, 1000);
+			}
+	
+			function stop() {
+				return clearInterval(timerId);
+			}
+			function showTime() {
+				let time = getDate();
+				hour.innerHTML = time.h;
+				min.innerHTML = time.m;
+				sec.innerHTML = time.s;
+			}
+			function getDate() {
+				let date = new Date;
+	
+				let h = date.getHours();
+				if (h < 10) {
+					h = "0" + h
+				};
+				let m = date.getMinutes();
+				if (m < 10) {
+					m = "0" + m
+				};
+				let s = date.getSeconds();
+				if (s < 10) {
+					s = "0" + s
+				};
+				let res = { h, m, s }
+				return res;
+			}
+			this.start = start;
+			this.stop = stop;
+		};
+	
+		let pageClock = new Clock2({
+			elem: document.getElementById('clock2')
+		});
+		// 2 
+		function SliderComponent(options) {
+			let slider = options.elem;
+			// let slider = elem.querySelector('.drag-slider')
+			let thumb = slider.querySelector('.thumb');
+	
+			thumb.onmousedown = function (event) {
+	
+				moveAt(event);
+				thumb.style.zIndex = 999;
+	
+				function moveAt(e) {
+					let left = e.pageX - slider.offsetLeft;
+	
+					if (left > slider.offsetWidth - 10) {
+						left = slider.offsetWidth - 10;
+					} else if (left < 0) {
+						left = 0;
+					}
+					thumb.style.left = left + 'px';
+					// console.log(thumb.style.left);
+				}
+				document.onmousemove = function (event) {
+					moveAt(event);
+				};
+	
+				document.onmouseup = function () {
+					document.onmousemove = null;
+					document.onmouseup = null;
+				};
+			}
+			// console.log(thumb.parentElement == options.elem);
+		}
+		let sliderComponent = new SliderComponent({ elem: slider2 });
+		// 3
+		function ListSelect(options) {
+	
+			let elem = options.elem;
+			let li = elem.querySelectorAll('li');
+			let length = li.length;
+			let lastClick;
+	
+			addCursor();
+			addButton();
+	
+			function addCursor() {
+				for (let i = 0; i < length; i++) {
+					li[i].style.cursor = 'pointer';
+				}
+			}
+	
+			function addButton() {
+				let but = document.createElement('button');
+				but.innerHTML = 'getSelected()';
+				but.onclick = getSelected;
+				elem.parentElement.appendChild(but);
+			}
+	
+			elem.onmousedown = function () {
+				return false;
+			}
+	
+			elem.onclick = function (event) {
+				let target = event.target.closest('li');
+				if(!target)return;
+				event.preventDefault();
+				// ctrl click 
+				if (event.ctrlKey || event.metaKey) {
+					target.classList.toggle('selected');
+					lastClick = target;
+					return;
+				}
+				// shift key 
+				if (event.shiftKey) {
+					let clickA, clickB, start, end = 0;
+					for (let i = 0; i < length; i++) {
+						if (li[i] == target) clickA = i;
+						if (li[i] == lastClick) clickB = i;
+					}
+	
+					if (!lastClick) {
+						clickB = clickA;//первый клик + shift выделяет элемент
+					}
+	
+					start = Math.min(clickA, clickB);
+					end = Math.max(clickA, clickB);
+	
+					for (start; start <= end; start++) {
+						li[start].classList.add('selected');
+					}
+					lastClick = target;
+					return false;
+				}
+				// single click
+				for (let i = 0; i < length; i++) {
+					li[i].classList.remove('selected');
+				}
+	
+				target.classList.add('selected');
+				lastClick = target;
+				return
+			}
+	
+			function getSelected() {
+				let selected = elem.querySelectorAll('.selected');
+				let len = selected.length;
+				let arr = [];
+				for (let i = 0; i < len; i++) {
+					arr[i] = selected[i].innerText;
+				}
+				if (arr.length == 0) {
+					alert('Ничего не выбрано')
+				} else {
+					alert(arr);
+				}
+				return arr;
+			}
+	
+			this.getSelected = getSelected;
+		};
+		let listSelect1 = new ListSelect({ elem: document.getElementById('vinniUlComponent') })
+		// 4
+		function Voter(options) {
+				let elem = options.elem;
+	
+				let up = elem.querySelector('.up-voiter');
+				let down = elem.querySelector('.down-voiter');
+				let voit = elem.querySelector('.vote');
+	
+				up.onmousedown = function(){return false};
+				up.onclick = function(){
+					let val = +voit.innerHTML;
+					val++;
+					voit.innerHTML = val;
+				}
+				down.onmousedown = function(){return false};
+				down.onclick = function(){
+					let val = +voit.innerHTML;
+					val--;
+					voit.innerHTML = val;
+				}
+				function setVote(c){
+					voit.innerHTML = c;
+				}
+				this.setVote = setVote;
+			}
+	
+			let voter1 = new Voter({
+				elem: document.getElementById('voter')
+			});
+	
+			voter1.setVote(1);
+	// 4
+			function VoterProt (options){
+				let elem = this._elem = options.elem;
+				this._val = elem.querySelector('.vote');
+	
+				elem.onmousedown = function(){return false};
+				elem.onclick = this.onclick.bind(this);
+				
+			}
+			VoterProt.prototype.setVote = function(c){
+				this._val.innerHTML = c; 
+			}
+			VoterProt.prototype.increment = function(){
+				 this._val.innerHTML = +this._val.innerHTML + 1;
+			}
+			VoterProt.prototype.decrement = function(){
+					this._val.innerHTML = +this._val.innerHTML - 1;
+			}
+			VoterProt.prototype.onclick = function (event){
+				if(event.target.closest('.down-voiter')){
+					// this._val.innerHTML = +this._val.innerHTML -1;
+					this.decrement();
+				}else if(event.target.closest('.up-voiter')){
+					// this._val.innerHTML = +this._val.innerHTML +1;
+					this.increment();
+				}
+			}
+	
+			let voter2 = new VoterProt({elem:document.getElementById('voterProto')});
+			voter2.setVote(3);
+	// 5 
+			function StepVoter(options){
+				VoterProt.apply(this,arguments);
+				this._step = options.step;
+			}
+			StepVoter.prototype = Object.create(VoterProt.prototype);
+			StepVoter.prototype.constructor = StepVoter;
+	
+			StepVoter.prototype.increment = function(){
+				this._val.innerHTML = +this._val.innerHTML + this._step;
+			}
+			StepVoter.prototype.decrement = function(){
+				this._val.innerHTML = +this._val.innerHTML - this._step;
+			}
+	
+			
+	let voter3 = new StepVoter({
+		elem: document.getElementById('voterProto2'),
+		step: 2 // увеличивать/уменьшать сразу на 2 пункта
+	});
