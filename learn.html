@@ -4,389 +4,202 @@
 <head>
   <meta charset="utf-8">
   <style>
-    .hour2 {
-      color: green
+    #grid-holder table {
+      border-collapse: collapse;
+      border: 6px double #554c4c;
     }
 
-    .min2 {
-      color: blue
+    #grid-holder tr:nth-child(even) {
+      background-color: #e5b9c1;
     }
 
-    .sec2 {
-      color: red
+    #grid-holder tr:nth-child(odd) {
+      background-color: #c69584;
     }
 
-    /* не копировать */
-    .drag-slider {
-      border-radius: 5px;
-      background: #E0E0E0;
-      background: -moz-linear-gradient(left top, #E0E0E0, #EEEEEE) repeat scroll 0 0 transparent;
-      background: -webkit-gradient(linear, left top, right bottom, from(#E0E0E0), to(#EEEEEE));
-      background: linear-gradient(left top, #E0E0E0, #EEEEEE);
-      width: 310px;
-      height: 15px;
-      margin: 5px;
+    #grid-holder td {
+      border: 1px solid black;
+      padding: 4px;
     }
 
-    .thumb {
-      width: 10px;
-      height: 25px;
-      border-radius: 3px;
-      position: relative;
-      left: 10px;
-      top: -5px;
-      background: blue;
-      cursor: pointer;
+    .menu-lodash ul {
+      display: none;
+      margin: 0;
     }
 
-    /* 3 not copy */
-    .selected {
-      background: #0f0;
-    }
-    /* 4 */
-    .voter {
-      font-family: 'DejaVu Sans Mono', 'Lucida Console', 'Menlo', 'Monaco', monospace;
-      font-size: 18px;
-    }
-
-    .up-voiter,
-    .down-voiter {
-      cursor: pointer;
-      color: blue;
+    .menu-lodash .title {
       font-weight: bold;
+      cursor: pointer;
+    }
+
+    .menu-lodash .title:before {
+      content: '▶';
+      padding-right: 6px;
+      color: green;
+    }
+
+    .menu-lodash.open ul {
+      display: block;
+    }
+
+    .menu-lodash.open .title:before {
+      content: '▼';
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"></script>
 </head>
 
 <body>
-  <div class="widgets-structure">
-    <div class="struckture1">
-      <h3><a href="https://learn.javascript.ru/widgets-structure#chasiki">Часики</a></h3>
+  <div class="template-lodash">
+    <div class="template-lodash1">
+      <h3><a href="https://learn.javascript.ru/template-lodash#shablon-dlya-tablitsy-s-polzovatelyami">Шаблон для
+          таблицы с пользователями</a></h3>
       <div>
-        <div id="clock2" class="clock2">
-          <span class="hour2">00</span>:<span class="min2">00</span>:<span class="sec2">00</span>
-        </div>
-        <input type="button" onclick="pageClock.start()" value="Старт">
-        <input type="button" onclick="pageClock.stop()" value="Стоп">
+        <div id="grid-holder"></div>
 
-        <input type="button"
-          onclick="alert('Часы должны останавливаться во время alert,\nи продолжать корректно работать после нажатия на ОК')"
-          value="alert для проверки корректного возобновления">
-      </div>
-    </div>
-    <div class="struckture2">
-      <h3><a href="https://learn.javascript.ru/widgets-structure#slayder-komponent">Слайдер компонент</a></h3>
-      <div>
-        <div id="slider2" class="drag-slider">
-          <div class="thumb">
+        <script type="text/template" id="grid-template">
 
-          </div>
-        </div>
+        <table>
+            <% usersTemplate.forEach(function(item){ %>
+          <tr>
+                <td><%-item.name%></td>
+                <td><%-item.age%></td>
+          </tr>
+          <% }); %>
+        </table>
+      </script>
       </div>
-    </div>
-    <div class="struckture3">
-      <h3><a href="https://learn.javascript.ru/widgets-structure#komponent-spisok-s-vydeleniem">Компонент: список с
-          выделением</a></h3>
-      <div>
-        Клик на элементе выделяет только его.
-        <br> Ctrl(Cmd)+Клик добавляет/убирает элемент из выделенных.
-        <br> Shift+Клик добавляет промежуток от последнего кликнутого к выделению.
-        <br> 
 
-        <ul id='vinniUlComponent'>
-          <li>Кристофер Робин</li>
-          <li>Винни-Пух</li>
-          <li>Ослик Иа</li>
-          <li>Мудрая Сова</li>
-          <li>Кролик. Просто кролик.</li>
-          <span>Неправильные пчелы, выбрать нельзя</span>
-          <li><span>Правильные пчелы</span></li>
-        </ul>
-      </div>
     </div>
-    <div class="struckture4">
-      <h3><a href="https://learn.javascript.ru/widgets-structure#golosovalka">Голосовалка</a></h3>
-      <div>
-        <div id="voter" class="voter">
-          <span class="down-voiter">—</span>
-          <span class="vote">0</span>
-          <span class="up-voiter">+</span>
-        </div>
-      </div>
+    <div class="template-lodash2">
+      <h3><a href="https://learn.javascript.ru/template-lodash#sdelayte-menyu-ssylkami">Сделайте меню ссылками</a></h3>
+      <div></div>
     </div>
-    <div class="struckture5">
-      <h3><a href="https://learn.javascript.ru/widgets-structure#golosovalka-v-prototipnom-stile-oop">Голосовалка в прототипном стиле</a></h3>
+    <div class="template-lodash3">
+      <h3><a href=""></a></h3>
       <div>
-        <div id="voterProto" class="voter">
-          <span class="down-voiter">—</span>
-          <span class="vote">0</span>
-          <span class="up-voiter">+</span>
-        </div>
-      </div>
-    </div>
-    <div class="struckture6">
-      <h3><a href="https://learn.javascript.ru/widgets-structure#dobavit-dvoynoy-golos-v-golosovalku">Добавить двойной голос в голосовалку</a></h3>
-      <div>
-        <div id="voterProto2" class="voter">
-          <span class="down-voiter">—</span>
-          <span class="vote">0</span>
-          <span class="up-voiter">+</span>
-        </div>
+        <script type="text/template" id="menu-template">
+            <div class="menu-lodash">
+              <span class="title"><%-title%></span>
+            </div>
+          </script>
+
+        <script type="text/template" id="menu-list-template">
+            <ul>
+                <%for (let key in items){ %>
+                  <%item = items[key]%>
+                  <li>
+                    <a href="#<%-key%>" onclick='alert("<%-key%>")'><%-item%></a>
+                  </li>
+                  <% }; %>
+            </ul>
+          </script>
       </div>
     </div>
   </div>
 </body>
 <script>
+  let usersTemplate = [{
+    name: "Вася",
+    age: 10
+  }, {
+    name: "Петя",
+    age: 15
+  }, {
+    name: "Женя",
+    age: 20
+  }, {
+    name: "Маша",
+    age: 25
+  }, {
+    name: "Даша",
+    age: 30
+  },];
+  let tmplTable = _.template(document.getElementById('grid-template').innerHTML);
 
-  // .. ваш код Clock
-  function Clock2(options) {
-    let spans = options.elem.getElementsByTagName('span');
-    let hour = spans[0];
-    let min = spans[1];
-    let sec = spans[2];
-    let timerId;
+  let createTable = tmplTable(usersTemplate);
 
-    function start() {
-      timerId = setInterval(showTime, 1000);
-    }
-
-    function stop() {
-      return clearInterval(timerId);
-    }
-    function showTime() {
-      let time = getDate();
-      hour.innerHTML = time.h;
-      min.innerHTML = time.m;
-      sec.innerHTML = time.s;
-    }
-    function getDate() {
-      let date = new Date;
-
-      let h = date.getHours();
-      if (h < 10) {
-        h = "0" + h
-      };
-      let m = date.getMinutes();
-      if (m < 10) {
-        m = "0" + m
-      };
-      let s = date.getSeconds();
-      if (s < 10) {
-        s = "0" + s
-      };
-      let res = { h, m, s }
-      return res;
-    }
-    this.start = start;
-    this.stop = stop;
-  };
-
-  let pageClock = new Clock2({
-    elem: document.getElementById('clock2')
-  });
-  // 2 
-  function SliderComponent(options) {
-    let slider = options.elem;
-    // let slider = elem.querySelector('.drag-slider')
-    let thumb = slider.querySelector('.thumb');
-
-    thumb.onmousedown = function (event) {
-
-      moveAt(event);
-      thumb.style.zIndex = 999;
-
-      function moveAt(e) {
-        let left = e.pageX - slider.offsetLeft;
-
-        if (left > slider.offsetWidth - 10) {
-          left = slider.offsetWidth - 10;
-        } else if (left < 0) {
-          left = 0;
-        }
-        thumb.style.left = left + 'px';
-        // console.log(thumb.style.left);
-      }
-      document.onmousemove = function (event) {
-        moveAt(event);
-      };
-
-      document.onmouseup = function () {
-        document.onmousemove = null;
-        document.onmouseup = null;
-      };
-    }
-    // console.log(thumb.parentElement == options.elem);
-  }
-  let sliderComponent = new SliderComponent({ elem: slider2 });
+  document.getElementById('grid-holder').innerHTML = createTable;
   // 3
-  function ListSelect(options) {
 
-    let elem = options.elem;
-    let li = elem.querySelectorAll('li');
-    let length = li.length;
-    let lastClick;
+  function MenuTmpl(options) {
+    var elem;
 
-    addCursor();
-    addButton();
-
-    function addCursor() {
-      for (let i = 0; i < length; i++) {
-        li[i].style.cursor = 'pointer';
-      }
+    function getElem() {
+      if (!elem) render();
+      return elem;
     }
 
-    function addButton() {
-      let but = document.createElement('button');
-      but.innerHTML = 'getSelected()';
-      but.onclick = getSelected;
-      elem.parentElement.appendChild(but);
-    }
+    function render() {
+      var html = options.template({
+        title: options.title
+      });
 
-    elem.onmousedown = function () {
-      return false;
-    }
+      elem = document.createElement('div');
+      elem.innerHTML = html;
+      elem = elem.firstElementChild;
 
-    elem.onclick = function (event) {
-      let target = event.target.closest('li');
-      if(!target)return;
-      event.preventDefault();
-      // ctrl click 
-      if (event.ctrlKey || event.metaKey) {
-        target.classList.toggle('selected');
-        lastClick = target;
-        return;
-      }
-      // shift key 
-      if (event.shiftKey) {
-        let clickA, clickB, start, end = 0;
-        for (let i = 0; i < length; i++) {
-          if (li[i] == target) clickA = i;
-          if (li[i] == lastClick) clickB = i;
-        }
-
-        if (!lastClick) {
-          clickB = clickA;//первый клик + shift выделяет элемент
-        }
-
-        start = Math.min(clickA, clickB);
-        end = Math.max(clickA, clickB);
-
-        for (start; start <= end; start++) {
-          li[start].classList.add('selected');
-        }
-        lastClick = target;
+      elem.onmousedown = function () {
         return false;
       }
-      // single click
-      for (let i = 0; i < length; i++) {
-        li[i].classList.remove('selected');
-      }
 
-      target.classList.add('selected');
-      lastClick = target;
-      return
-    }
-
-    function getSelected() {
-      let selected = elem.querySelectorAll('.selected');
-      let len = selected.length;
-      let arr = [];
-      for (let i = 0; i < len; i++) {
-        arr[i] = selected[i].innerText;
-      }
-      if (arr.length == 0) {
-        alert('Ничего не выбрано')
-      } else {
-        alert(arr);
-      }
-      return arr;
-    }
-
-    this.getSelected = getSelected;
-  };
-  let listSelect1 = new ListSelect({ elem: document.getElementById('vinniUlComponent') })
-  // 4
-  function Voter(options) {
-      let elem = options.elem;
-
-      let up = elem.querySelector('.up-voiter');
-      let down = elem.querySelector('.down-voiter');
-      let voit = elem.querySelector('.vote');
-
-      up.onmousedown = function(){return false};
-      up.onclick = function(){
-        let val = +voit.innerHTML;
-        val++;
-        voit.innerHTML = val;
-      }
-      down.onmousedown = function(){return false};
-      down.onclick = function(){
-        let val = +voit.innerHTML;
-        val--;
-        voit.innerHTML = val;
-      }
-      function setVote(c){
-        voit.innerHTML = c;
-      }
-      this.setVote = setVote;
-    }
-
-    let voter1 = new Voter({
-      elem: document.getElementById('voter')
-    });
-
-    voter1.setVote(1);
-// 4
-    function VoterProt (options){
-      let elem = this._elem = options.elem;
-      this._val = elem.querySelector('.vote');
-
-      elem.onmousedown = function(){return false};
-      elem.onclick = this.onclick.bind(this);
-      
-    }
-    VoterProt.prototype.setVote = function(c){
-      this._val.innerHTML = c; 
-    }
-    VoterProt.prototype.increment = function(){
-       this._val.innerHTML = +this._val.innerHTML + 1;
-    }
-    VoterProt.prototype.decrement = function(){
-        this._val.innerHTML = +this._val.innerHTML - 1;
-    }
-    VoterProt.prototype.onclick = function (event){
-      if(event.target.closest('.down-voiter')){
-        // this._val.innerHTML = +this._val.innerHTML -1;
-        this.decrement();
-      }else if(event.target.closest('.up-voiter')){
-        // this._val.innerHTML = +this._val.innerHTML +1;
-        this.increment();
+      elem.onclick = function (event) {
+        if (event.target.closest('.title')) {
+          toggle();
+        }
       }
     }
 
-    let voter2 = new VoterProt({elem:document.getElementById('voterProto')});
-    voter2.setVote(3);
-// 5 
-    function StepVoter(options){
-      VoterProt.apply(this,arguments);
-      this._step = options.step;
-    }
-    StepVoter.prototype = Object.create(VoterProt.prototype);
-    StepVoter.prototype.constructor = StepVoter;
+    function renderItems() {
+      if (elem.querySelector('ul')) return;
 
-    StepVoter.prototype.increment = function(){
-      this._val.innerHTML = +this._val.innerHTML + this._step;
-    }
-    StepVoter.prototype.decrement = function(){
-      this._val.innerHTML = +this._val.innerHTML - this._step;
+      var listHtml = options.listTemplate({
+        items: options.items
+      });
+      elem.insertAdjacentHTML("beforeEnd", listHtml);
     }
 
-    
-let voter3 = new StepVoter({
-  elem: document.getElementById('voterProto2'),
-  step: 2 // увеличивать/уменьшать сразу на 2 пункта
-});
-console.log(voter3);
+    function open() {
+      renderItems();
+      elem.classList.add('open');
+    };
+
+    function close() {
+      elem.classList.remove('open');
+    };
+
+    function toggle() {
+      if (elem.classList.contains('open')) close();
+      else open();
+    };
+
+    this.getElem = getElem;
+    this.toggle = toggle;
+    this.close = close;
+    this.open = open;
+  }
+  let menuTmpl = new MenuTmpl({
+    title: "Сладости",
+    template: _.template(document.getElementById('menu-template').innerHTML.trim()),
+    listTemplate: _.template(document.getElementById('menu-list-template').innerHTML.trim()),
+    items: {
+    "donut": "Пончик",
+    "cake": "Пирожное",
+    "chocolate": "Шоколадка"
+  }
+  });
+  let items = {
+    "donut": "Пончик",
+    "cake": "Пирожное",
+    "chocolate": "Шоколадка"
+  }
+  for (const key in items) {
+    if (items.hasOwnProperty(key)) {
+      const element = items[key];
+      console.log(key,element);
+    }
+  }
+  document.body.appendChild(menuTmpl.getElem());
 </script>
 
 </html>

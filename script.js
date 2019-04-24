@@ -3314,3 +3314,100 @@ function validate(form) {
 		elem: document.getElementById('voterProto2'),
 		step: 2 // увеличивать/уменьшать сразу на 2 пункта
 	});
+	// lodash 
+	let usersTemplate = [{
+    name: "Вася",
+    age: 10
+  }, {
+    name: "Петя",
+    age: 15
+  }, {
+    name: "Женя",
+    age: 20
+  }, {
+    name: "Маша",
+    age: 25
+  }, {
+    name: "Даша",
+    age: 30
+  },];
+  let tmplTable = _.template(document.getElementById('grid-template').innerHTML);
+
+  let createTable = tmplTable(usersTemplate);
+
+  document.getElementById('grid-holder').innerHTML = createTable;
+  // 3
+
+  function MenuTmpl(options) {
+    var elem;
+
+    function getElem() {
+      if (!elem) render();
+      return elem;
+    }
+
+    function render() {
+      var html = options.template({
+        title: options.title
+      });
+
+      elem = document.createElement('div');
+      elem.innerHTML = html;
+      elem = elem.firstElementChild;
+
+      elem.onmousedown = function () {
+        return false;
+      }
+
+      elem.onclick = function (event) {
+        if (event.target.closest('.title')) {
+          toggle();
+        }
+      }
+    }
+
+    function renderItems() {
+      if (elem.querySelector('ul')) return;
+
+      var listHtml = options.listTemplate({
+        items: options.items
+      });
+      elem.insertAdjacentHTML("beforeEnd", listHtml);
+    }
+
+    function open() {
+      renderItems();
+      elem.classList.add('open');
+    };
+
+    function close() {
+      elem.classList.remove('open');
+    };
+
+    function toggle() {
+      if (elem.classList.contains('open')) close();
+      else open();
+    };
+
+    this.getElem = getElem;
+    this.toggle = toggle;
+    this.close = close;
+    this.open = open;
+  }
+  let menuTmpl = new MenuTmpl({
+    title: "Сладости",
+    template: _.template(document.getElementById('menu-template').innerHTML.trim()),
+    listTemplate: _.template(document.getElementById('menu-list-template').innerHTML.trim()),
+    items: {
+    "donut": "Пончик",
+    "cake": "Пирожное",
+    "chocolate": "Шоколадка"
+  }
+  });
+  let items = {
+    "donut": "Пончик",
+    "cake": "Пирожное",
+    "chocolate": "Шоколадка"
+  }
+
+	lodash.lastElementChild.appendChild(menuTmpl.getElem());

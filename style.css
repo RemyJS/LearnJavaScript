@@ -670,3 +670,44 @@ li {
     color: blue;
     font-weight: bold;
   }
+  /* lodash */
+  #grid-holder table {
+    border-collapse: collapse;
+    border: 6px double #554c4c;
+  }
+
+  #grid-holder tr:nth-child(even) {
+    background-color: #e5b9c1;
+  }
+
+  #grid-holder tr:nth-child(odd) {
+    background-color: #c69584;
+  }
+
+  #grid-holder td {
+    border: 1px solid black;
+    padding: 4px;
+  }
+  .menu-lodash ul {
+    display: none;
+    margin: 0;
+  }
+
+  .menu-lodash .title {
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .menu-lodash .title:before {
+    content: '▶';
+    padding-right: 6px;
+    color: green;
+  }
+
+  .menu-lodash.open ul {
+    display: block;
+  }
+
+  .menu-lodash.open .title:before {
+    content: '▼';
+  }
