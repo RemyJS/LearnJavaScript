@@ -4,202 +4,338 @@
 <head>
   <meta charset="utf-8">
   <style>
-    #grid-holder table {
-      border-collapse: collapse;
-      border: 6px double #554c4c;
+    .voter {
+      font-family: 'DejaVu Sans Mono', 'Lucida Console', 'Menlo', 'Monaco', monospace;
+      font-size: 18px;
     }
 
-    #grid-holder tr:nth-child(even) {
-      background-color: #e5b9c1;
-    }
-
-    #grid-holder tr:nth-child(odd) {
-      background-color: #c69584;
-    }
-
-    #grid-holder td {
-      border: 1px solid black;
-      padding: 4px;
-    }
-
-    .menu-lodash ul {
-      display: none;
-      margin: 0;
-    }
-
-    .menu-lodash .title {
+    .up-voiter,
+    .down-voiter {
+      cursor: pointer;
+      color: blue;
       font-weight: bold;
+    }
+
+    .selected {
+      background: #0f0;
+    }
+
+    .custom-events2 li {
       cursor: pointer;
     }
 
-    .menu-lodash .title:before {
-      content: '▶';
-      padding-right: 6px;
-      color: green;
+    /*3  */
+    .customselect {
+      width: 200px;
+      font-size: 14px;
+      display: inline-block;
     }
 
-    .menu-lodash.open ul {
+    .customselect .title {
+      height: 20px;
+      border: 2px groove #ADD8E6;
+      background: white;
+      width: 200px;
+      box-sizing: border-box;
+      padding: 2px;
+      line-height: 14px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .customselect li {
+      padding: 2px;
+      cursor: pointer;
+    }
+
+    .customselect li:nth-child(even) {
+      background-color: #f0f8ff;
+    }
+
+    .customselect li:hover {
+      background-color: #7fffd4;
+    }
+
+    .customselect ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: none;
+      position: absolute;
+      z-index: 1000;
+      background: white;
+      width: 200px;
+      border-bottom: 1px solid #add8e6;
+      border-left: 1px solid #add8e6;
+      border-right: 1px solid #add8e6;
+      box-sizing: border-box;
+    }
+
+    .customselect.open ul {
       display: block;
     }
-
-    .menu-lodash.open .title:before {
-      content: '▼';
-    }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"></script>
+
 </head>
 
 <body>
-  <div class="template-lodash">
-    <div class="template-lodash1">
-      <h3><a href="https://learn.javascript.ru/template-lodash#shablon-dlya-tablitsy-s-polzovatelyami">Шаблон для
-          таблицы с пользователями</a></h3>
+  <div class="custom-events">
+    <div class="custom-events1">
+      <h3><a href="https://learn.javascript.ru/custom-events#golosovalka-na-sobytiyah">Голосовалка "на событиях"</a>
+      </h3>
       <div>
-        <div id="grid-holder"></div>
-
-        <script type="text/template" id="grid-template">
-
-        <table>
-            <% usersTemplate.forEach(function(item){ %>
-          <tr>
-                <td><%-item.name%></td>
-                <td><%-item.age%></td>
-          </tr>
-          <% }); %>
-        </table>
-      </script>
+        <div id="voter2" class="voter">
+          <span class="down-voiter">—</span>
+          <span class="vote">0</span>
+          <span class="up-voiter">+</span>
+        </div>
       </div>
-
     </div>
-    <div class="template-lodash2">
-      <h3><a href="https://learn.javascript.ru/template-lodash#sdelayte-menyu-ssylkami">Сделайте меню ссылками</a></h3>
-      <div></div>
-    </div>
-    <div class="template-lodash3">
-      <h3><a href=""></a></h3>
+    <div class="custom-events2">
+      <h3><a href="https://learn.javascript.ru/custom-events#spisok-s-vydeleniem-i-sobytiem">Список с выделением и
+          событием</a></h3>
       <div>
-        <script type="text/template" id="menu-template">
-            <div class="menu-lodash">
-              <span class="title"><%-title%></span>
-            </div>
-          </script>
+        Клик на элементе выделяет только его.
+        <br> Ctrl(Cmd)+Клик добавляет/убирает элемент из выделенных.
+        <br> Shift+Клик добавляет промежуток от последнего кликнутого к выделению.
+        <br>
 
-        <script type="text/template" id="menu-list-template">
-            <ul>
-                <%for (let key in items){ %>
-                  <%item = items[key]%>
-                  <li>
-                    <a href="#<%-key%>" onclick='alert("<%-key%>")'><%-item%></a>
-                  </li>
-                  <% }; %>
-            </ul>
-          </script>
+        <ul>
+          <li>Кристофер Робин</li>
+          <li>Винни-Пух</li>
+          <li>Ослик Иа</li>
+          <li>Мудрая Сова</li>
+          <li>Кролик. Просто кролик.</li>
+          <span>Неправильные пчелы, выбрать нельзя</span>
+          <li><span>Правильные пчелы</span></li>
+        </ul>
       </div>
     </div>
   </div>
+  <div class="custom-events3">
+    <h3><a href="https://learn.javascript.ru/custom-events#svoy-selekt">Свой селект</a></h3>
+    <div>
+      <div>Последний результат: <span id="selectResult">...</span></div>
+
+      <div id="animal-select" class="customselect">
+        <button class="title">Выберите</button>
+        <ul>
+          <!-- значение хранится в свойстве data-value -->
+          <li data-value="bird">Птицы</li>
+          <li data-value="fish">Рыбы</li>
+          <li data-value="animal">Звери</li>
+          <li data-value="dino">Динозавры</li>
+          <li data-value="simplest">Одноклеточные</li>
+        </ul>
+      </div>
+
+      <div id="food-select" class="customselect">
+        <button class="title">Выберите</button>
+        <ul>
+          <li data-value="carnivore">Плотоядные</li>
+          <li data-value="herbivore">Травоядные</li>
+          <li data-value="omnivore">Всеядные</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="custom-events4">
+    <h3><a href=""></a></h3>
+    <div></div>
+  </div>
+  </div>
 </body>
+
 <script>
-  let usersTemplate = [{
-    name: "Вася",
-    age: 10
-  }, {
-    name: "Петя",
-    age: 15
-  }, {
-    name: "Женя",
-    age: 20
-  }, {
-    name: "Маша",
-    age: 25
-  }, {
-    name: "Даша",
-    age: 30
-  },];
-  let tmplTable = _.template(document.getElementById('grid-template').innerHTML);
+  function Voter2(options) {
+    let elem = options.elem;
 
-  let createTable = tmplTable(usersTemplate);
+    let up = elem.querySelector('.up-voiter');
+    let down = elem.querySelector('.down-voiter');
+    let voit = elem.querySelector('.vote');
 
-  document.getElementById('grid-holder').innerHTML = createTable;
-  // 3
+    up.onmousedown = function () { return false };
+    up.onclick = function () {
+      let val = +voit.innerHTML;
+      val++;
+      voit.innerHTML = val;
+      change()
+    }
+    down.onmousedown = function () { return false };
+    down.onclick = function () {
+      let val = +voit.innerHTML;
+      val--;
+      voit.innerHTML = val;
+      change()
+    }
+    function setVote(c) {
+      voit.innerHTML = c;
+    }
+    this.setVote = setVote;
+    // добавленное 
+    function change() {
+      let widgetEvent = new CustomEvent('change', {
+        bubbles: true,
+        detail: voit.innerHTML
+      });
+      elem.dispatchEvent(widgetEvent);
+    }
+  }
 
-  function MenuTmpl(options) {
-    var elem;
+  let voter2 = new Voter2({
+    elem: document.getElementById('voter2')
+  });
 
-    function getElem() {
-      if (!elem) render();
-      return elem;
+  voter2.setVote(5);
+
+  document.getElementById('voter2').addEventListener('change', function (e) {
+    alert(e.detail); // новое значение голоса
+  });
+  // 2
+  function ListSelect2(options) {
+
+    let elem = options.elem;
+    let li = elem.querySelectorAll('li');
+    let length = li.length;
+    let lastClick;
+
+    function addCursor() {
+      for (let i = 0; i < length; i++) {
+        li[i].style.cursor = 'pointer';
+      }
     }
 
-    function render() {
-      var html = options.template({
-        title: options.title
-      });
+    elem.onmousedown = function () {
+      return false;
+    }
 
-      elem = document.createElement('div');
-      elem.innerHTML = html;
-      elem = elem.firstElementChild;
+    elem.onclick = function (event) {
+      let target = event.target.closest('li');
+      if (!target) return;
 
-      elem.onmousedown = function () {
+      event.preventDefault();
+      // ctrl click 
+      if (event.ctrlKey || event.metaKey) {
+        target.classList.toggle('selected');
+        lastClick = target;
+        select();
+        return;
+      }
+      // shift key 
+      if (event.shiftKey) {
+        let clickA, clickB, start, end = 0;
+        for (let i = 0; i < length; i++) {
+          if (li[i] == target) clickA = i;
+          if (li[i] == lastClick) clickB = i;
+        }
+
+        if (!lastClick) {
+          clickB = clickA;//первый клик + shift выделяет элемент
+        }
+
+        start = Math.min(clickA, clickB);
+        end = Math.max(clickA, clickB);
+
+        for (start; start <= end; start++) {
+          li[start].classList.add('selected');
+        }
+        lastClick = target;
+        select();
         return false;
       }
+      // single click
+      for (let i = 0; i < length; i++) {
+        li[i].classList.remove('selected');
+      }
 
-      elem.onclick = function (event) {
-        if (event.target.closest('.title')) {
-          toggle();
-        }
+      target.classList.add('selected');
+      lastClick = target;
+      select();
+      return
+    }
+
+    function getSelected() {
+      let selected = elem.querySelectorAll('.selected');
+      let len = selected.length;
+      let arr = [];
+      for (let i = 0; i < len; i++) {
+        arr[i] = selected[i].innerText;
+      }
+      if (arr.length == 0) {
+        return 'Ничего не выбрано';
+      } else {
+        return arr;
+      }
+
+    }
+
+    function select() {
+      let selectEvent = new CustomEvent('selected', {
+        bubbles: true,
+        detail: getSelected()
+      });
+      elem.dispatchEvent(selectEvent)
+    }
+
+  };
+  let listSelect2 = new ListSelect2({ elem: document.querySelector('.custom-events2 ul') });
+
+  document.querySelector('.custom-events2 ul').addEventListener('selected', function (e) { alert(e.detail) });
+
+  // 3 
+  function CustomSelect(options) {
+    let elem = options.elem;
+    let title = elem.querySelector('.title');
+
+    elem.onmousedown = function () { return false };
+
+    elem.onclick = function (event) {
+
+      let showList = event.target.closest('.title');
+      if (showList) elem.classList.toggle('open');
+
+      let li = event.target.closest('li');
+      if (li) {
+        title.innerHTML = li.innerHTML;
+        elem.classList.toggle('open');
+        select(li.dataset);
+      }
+      
+      document.addEventListener('click', documentClick);
+    }
+    // клик вне списка 
+    function documentClick(event) {
+      if (!event.target.closest('.customselect')) {
+        console.log('close');
+        close();
       }
     }
-
-    function renderItems() {
-      if (elem.querySelector('ul')) return;
-
-      var listHtml = options.listTemplate({
-        items: options.items
-      });
-      elem.insertAdjacentHTML("beforeEnd", listHtml);
-    }
-
-    function open() {
-      renderItems();
-      elem.classList.add('open');
-    };
-
     function close() {
+      console.log(elem);
       elem.classList.remove('open');
-    };
+      document.removeEventListener('click', documentClick)
+    }
 
-    function toggle() {
-      if (elem.classList.contains('open')) close();
-      else open();
-    };
-
-    this.getElem = getElem;
-    this.toggle = toggle;
-    this.close = close;
-    this.open = open;
-  }
-  let menuTmpl = new MenuTmpl({
-    title: "Сладости",
-    template: _.template(document.getElementById('menu-template').innerHTML.trim()),
-    listTemplate: _.template(document.getElementById('menu-list-template').innerHTML.trim()),
-    items: {
-    "donut": "Пончик",
-    "cake": "Пирожное",
-    "chocolate": "Шоколадка"
-  }
-  });
-  let items = {
-    "donut": "Пончик",
-    "cake": "Пирожное",
-    "chocolate": "Шоколадка"
-  }
-  for (const key in items) {
-    if (items.hasOwnProperty(key)) {
-      const element = items[key];
-      console.log(key,element);
+    function select(dataValue) {
+      let selectEvent = new CustomEvent('custom-select', {
+        bubbles: true,
+        detail: dataValue
+      });
+      elem.dispatchEvent(selectEvent)
     }
   }
-  document.body.appendChild(menuTmpl.getElem());
+
+  let animalSelect = new CustomSelect({
+    elem: document.getElementById('animal-select')
+  });
+
+  let foodSelect = new CustomSelect({
+    elem: document.getElementById('food-select')
+  });
+
+  document.addEventListener('custom-select', function (event) {
+    document.getElementById('selectResult').innerHTML = event.detail.value;
+  });
 </script>
 
 </html>
