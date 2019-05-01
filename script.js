@@ -3310,7 +3310,7 @@ function validate(form) {
 			}
 	
 			
-	let voter3 = new StepVoter({
+	let voter4 = new StepVoter({
 		elem: document.getElementById('voterProto2'),
 		step: 2 // увеличивать/уменьшать сразу на 2 пункта
 	});
@@ -3411,3 +3411,265 @@ function validate(form) {
   }
 
 	lodash.lastElementChild.appendChild(menuTmpl.getElem());
+	// custmov events
+	function Voter3(options) {
+    let elem = options.elem;
+
+    let up = elem.querySelector('.up-voiter');
+    let down = elem.querySelector('.down-voiter');
+    let voit = elem.querySelector('.vote');
+
+    up.onmousedown = function () { return false };
+    up.onclick = function () {
+      let val = +voit.innerHTML;
+      val++;
+      voit.innerHTML = val;
+      change()
+    }
+    down.onmousedown = function () { return false };
+    down.onclick = function () {
+      let val = +voit.innerHTML;
+      val--;
+      voit.innerHTML = val;
+      change()
+    }
+    function setVote(c) {
+      voit.innerHTML = c;
+    }
+    this.setVote = setVote;
+    // добавленное 
+    function change() {
+      let widgetEvent = new CustomEvent('change', {
+        bubbles: true,
+        detail: voit.innerHTML
+      });
+      elem.dispatchEvent(widgetEvent);
+    }
+  }
+
+  let voter3 = new Voter3({
+    elem: document.getElementById('voter2')
+  });
+
+  voter3.setVote(5);
+
+  document.getElementById('voter2').addEventListener('change', function (e) {
+    alert(e.detail); // новое значение голоса
+  });
+  // 2
+  function ListSelect2(options) {
+
+    let elem = options.elem;
+    let li = elem.querySelectorAll('li');
+    let length = li.length;
+    let lastClick;
+
+    function addCursor() {
+      for (let i = 0; i < length; i++) {
+        li[i].style.cursor = 'pointer';
+      }
+    }
+
+    elem.onmousedown = function () {
+      return false;
+    }
+
+    elem.onclick = function (event) {
+      let target = event.target.closest('li');
+      if (!target) return;
+
+      event.preventDefault();
+      // ctrl click 
+      if (event.ctrlKey || event.metaKey) {
+        target.classList.toggle('selected');
+        lastClick = target;
+        select();
+        return;
+      }
+      // shift key 
+      if (event.shiftKey) {
+        let clickA, clickB, start, end = 0;
+        for (let i = 0; i < length; i++) {
+          if (li[i] == target) clickA = i;
+          if (li[i] == lastClick) clickB = i;
+        }
+
+        if (!lastClick) {
+          clickB = clickA;//первый клик + shift выделяет элемент
+        }
+
+        start = Math.min(clickA, clickB);
+        end = Math.max(clickA, clickB);
+
+        for (start; start <= end; start++) {
+          li[start].classList.add('selected');
+        }
+        lastClick = target;
+        select();
+        return false;
+      }
+      // single click
+      for (let i = 0; i < length; i++) {
+        li[i].classList.remove('selected');
+      }
+
+      target.classList.add('selected');
+      lastClick = target;
+      select();
+      return
+    }
+
+    function getSelected() {
+      let selected = elem.querySelectorAll('.selected');
+      let len = selected.length;
+      let arr = [];
+      for (let i = 0; i < len; i++) {
+        arr[i] = selected[i].innerText;
+      }
+      if (arr.length == 0) {
+        return 'Ничего не выбрано';
+      } else {
+        return arr;
+      }
+
+    }
+
+    function select() {
+      let selectEvent = new CustomEvent('selected', {
+        bubbles: true,
+        detail: getSelected()
+      });
+      elem.dispatchEvent(selectEvent)
+    }
+
+  };
+  let listSelect2 = new ListSelect2({ elem: document.querySelector('.custom-events2 ul') });
+
+  document.querySelector('.custom-events2 ul').addEventListener('selected', function (e) { alert(e.detail) });
+
+  // 3 
+  function CustomSelect(options) {
+    let elem = options.elem;
+    let title = elem.querySelector('.title');
+
+    elem.onmousedown = function () { return false };
+
+    elem.onclick = function (event) {
+
+      let showList = event.target.closest('.title');
+      if (showList) elem.classList.toggle('open');
+
+      let li = event.target.closest('li');
+      if (li) {
+        title.innerHTML = li.innerHTML;
+        elem.classList.toggle('open');
+        select(li.dataset);
+      }
+      
+      document.addEventListener('click', documentClick);
+    }
+    // клик вне списка 
+    function documentClick(event) {
+      if (!event.target.closest('.customselect')) {
+        console.log('close');
+        close();
+      }
+    }
+    function close() {
+      console.log(elem);
+      elem.classList.remove('open');
+      document.removeEventListener('click', documentClick)
+    }
+
+    function select(dataValue) {
+      let selectEvent = new CustomEvent('custom-select', {
+        bubbles: true,
+        detail: dataValue
+      });
+      elem.dispatchEvent(selectEvent)
+    }
+  }
+
+  let animalSelect = new CustomSelect({
+    elem: document.getElementById('animal-select')
+  });
+
+  let foodSelect = new CustomSelect({
+    elem: document.getElementById('food-select')
+  });
+
+  document.addEventListener('custom-select', function (event) {
+    document.getElementById('selectResult').innerHTML = event.detail.value;
+  });
+  // 4 
+  	// 2 
+		function SliderEvents(options) {
+      let slider = options.elem;
+      let thumb = slider.querySelector('.thumb');
+
+      let max = options.max||100;
+      let slipped = 0;
+
+      let width = slider.offsetWidth - thumb.offsetWidth;
+      // console.log(width);
+			thumb.onmousedown = function (event) {
+	
+				moveAt(event);
+				// thumb.style.zIndex = 999;
+				function moveAt(e) {
+					let left = e.pageX - slider.offsetLeft;
+	
+					if (left > width) {
+						left = width;
+					} else if (left < 0) {
+						left = 0;
+					}
+          thumb.style.left = left + 'px';
+          slipped = Math.round(left * max /width);
+          // console.log(slipped);
+          slide();
+					// console.log(thumb.style.left);
+				}
+				document.onmousemove = function (event) {
+					moveAt(event);
+				};
+	
+				document.onmouseup = function () {
+					document.onmousemove = null;
+          document.onmouseup = null;
+          change();
+        };
+        return false;
+      }
+      // добавлено 
+      function slide(){
+        let slideEvent = new CustomEvent("slide",{
+          bubbles:true,
+          detail: slipped
+        });
+        slider.dispatchEvent(slideEvent);
+      }
+      function change(){
+        let changeEvent = new CustomEvent("change",{
+          bubbles:true,
+          detail: slipped
+        });
+        slider.dispatchEvent(changeEvent);
+      }
+      function setValue(val){
+        let x = Math.round(width*val/max);
+        thumb.style.left = x + 'px';
+      }
+      this.setValue = setValue;
+    }
+    
+    let sliderEvents = new SliderEvents({ elem: slider3,max: 100 });
+    
+    // let thumb3 = document.querySelector('#slider3 .thumb')
+    slider3.addEventListener("slide",function(event){
+      document.getElementById('thumbSlide').innerHTML = event.detail;
+    });
+
+    slider3.addEventListener("change",function(event){
+      document.getElementById('thumbChange').innerHTML = event.detail;
+    })

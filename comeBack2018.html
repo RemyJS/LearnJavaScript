@@ -326,7 +326,8 @@
     </div>
 
     <div class="mouse-clicks-tasks">
-      <h3><a href="https://learn.javascript.ru/mouse-clicks#derevo-proverka-klika-na-zagolovke">Дерево: проверка клика на заголовке</a></h3>
+      <h3><a href="https://learn.javascript.ru/mouse-clicks#derevo-proverka-klika-na-zagolovke">Дерево: проверка клика
+          на заголовке</a></h3>
       <ul class="tree2" id="tree2">
         <li>Животные
           <ul>
@@ -392,7 +393,7 @@
     </div>
     <div class="mouse-move-tasks">
       <h3><a href="https://learn.javascript.ru/task/hoverintent">Подсказка при замедлении над элементом
-      </a></h3>
+        </a></h3>
       <div id="clockH" class="clock-hoverintent">
         <span class="hours">12</span> :
         <span class="minutes">30</span> :
@@ -405,58 +406,60 @@
   </div>
   <!-- drag'n'drop -->
   <div class="gragndrop">
-      <div class="gragndrop-tasks" id="sliderField">
-         <h3><a href="https://learn.javascript.ru/task/slider">Слайдер</a></h3>
-         <div id="dragSlider" class="drag-slider">
-            <div class="thumb" id="thumb"></div>
-         </div>
+    <div class="gragndrop-tasks" id="sliderField">
+      <h3><a href="https://learn.javascript.ru/task/slider">Слайдер</a></h3>
+      <div id="dragSlider" class="drag-slider">
+        <div class="thumb" id="thumb"></div>
+      </div>
+    </div>
+
+    <div class="gragndrop-task2" id="sheroes">
+      <h3><a href="https://learn.javascript.ru/task/drag-heroes">Расставить супергероев по полю</a></h3>
+      <h2>Расставьте супергероев по полю.</h2>
+
+      <p>Супергерои и мяч -- это элементы с классом "draggable". Сделайте так, чтобы их можно было переносить.</p>
+
+      <p>Важно: если супергероя подносят к низу или верху страницы, она должна автоматически прокручиваться. Если
+        страница помещается на вашем экране целиком и не имеет вертикальной прокрутки -- сделайте окно браузера
+        меньше,
+        чтобы протестировать эту возможность.</p>
+
+      <p>Да, и ещё: супергерои ни при каких условиях не должны попасть за край экрана.</p>
+
+      <div id="fieldHeroes">
+
       </div>
 
-      <div class="gragndrop-task2" id="sheroes">
-         <h3><a href="https://learn.javascript.ru/task/drag-heroes">Расставить супергероев по полю</a></h3>
-         <h2>Расставьте супергероев по полю.</h2>
+      <div class="hero draggable" id="hero1"></div>
+      <div class="hero draggable" id="hero2"></div>
+      <div class="hero draggable" id="hero3"></div>
+      <div class="hero draggable" id="hero4"></div>
+      <div class="hero draggable" id="hero5"></div>
+      <div class="hero draggable" id="hero6"></div>
 
-         <p>Супергерои и мяч -- это элементы с классом "draggable". Сделайте так, чтобы их можно было переносить.</p>
+      <img src="https://js.cx/drag-heroes/ball.png" class="draggable">
 
-         <p>Важно: если супергероя подносят к низу или верху страницы, она должна автоматически прокручиваться. Если
-            страница помещается на вашем экране целиком и не имеет вертикальной прокрутки -- сделайте окно браузера
-            меньше,
-            чтобы протестировать эту возможность.</p>
-
-         <p>Да, и ещё: супергерои ни при каких условиях не должны попасть за край экрана.</p>
-
-         <div id="fieldHeroes">
-
-         </div>
-
-         <div class="hero draggable" id="hero1"></div>
-         <div class="hero draggable" id="hero2"></div>
-         <div class="hero draggable" id="hero3"></div>
-         <div class="hero draggable" id="hero4"></div>
-         <div class="hero draggable" id="hero5"></div>
-         <div class="hero draggable" id="hero6"></div>
-
-         <img src="https://js.cx/drag-heroes/ball.png" class="draggable">
-
-         <div style="clear:both"></div>
+      <div style="clear:both"></div>
+    </div>
+  </div>
+  <!-- mousewheel -->
+  <div class="mousewheel">
+    <div class="mousewheel1">
+      <h3><a href="https://learn.javascript.ru/task/scale-with-mouse-wheel">Масштабирование колёсиком мыши</a></h3>
+      <div class="scaleDiv">
+        При прокрутке колёсика мыши над этим элементом, он будет масштабироваться.
       </div>
-   </div>
-   <!-- mousewheel -->
-   <div class="mousewheel">
-      <div class="mousewheel1">
-         <h3><a href="https://learn.javascript.ru/task/scale-with-mouse-wheel">Масштабирование колёсиком мыши</a></h3>
-         <div class="scaleDiv">
-            При прокрутке колёсика мыши над этим элементом, он будет масштабироваться.
-         </div>
-      </div>
-      <div class="mousewheel2">
-         <h3><a href="https://learn.javascript.ru/task/no-doc-scroll">Прокрутка без влияния на страницу</a></h3>
-         <h2>Начало документа</h2>
-         <p><strong>Задача:</strong>
-            Создать скрипт, который при подключении к документу исправлял бы поведение всех textarea, чтобы при прокрутке они не трогали документ.
-            Направление прокрутки – только вверх или вниз.
-            Редактор прокручивает только мышкой или жестами (на мобильных устройствах), прокрутку клавиатурой здесь рассматривать не нужно (хотя это и возможно).</p>
-         <textarea id="tmarea" cols="80" rows="10">
+    </div>
+    <div class="mousewheel2">
+      <h3><a href="https://learn.javascript.ru/task/no-doc-scroll">Прокрутка без влияния на страницу</a></h3>
+      <h2>Начало документа</h2>
+      <p><strong>Задача:</strong>
+        Создать скрипт, который при подключении к документу исправлял бы поведение всех textarea, чтобы при прокрутке
+        они не трогали документ.
+        Направление прокрутки – только вверх или вниз.
+        Редактор прокручивает только мышкой или жестами (на мобильных устройствах), прокрутку клавиатурой здесь
+        рассматривать не нужно (хотя это и возможно).</p>
+      <textarea id="tmarea" cols="80" rows="10">
                прокрути меня
                прокрути меня
                прокрути меня
@@ -475,64 +478,66 @@
                прокрути меня
                прокрути меня
              </textarea>
-         <h2 class="mFooter">Конец документа</h2>
-      </div>
-   </div>
-   <!-- mousewheel end -->
-   <!-- oncroll -->
-   <div id="onscroll">
-      <h3><a href="https://learn.javascript.ru/onscroll">Прокрутка: событие scroll</a></h3>
-      <h3> <a href="onscroll.html">Задачи по теме здесь</a> </h3>
-      <iframe src="onscroll.html" frameborder="0" class="frame1"></iframe>
-   </div>
-   <!--keyboard-events -->
-   <div class="keyboard">
-      <div class="keyboardTask1">
-         <h3><a href="https://learn.javascript.ru/keyboard-events#pole-tolko-dlya-tsifr">Поле только для цифр</a></h3>
-         Введите ваш возраст:
-         <input type="text" id="onlynum">
-        
+      <h2 class="mFooter">Конец документа</h2>
+    </div>
+  </div>
+  <!-- mousewheel end -->
+  <!-- oncroll -->
+  <div id="onscroll">
+    <h3><a href="https://learn.javascript.ru/onscroll">Прокрутка: событие scroll</a></h3>
+    <h3> <a href="onscroll.html">Задачи по теме здесь</a> </h3>
+    <iframe src="onscroll.html" frameborder="0" class="frame1"></iframe>
+  </div>
+  <!--keyboard-events -->
+  <div class="keyboard">
+    <div class="keyboardTask1">
+      <h3><a href="https://learn.javascript.ru/keyboard-events#pole-tolko-dlya-tsifr">Поле только для цифр</a></h3>
+      Введите ваш возраст:
+      <input type="text" id="onlynum">
 
 
-      </div>
-      <div class="keyboardTask2">
-         <h3><a href="https://learn.javascript.ru/keyboard-events#otsledit-odnovremennoe-nazhatie">Отследить одновременное нажатие</a></h3>
-         код ниже выведет alert при одновременном нажатии клавиш "Q" и "W" и "V"
-      </div>
-   </div>
-   <!-- onload onerror -->
-   <div class="onload-onerror">
+
+    </div>
+    <div class="keyboardTask2">
+      <h3><a href="https://learn.javascript.ru/keyboard-events#otsledit-odnovremennoe-nazhatie">Отследить одновременное
+          нажатие</a></h3>
+      код ниже выведет alert при одновременном нажатии клавиш "Q" и "W" и "V"
+    </div>
+  </div>
+  <!-- onload onerror -->
+  <div class="onload-onerror">
     <div id="onload-onerror1">
-       <h3><a href="https://learn.javascript.ru/onload-onerror#krasivyy-alt">Красивый альт</a></h3>
-       <!-- Google -->
-       <div id="searchbox">
-          <div style="width:114px;height:40px;font-size:32px;letter-spacing:3px" class="img-replace">
-             <span style="color:#1A53F7">G</span><span style="color:#E42131">o</span><span
-                style="color:#FEB819">o</span><span style="color:#164AF2">g</span><span
-                style="color:#00a315">l</span><span style="color:#E42131">e</span>
-          </div>
+      <h3><a href="https://learn.javascript.ru/onload-onerror#krasivyy-alt">Красивый альт</a></h3>
+      <!-- Google -->
+      <div id="searchbox">
+        <div style="width:114px;height:40px;font-size:32px;letter-spacing:3px" class="img-replace">
+          <span style="color:#1A53F7">G</span><span style="color:#E42131">o</span><span
+            style="color:#FEB819">o</span><span style="color:#164AF2">g</span><span style="color:#00a315">l</span><span
+            style="color:#E42131">e</span>
+        </div>
 
-          <!-- Яндекс -->
-          <div style="width:101px;height:40px;font-size:32px" class="img-replace">
-             <span style="color:#F00">Я</span>ндекс
-          </div>
+        <!-- Яндекс -->
+        <div style="width:101px;height:40px;font-size:32px" class="img-replace">
+          <span style="color:#F00">Я</span>ндекс
+        </div>
 
-          <!-- Bing -->
-          <div class="bing">bing</div>
-       </div>
+        <!-- Bing -->
+        <div class="bing">bing</div>
+      </div>
 
-       <hr>
-       <!-- картинки (для bing картинки специально нет, чтобы протестировать случай "загрузка не удалась") -->
-       <div id="imgforsearch">
-          <img src="https://js.cx/search/yandex.png" width="114" height="40" alt="Яндекс">
-          <img src="https://js.cx/search/google.png" width="101" height="40" alt="Google">
-          <img src="https://js.cx/search/bing.png" width="101" height="40" alt="Файла нет (bing)">
-       </div>
+      <hr>
+      <!-- картинки (для bing картинки специально нет, чтобы протестировать случай "загрузка не удалась") -->
+      <div id="imgforsearch">
+        <img src="https://js.cx/search/yandex.png" width="114" height="40" alt="Яндекс">
+        <img src="https://js.cx/search/google.png" width="101" height="40" alt="Google">
+        <img src="https://js.cx/search/bing.png" width="101" height="40" alt="Файла нет (bing)">
+      </div>
     </div>
     <div class="onload-onerror2">
-       <h3><a href="https://learn.javascript.ru/onload-onerror#zagruzit-izobrazheniya-s-kollbekom">Загрузка изображения</a></h3>
-       <!-- <h3><a href="imgWithCallback.html">Перейти к решению</a></h3> -->
-       <pre>
+      <h3><a href="https://learn.javascript.ru/onload-onerror#zagruzit-izobrazheniya-s-kollbekom">Загрузка
+          изображения</a></h3>
+      <!-- <h3><a href="imgWithCallback.html">Перейти к решению</a></h3> -->
+      <pre>
           function preloadImages(sources, callback) {
             /* ваш код */
             let len = sources.length;
@@ -584,8 +589,8 @@
        </pre>
     </div>
     <div class="onload-onerror3">
-       <h3><a href="https://learn.javascript.ru/onload-onerror#skript-s-kollbekom">Скрипт с коллбэком</a></h3>
-       <pre>
+      <h3><a href="https://learn.javascript.ru/onload-onerror#skript-s-kollbekom">Скрипт с коллбэком</a></h3>
+      <pre>
              function addScript(src, callback) {
                 /* ваш код */
                 let script = document.createElement('script');
@@ -602,43 +607,43 @@
        </pre>
     </div>
     <div class="onload-onerror4"></div>
- </div>
-<!-- form elements -->
-<div id="formElement">
+  </div>
+  <!-- form elements -->
+  <div id="formElement">
     <h3><a href="https://learn.javascript.ru/form-elements#dobavte-optsiyu-k-selektu">Добавьте опцию к селекту</a></h3>
     <form name='addOption'>
-       <select>
-          <option value="Rock">Рок html</option>
-          <option value="Blues" selected>Блюз html</option>
-       </select>
+      <select>
+        <option value="Rock">Рок html</option>
+        <option value="Blues" selected>Блюз html</option>
+      </select>
     </form>
- </div>
- <!-- focus blur -->
- <div class="focus-blur">
+  </div>
+  <!-- focus blur -->
+  <div class="focus-blur">
     <div id="focusBlur1">
-       <h3>
-          <a href="https://learn.javascript.ru/focus-blur#uluchshennyy-pleysholder">Улучшенный плейсхолдер</a>
-          <div>
-             <p>Красивый placeholder:</p>
-             <form>
-                <input type="email" data-placeholder="E-mail">
+      <h3>
+        <a href="https://learn.javascript.ru/focus-blur#uluchshennyy-pleysholder">Улучшенный плейсхолдер</a>
+        <div>
+          <p>Красивый placeholder:</p>
+          <form>
+            <input type="email" data-placeholder="E-mail">
 
 
-             </form>
+          </form>
 
-          </div>
-       </h3>
+        </div>
+      </h3>
     </div>
     <div class="focus-blur2">
-       <h3>
-          <a href="https://learn.javascript.ru/focus-blur#myshonok-na-klaviaturnom-privode">Мышонок на "клавиатурном"
-             приводе</a>
+      <h3>
+        <a href="https://learn.javascript.ru/focus-blur#myshonok-na-klaviaturnom-privode">Мышонок на "клавиатурном"
+          приводе</a>
 
-       </h3>
-       <div>
-          <p>Кликните на мышонка и передвигайте его, нажимая клавиши со стрелками.</p>
+      </h3>
+      <div>
+        <p>Кликните на мышонка и передвигайте его, нажимая клавиши со стрелками.</p>
 
-          <pre id="mouse1" tabindex="1">
+        <pre id="mouse1" tabindex="1">
             _   _
            (q\_/p)
             /. .\
@@ -649,121 +654,122 @@
            \  Y  /-'
             nn^nn
            </pre>
-       </div>
+      </div>
     </div>
     <div id="focusBlur3">
-       <h3>
-          <a href="https://learn.javascript.ru/focus-blur#goryachie-klavishi">Горячие клавиши</a>
+      <h3>
+        <a href="https://learn.javascript.ru/focus-blur#goryachie-klavishi">Горячие клавиши</a>
 
-       </h3>
-       <div>
+      </h3>
+      <div>
 
-          <ul>
-             <li>Ctrl-E to start editing.</li>
-             <li>While editing: Ctrl-S to save, Esc to cancel.</li>
-          </ul>
+        <ul>
+          <li>Ctrl-E to start editing.</li>
+          <li>While editing: Ctrl-S to save, Esc to cancel.</li>
+        </ul>
 
 
-          <textarea id="area1"></textarea>
-          <div id="view1">Text</div>
-       </div>
+        <textarea id="area1"></textarea>
+        <div id="view1">Text</div>
+      </div>
     </div>
     <div class="focus-blur4">
-       <h3>
-          <a href="https://learn.javascript.ru/focus-blur#redaktirovanie-td-po-kliku">Редактирование TD по клику</a>
+      <h3>
+        <a href="https://learn.javascript.ru/focus-blur#redaktirovanie-td-po-kliku">Редактирование TD по клику</a>
 
-       </h3>
-       <a href="clickEdit.html">Открыть страницу с решением</a>
+      </h3>
+      <a href="clickEdit.html">Открыть страницу с решением</a>
     </div>
     <div class="focus-blur5">
-       <h3>
-          <a href="https://learn.javascript.ru/focus-blur#krasivyy-pleysholder-dlya-input">Красивый placeholder for
-             the imput</a>
+      <h3>
+        <a href="https://learn.javascript.ru/focus-blur#krasivyy-pleysholder-dlya-input">Красивый placeholder for
+          the imput</a>
 
-       </h3>
-       <div>
-          <div>Добро пожаловать</div>
-          <input type="password" id="inputPl">
+      </h3>
+      <div>
+        <div>Добро пожаловать</div>
+        <input type="password" id="inputPl">
 
-          <div id="plhldr">Скажи пароль, друг</div>
+        <div id="plhldr">Скажи пароль, друг</div>
 
-          <div>.. и заходи</div>
-       </div>
+        <div>.. и заходи</div>
+      </div>
     </div>
     <div class="focus-blur6">
-       <h3>
-          <a href="https://learn.javascript.ru/focus-blur#pole-preduprezhdayuschee-o-vklyuchennom-capslock">Поле,
-             предупреждающее о включенном CapsLock</a>
-       </h3>
+      <h3>
+        <a href="https://learn.javascript.ru/focus-blur#pole-preduprezhdayuschee-o-vklyuchennom-capslock">Поле,
+          предупреждающее о включенном CapsLock</a>
+      </h3>
 
-       <div>
-             <div id="capsIndicator">Внимание: нажат CapsLock!</div>
-          Введите текст(например, пароль) с нажатым CapsLock:
-          <input id="capsInput" type="text" />
+      <div>
+        <div id="capsIndicator">Внимание: нажат CapsLock!</div>
+        Введите текст(например, пароль) с нажатым CapsLock:
+        <input id="capsInput" type="text" />
 
-         
-       </div>
+
+      </div>
     </div>
- </div>
- <!-- event change -->
- <div class="events-change">
-  <h3><a href="https://learn.javascript.ru/events-change#avtovychislenie-protsentov-po-vkladu">Автовычисление процентов по вкладу</a></h3>
-  <h3>Калькулятор процентов, из расчёта 12% годовых.</h3>
-  <form name="calcCredit">
-    <table>
+  </div>
+  <!-- event change -->
+  <div class="events-change">
+    <h3><a href="https://learn.javascript.ru/events-change#avtovychislenie-protsentov-po-vkladu">Автовычисление
+        процентов по вкладу</a></h3>
+    <h3>Калькулятор процентов, из расчёта 12% годовых.</h3>
+    <form name="calcCredit">
+      <table>
+        <tr>
+          <td>Сумма</td>
+          <td>
+            <input id="moneyInput" type="text" value="10000">
+          </td>
+        </tr>
+        <tr>
+          <td>Срок в месяцах</td>
+          <td>
+            <select id='termMonths'>
+              <option value="3">3 (минимум)</option>
+              <option value="6">6 (полгода)</option>
+              <option value="12" selected>12 (год)</option>
+              <option value="18">18 (1.5 года)</option>
+              <option value="24">24 (2 года)</option>
+              <option value="30">30 (2.5 года)</option>
+              <option value="36">36 (3 года)</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>С капитализацией</td>
+          <td>
+            <input id="capitalization" type="checkbox">
+          </td>
+        </tr>
+      </table>
+
+
+    </form>
+
+
+    <table id="diagramCredit">
       <tr>
-        <td>Сумма</td>
-        <td>
-          <input id="moneyInput" type="text" value="10000">
-        </td>
+        <th>Было:</th>
+        <th>Станет:</th>
       </tr>
       <tr>
-        <td>Срок в месяцах</td>
-        <td>
-          <select id='termMonths'>
-            <option value="3">3 (минимум)</option>
-            <option value="6">6 (полгода)</option>
-            <option value="12" selected>12 (год)</option>
-            <option value="18">18 (1.5 года)</option>
-            <option value="24">24 (2 года)</option>
-            <option value="30">30 (2.5 года)</option>
-            <option value="36">36 (3 года)</option>
-          </select>
-        </td>
+        <th id="moneyBefore"></th>
+        <th id="moneyAfter"></th>
       </tr>
       <tr>
-        <td>С капитализацией</td>
         <td>
-          <input id="capitalization" type="checkbox">
+          <div style="background: red;width:40px;height:100px"></div>
+        </td>
+        <td>
+          <div style="background: green;width:40px;height:0" id="height-after"></div>
         </td>
       </tr>
     </table>
-
-
-  </form>
-
-
-  <table id="diagramCredit">
-    <tr>
-      <th>Было:</th>
-      <th>Станет:</th>
-    </tr>
-    <tr>
-      <th id="moneyBefore"></th>
-      <th id="moneyAfter"></th>
-    </tr>
-    <tr>
-      <td>
-        <div style="background: red;width:40px;height:100px"></div>
-      </td>
-      <td>
-        <div style="background: green;width:40px;height:0" id="height-after"></div>
-      </td>
-    </tr>
-  </table>
-</div>
-<!-- forms-submit -->
-<div class="formsSumbit">
+  </div>
+  <!-- forms-submit -->
+  <div class="formsSumbit">
     <div class="fSumbit1">
       <h3><a href="https://learn.javascript.ru/forms-submit#modalnoe-dialogovoe-okno">Модальное диалоговое окно</a></h3>
       <button id="showHidePrompt">показать форму</button>
@@ -816,14 +822,14 @@
               </td>
             </tr>
           </table>
-      
+
           Сообщение:
           <label>
             <!-- <span class="warning" hidden>как насчет текста?</span> -->
             <textarea name="message" style="display:block;width:400px;height:100px"></textarea>
             <span class="warning" hidden>как насчет текста?</span><br>
           </label>
-      
+
           <input type="button" onclick="validate(this.form)" value="Проверить">
         </form>
       </div>
@@ -861,7 +867,7 @@
         Клик на элементе выделяет только его.
         <br> Ctrl(Cmd)+Клик добавляет/убирает элемент из выделенных.
         <br> Shift+Клик добавляет промежуток от последнего кликнутого к выделению.
-        <br> 
+        <br>
 
         <ul id='vinniUlComponent'>
           <li>Кристофер Робин</li>
@@ -885,7 +891,8 @@
       </div>
     </div>
     <div class="struckture5">
-      <h3><a href="https://learn.javascript.ru/widgets-structure#golosovalka-v-prototipnom-stile-oop">Голосовалка в прототипном стиле</a></h3>
+      <h3><a href="https://learn.javascript.ru/widgets-structure#golosovalka-v-prototipnom-stile-oop">Голосовалка в
+          прототипном стиле</a></h3>
       <div>
         <div id="voterProto" class="voter">
           <span class="down-voiter">—</span>
@@ -895,7 +902,8 @@
       </div>
     </div>
     <div class="struckture6">
-      <h3><a href="https://learn.javascript.ru/widgets-structure#dobavit-dvoynoy-golos-v-golosovalku">Добавить двойной голос в голосовалку</a></h3>
+      <h3><a href="https://learn.javascript.ru/widgets-structure#dobavit-dvoynoy-golos-v-golosovalku">Добавить двойной
+          голос в голосовалку</a></h3>
       <div>
         <div id="voterProto2" class="voter">
           <span class="down-voiter">—</span>
@@ -906,15 +914,15 @@
     </div>
   </div>
   <div id="lodash">
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"></script>
-      <div class="template-lodash1">
-        <h3><a href="https://learn.javascript.ru/template-lodash#shablon-dlya-tablitsy-s-polzovatelyami">Шаблон для
-            таблицы с пользователями</a></h3>
-        <div>
-          <div id="grid-holder"></div>
-  
-          <script type="text/template" id="grid-template">
-  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"></script>
+    <div class="template-lodash1">
+      <h3><a href="https://learn.javascript.ru/template-lodash#shablon-dlya-tablitsy-s-polzovatelyami">Шаблон для
+          таблицы с пользователями</a></h3>
+      <div>
+        <div id="grid-holder"></div>
+
+        <script type="text/template" id="grid-template">
+
           <table>
               <% usersTemplate.forEach(function(item){ %>
             <tr>
@@ -924,19 +932,19 @@
             <% }); %>
           </table>
         </script>
-        </div>
-  
       </div>
-      <div class="template-lodash3">
-          <h3><a href="https://learn.javascript.ru/template-lodash#sdelayte-menyu-ssylkami">Сделайте меню ссылками</a></h3>
-        <div>
-          <script type="text/template" id="menu-template">
+
+    </div>
+    <div class="template-lodash3">
+      <h3><a href="https://learn.javascript.ru/template-lodash#sdelayte-menyu-ssylkami">Сделайте меню ссылками</a></h3>
+      <div>
+        <script type="text/template" id="menu-template">
               <div class="menu-lodash">
                 <span class="title"><%-title%></span>
               </div>
             </script>
-  
-          <script type="text/template" id="menu-list-template">
+
+        <script type="text/template" id="menu-list-template">
               <ul>
                 <%for (let key in items){ %>
                   <%item = items[key]%>
@@ -946,9 +954,81 @@
                   <% }; %>
               </ul>
             </script>
+      </div>
+    </div>
+  </div>
+  <div class="custom-events">
+    <div class="custom-events1">
+      <h3><a href="https://learn.javascript.ru/custom-events#golosovalka-na-sobytiyah">Голосовалка "на событиях"</a>
+      </h3>
+      <div>
+        <div id="voter2" class="voter">
+          <span class="down-voiter">—</span>
+          <span class="vote">0</span>
+          <span class="up-voiter">+</span>
         </div>
       </div>
     </div>
+    <div class="custom-events2">
+      <h3><a href="https://learn.javascript.ru/custom-events#spisok-s-vydeleniem-i-sobytiem">Список с выделением и
+          событием</a></h3>
+      <div>
+        Клик на элементе выделяет только его.
+        <br> Ctrl(Cmd)+Клик добавляет/убирает элемент из выделенных.
+        <br> Shift+Клик добавляет промежуток от последнего кликнутого к выделению.
+        <br>
+
+        <ul>
+          <li>Кристофер Робин</li>
+          <li>Винни-Пух</li>
+          <li>Ослик Иа</li>
+          <li>Мудрая Сова</li>
+          <li>Кролик. Просто кролик.</li>
+          <span>Неправильные пчелы, выбрать нельзя</span>
+          <li><span>Правильные пчелы</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="custom-events3">
+      <h3><a href="https://learn.javascript.ru/custom-events#svoy-selekt">Свой селект</a></h3>
+      <div>
+        <div>Последний результат: <span id="selectResult">...</span></div>
+
+        <div id="animal-select" class="customselect">
+          <button class="title">Выберите</button>
+          <ul>
+            <!-- значение хранится в свойстве data-value -->
+            <li data-value="bird">Птицы</li>
+            <li data-value="fish">Рыбы</li>
+            <li data-value="animal">Звери</li>
+            <li data-value="dino">Динозавры</li>
+            <li data-value="simplest">Одноклеточные</li>
+          </ul>
+        </div>
+
+        <div id="food-select" class="customselect">
+          <button class="title">Выберите</button>
+          <ul>
+            <li data-value="carnivore">Плотоядные</li>
+            <li data-value="herbivore">Травоядные</li>
+            <li data-value="omnivore">Всеядные</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="custom-events4">
+      <h3><a href="https://learn.javascript.ru/custom-events#slayder-s-sobytiyami">Слайдер с событиями</a></h3>
+      <div>
+        <div id="slider3" class="drag-slider">
+          <div class="thumb">
+          </div>
+        </div>
+        <span>Slide:</span> <span id="thumbSlide"></span>
+        <span>Change:</span><span id="thumbChange"></span>
+        <button onclick="sliderEvents.setValue(50)">sliderEvents.setValue(50)</button>
+      </div>
+    </div>
+  </div>
   <footer>
     <aside id="footerImg">
       <img src="image/c200b4179efc64314949b09fef49f999.jpg" alt="foto">

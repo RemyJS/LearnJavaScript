@@ -20,6 +20,7 @@
       background: #0f0;
     }
 
+    /*  */
     .custom-events2 li {
       cursor: pointer;
     }
@@ -73,6 +74,29 @@
 
     .customselect.open ul {
       display: block;
+    }
+
+    /*  */
+    .drag-slider {
+      border-radius: 5px;
+      background: #E0E0E0;
+      background: -moz-linear-gradient(left top, #E0E0E0, #EEEEEE) repeat scroll 0 0 transparent;
+      background: -webkit-gradient(linear, left top, right bottom, from(#E0E0E0), to(#EEEEEE));
+      background: linear-gradient(left top, #E0E0E0, #EEEEEE);
+      width: 420px;
+      height: 15px;
+      margin: 5px;
+    }
+
+    .thumb {
+      width: 20px;
+      height: 25px;
+      border-radius: 3px;
+      position: relative;
+      left: 10px;
+      top: -5px;
+      background: blue;
+      cursor: pointer;
     }
   </style>
 
@@ -140,10 +164,18 @@
     </div>
   </div>
   <div class="custom-events4">
-    <h3><a href=""></a></h3>
-    <div></div>
+    <h3><a href="https://learn.javascript.ru/custom-events#slayder-s-sobytiyami">Слайдер с событиями</a></h3>
+    <div>
+      <div id="slider3" class="drag-slider">
+        <div class="thumb">
+        </div>
+      </div>
+      <span>Slide:</span> <span id="thumbSlide"></span>
+      <span>Change:</span><span id="thumbChange"></span>
+      <button onclick="sliderEvents.setValue(50)">slider3.setValue(50)</button>
+    </div>
   </div>
-  </div>
+  
 </body>
 
 <script>
@@ -300,7 +332,7 @@
         elem.classList.toggle('open');
         select(li.dataset);
       }
-      
+
       document.addEventListener('click', documentClick);
     }
     // клик вне списка 
@@ -336,6 +368,78 @@
   document.addEventListener('custom-select', function (event) {
     document.getElementById('selectResult').innerHTML = event.detail.value;
   });
+  // 4 
+  // 2 
+  function SliderEvents(options) {
+    let slider = options.elem;
+    let thumb = slider.querySelector('.thumb');
+
+    let max = options.max || 100;
+    let slipped = 0;
+
+    let width = slider.offsetWidth - thumb.offsetWidth;
+    // console.log(width);
+    thumb.onmousedown = function (event) {
+
+      moveAt(event);
+      // thumb.style.zIndex = 999;
+      function moveAt(e) {
+        let left = e.pageX - slider.offsetLeft;
+
+        if (left > width) {
+          left = width;
+        } else if (left < 0) {
+          left = 0;
+        }
+        thumb.style.left = left + 'px';
+        slipped = Math.round(left * max / width);
+        // console.log(slipped);
+        slide();
+        // console.log(thumb.style.left);
+      }
+      document.onmousemove = function (event) {
+        moveAt(event);
+      };
+
+      document.onmouseup = function () {
+        document.onmousemove = null;
+        document.onmouseup = null;
+        change();
+      };
+      return false;
+    }
+    // добавлено 
+    function slide() {
+      let slideEvent = new CustomEvent("slide", {
+        bubbles: true,
+        detail: slipped
+      });
+      slider.dispatchEvent(slideEvent);
+    }
+    function change() {
+      let changeEvent = new CustomEvent("change", {
+        bubbles: true,
+        detail: slipped
+      });
+      slider.dispatchEvent(changeEvent);
+    }
+    function setValue(val) {
+      let x = Math.round(width * val / max);
+      thumb.style.left = x + 'px';
+    }
+    this.setValue = setValue;
+  }
+
+  let sliderEvents = new SliderEvents({ elem: slider3, max: 100 });
+
+  // let thumb3 = document.querySelector('#slider3 .thumb')
+  slider3.addEventListener("slide", function (event) {
+    document.getElementById('thumbSlide').innerHTML = event.detail;
+  });
+
+  slider3.addEventListener("change", function (event) {
+    document.getElementById('thumbChange').innerHTML = event.detail;
+  })
 </script>
 
 </html>
