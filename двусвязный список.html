@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  ul{
+    list-style-type: none;
+  }
+  li{
+    display: inline;
+    border: 2px ridge orange;
+    border-radius: 14px;
+    padding: 10px 40px;
+    margin-right: 5px;
+  }
+</style>
+<body>
+  <h4>Король Андрей Александрович, гр.791051</h4>
+  <ul id='ulList'>
+
+  </ul>
+  
+  <div class='buttons'><button id='bappend'>append </button><input type="text" name="" id="inAppend"></div> 
+  <div class="buttons"> <button id='bhead'>head</button></div>
+  <div class="buttons"><button id='btail'>tail</button></div>
+  <div class="buttons"><button id='binsertAt'>insertAt</button><input type="text" id='inInsData'><input type="text" id='inInsValue'></div>
+  <div class="buttons"><button id='bisEmpty'>isEmpty</button></div>
+  <div class="buttons"><button id='bclear'>clear</button></div>
+  <div class="buttons"><button id='bdeleteAt'>deleteAt</button><input type="text" id='inDel'></div>
+  <div class="buttons"><button id='breverse'>reverse</button></div>
+  <div class="buttons"><button id='bindexOf'>indexOf</button><input type="text" id='inIndexOf'></div> 
+  <pre>
+    class Node {
+      constructor(value) {
+        this.value = value
+        this.prev = null
+        this.next = null
+      }
+    }
+    class LinkedList {
+      constructor() {
+        this.len = 0;
+        this.head = null;
+        this.tail = null;
+      }
+      append(data) {
+        const newNode = new Node(data);
+        if (this.len == 0) {
+          this.head = newNode;
+          this.tail = newNode;
+        } else {
+          this.tail.next = newNode;
+          newNode.prev = this.tail;
+          this.tail = newNode;
+        }
+        this.len++;
+        return newNode;
+      }
+      head() {
+        return this.head;
+      }
+      tail() {
+        return this.tail;
+      }
+      at(index) {
+        let cnode = this.head;
+        for (let i = 0; i < this.len; i++) {
+          if (i == index) return cnode;
+          cnode = cnode.next;
+        }
+      }
+      insertAt(index, data) {
+        let cnode = this.head;
+        for (let i = 0; i < this.len; i++) {
+          if (i == index) {
+            let tmpNode = new Node(data);
+            let prevNode = cnode.prev;
+            tmpNode.prev = prevNode;
+            tmpNode.next = cnode;
+            if (cnode == this.head) {
+              this.head = tmpNode;
+              console.log('смена головы');
+            } else {
+              prevNode.next = tmpNode
+            };
+            cnode.prev = tmpNode;
+            this.len++;
+          } else {
+            cnode = cnode.next;
+          }
+        };
+        if (index == this.len) {
+          let tmpNode = new Node(data);
+          tmpNode.prev = this.tail;
+          this.tail.next = tmpNode;
+          this.tail = tmpNode;
+          console.log('смена хвоста');
+          this.len++;
+        }
+      };
+      isEmpty() { }
+      clear() {
+        let cnode = this.head;
+        for (let i = 0; i < this.len; i++) {
+          let delNode = cnode;
+          cnode = cnode.next;
+          delNode = null;
+        }
+        this.head = null;
+        this.tail = null;
+        this.len = 0;
+        return 'список очищен';
+      }
+      deleteAt(index) {
+        let cnode = this.head;
+        for (let i = 0; i < this.len; i++) {
+          if (i == index) {
+            if (cnode == this.head) {
+              cnode.next.prev = null;
+              this.head = cnode.next;
+              cnode = null;
+              this.len--;
+              return ('смена головы');
+            } else {
+              let prevNode = cnode.prev; 
+              if(cnode.next == null){
+                prevNode.next = null;
+                this.tail = prevNode;
+                cnode = null;
+                this.len--;
+                return('смена хвоста');
+              }
+              let nextNode = cnode.next;
+              prevNode.next = nextNode;
+              nextNode.prev = prevNode;
+              cnode = null;
+              this.len--;
+              return;
+            }
+          } else {
+            cnode = cnode.next;
+          }
+        };
+      }
+      reverse() {
+        let revList = new LinkedList();
+        let cNode = this.tail;
+        for(let i = 0; i < this.len;i++){
+          revList.append(cNode.value);
+          cNode = cNode.prev;
+        };
+        cNode = this.head;
+        let rcNode = revList.head;
+        for(let i = 0; i < this.len;i++){
+          cNode.value = rcNode.value;
+          cNode = cNode.next;
+          rcNode = rcNode.next;
+        }
+        return this;
+      }
+      indexOf(data) {
+        let cnode = this.head;
+        let arr = []; 
+        for(let i = 0; i < this.len;i++){
+          if(cnode.value == data){
+            arr.push(cnode);
+          }
+          cnode = cnode.next;
+        }
+        return arr;
+      }
+    }
+  </pre> 
+</body>
+<script>
+    class Node {
+      constructor(value) {
+        this.value = value
+        this.prev = null
+        this.next = null
+      }
+    }
+    class LinkedList {
+      constructor() {
+        this.len = 0;
+        this.head = null;
+        this.tail = null;
+      }
+      append(data) {
+        const newNode = new Node(data);
+        if (this.len == 0) {
+          this.head = newNode;
+          this.tail = newNode;
+        } else {
+          this.tail.next = newNode;
+          newNode.prev = this.tail;
+          this.tail = newNode;
+        }
+        this.len++;
+        return newNode;
+      }
+      head() {
+        return this.head;
+      }
+      tail() {
+        return this.tail;
+      }
+      at(index) {
+        let cnode = this.head;
+        for (let i = 0; i < this.len; i++) {
+          if (i == index) return cnode;
+          cnode = cnode.next;
+        }
+      }
+      insertAt(index, data) {
+        let cnode = this.head;
+        for (let i = 0; i < this.len; i++) {
+          if (i == index) {
+            let tmpNode = new Node(data);
+            let prevNode = cnode.prev;
+            tmpNode.prev = prevNode;
+            tmpNode.next = cnode;
+            if (cnode == this.head) {
+              this.head = tmpNode;
+              console.log('смена головы');
+            } else {
+              prevNode.next = tmpNode
+            };
+            cnode.prev = tmpNode;
+            this.len++;
+          } else {
+            cnode = cnode.next;
+          }
+        };
+        if (index == this.len) {
+          let tmpNode = new Node(data);
+          tmpNode.prev = this.tail;
+          this.tail.next = tmpNode;
+          this.tail = tmpNode;
+          console.log('смена хвоста');
+          this.len++;
+        }
+      };
+      isEmpty() { }
+      clear() {
+        let cnode = this.head;
+        for (let i = 0; i < this.len; i++) {
+          let delNode = cnode;
+          cnode = cnode.next;
+          delNode = null;
+        }
+        this.head = null;
+        this.tail = null;
+        this.len = 0;
+        return 'список очищен';
+      }
+      deleteAt(index) {
+        let cnode = this.head;
+        for (let i = 0; i < this.len; i++) {
+          if (i == index) {
+            if (cnode == this.head) {
+              cnode.next.prev = null;
+              this.head = cnode.next;
+              cnode = null;
+              this.len--;
+              return ('смена головы');
+            } else {
+              let prevNode = cnode.prev; 
+              if(cnode.next == null){
+                prevNode.next = null;
+                this.tail = prevNode;
+                cnode = null;
+                this.len--;
+                return('смена хвоста');
+              }
+              let nextNode = cnode.next;
+              prevNode.next = nextNode;
+              nextNode.prev = prevNode;
+              cnode = null;
+              this.len--;
+              return;
+            }
+          } else {
+            cnode = cnode.next;
+          }
+        };
+      }
+      reverse() {
+        let revList = new LinkedList();
+        let cNode = this.tail;
+        for(let i = 0; i < this.len;i++){
+          revList.append(cNode.value);
+          cNode = cNode.prev;
+        };
+        cNode = this.head;
+        let rcNode = revList.head;
+        for(let i = 0; i < this.len;i++){
+          cNode.value = rcNode.value;
+          cNode = cNode.next;
+          rcNode = rcNode.next;
+        }
+        return this;
+      }
+      indexOf(data) {
+        let cnode = this.head;
+        let arr = []; 
+        for(let i = 0; i < this.len;i++){
+          if(cnode.value == data){
+            arr.push(cnode);
+          }
+          cnode = cnode.next;
+        }
+        return arr;
+      }
+    }
+
+    let list = new LinkedList();
+    list.append(0);
+    list.append(1);
+    list.append(2);
+    list.append(3);
+
+    function createList(alist){
+      let length = alist.len;
+      let cnode = alist.head;
+      for(let i = 0; i<length;i++){
+        let newli = document.createElement('li');
+        newli.innerHTML = cnode.value;
+        ulList.appendChild(newli);
+        cnode = cnode.next;
+      }
+    }
+    createList(list);
+
+    function refresh(anode){
+      while(anode.firstChild){
+        anode.removeChild(anode.firstChild);
+      }
+      createList(list);
+    }
+
+    bappend.onclick = function(){
+      list.append(inAppend.value);
+      refresh(ulList);
+    }
+
+    bhead.onclick = function(){
+      if(ulList.firstChild){
+       if(ulList.firstElementChild.innerHTML == list.head.value){
+         console.log(list.head);
+         ulList.firstElementChild.style.borderColor = 'red';
+         function func(){
+          ulList.firstElementChild.style.borderColor = '';
+         }
+         setTimeout(func,1000);
+       };
+      }
+    };
+
+    btail.onclick = function(){
+      if(ulList.firstChild){
+       if(ulList.lastElementChild.innerHTML == list.tail.value){
+         console.log(list.tail);
+         ulList.lastElementChild.style.borderColor = 'red';
+         function func(){
+          ulList.lastElementChild.style.borderColor = '';
+         }
+         setTimeout(func,1000);
+       };
+      }
+    }
+
+    binsertAt.onclick = function(){
+      list.insertAt(inInsData.value,inInsValue.value);
+      refresh(ulList);
+    };
+
+    bclear.onclick = function(){
+      list.clear();
+      refresh(ulList);
+    }
+
+    bdeleteAt.onclick = function(){
+      list.deleteAt(inDel.value);
+      refresh(ulList);
+    }
+    breverse.onclick = function(){
+      list.reverse();
+      refresh(ulList);
+    }
+    bindexOf.onclick = function(){
+      console.log(list.indexOf(inIndexOf.value));
+      for(let i = 0; i <list.len;i++){
+       if(ulList.children[i].innerHTML==inIndexOf.value){
+        ulList.children[i].style.borderColor = 'green';
+        function func(){
+          ulList.children[i].style.borderColor = '';
+         }
+         setTimeout(func,1500);
+       }
+      }
+    }
+  </script>
+</html>
