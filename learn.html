@@ -179,6 +179,7 @@
 </body>
 
 <script>
+  'use strict';
   function Voter2(options) {
     let elem = options.elem;
 
@@ -439,7 +440,25 @@
 
   slider3.addEventListener("change", function (event) {
     document.getElementById('thumbChange').innerHTML = event.detail;
-  })
+  });
+  let users = [
+  { name: "John", age: 20, surname: "Johnson" },
+  { name: "Pete", age: 18, surname: "Peterson" },
+  { name: "Ann", age: 19, surname: "Hathaway" }
+];
+function byField(field){
+  //console.log(this[field]);
+  return function(a,b){
+  
+    if(a[field] > b[field]){
+      return 1;
+    }else{
+      return -1;
+    }
+  }
+}
+console.log(users.sort(byField('name')));
+
 </script>
 
 </html>

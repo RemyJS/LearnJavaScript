@@ -12,8 +12,8 @@ header{
   display: flex;
   border-bottom: 4px solid #b8d0b1;
   align-items: center;
+  justify-content: space-between;
 }
 #jsr{
   margin-left: 60px;
-  margin-right: 25%;
 }

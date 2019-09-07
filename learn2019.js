@@ -13,7 +13,7 @@ let room = {
 
 let meetup = {
   title: "Совещание",
-  occupiedBy: [{name: "Иванов"}, {name: "Петров"}],
+  occupiedBy: [{ name: "Иванов" }, { name: "Петров" }],
   place: room
 };
 
@@ -21,10 +21,72 @@ let meetup = {
 room.occupiedBy = meetup;
 meetup.self = meetup;
 
-let json_meetup = JSON.stringify(meetup,function(key, value){
-  if(key !='' && value == meetup){
+let json_meetup = JSON.stringify(meetup, function (key, value) {
+  if (key != '' && value == meetup) {
     return undefined;
-  }else{
+  } else {
     return value;
   }
 });
+// замыкания 
+let clouser_sum = function (x) {
+  return function (n) {
+    return x + n;
+  }
+}
+// console.log(clouser_sum(4)(1)); 
+let filter_arr = [1, 2, 3, 4, 5, 6, 7];
+
+function inBetween(a, b) {
+  return function (el) {
+    return el >= a && el <= b;
+  }
+}
+function inArray(arr) {
+  // ...your code...
+  return function (e) {
+    return (arr.indexOf(e) != -1)
+  }
+}
+let clouser_users = [
+  { name: "John", age: 20, surname: "Johnson" },
+  { name: "Pete", age: 18, surname: "Peterson" },
+  { name: "Ann", age: 19, surname: "Hathaway" }
+];
+function byField(field){
+  return function(a,b){
+    if(a[field] > b[field]){
+      return 1;
+    }else{
+      return -1;
+    }
+  }
+}
+//console.log(clouser_users.sort(byField('name')));
+function makeArmy() {
+  let shooters = [];
+
+  let i = 0;
+  while (i < 10) {
+    let shooter = function() { // функция shooter
+      let counter = i ;
+      return function(){
+        alert(counter); // должна выводить порядковый номер
+      }
+     
+    };
+
+    shooters.push(shooter());
+    i++;
+  }
+  // for(let i = 0; i < 10;i++){
+  //   let shooter = function(){
+  //     return alert(i);
+  //   }
+  //   shooters.push(shooter);
+  // }
+
+  return shooters;
+}
+
+let army = makeArmy();
