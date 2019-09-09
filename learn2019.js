@@ -53,11 +53,11 @@ let clouser_users = [
   { name: "Pete", age: 18, surname: "Peterson" },
   { name: "Ann", age: 19, surname: "Hathaway" }
 ];
-function byField(field){
-  return function(a,b){
-    if(a[field] > b[field]){
+function byField(field) {
+  return function (a, b) {
+    if (a[field] > b[field]) {
       return 1;
-    }else{
+    } else {
       return -1;
     }
   }
@@ -68,12 +68,12 @@ function makeArmy() {
 
   let i = 0;
   while (i < 10) {
-    let shooter = function() { // функция shooter
-      let counter = i ;
-      return function(){
+    let shooter = function () { // функция shooter
+      let counter = i;
+      return function () {
         alert(counter); // должна выводить порядковый номер
       }
-     
+
     };
 
     shooters.push(shooter());
@@ -90,3 +90,36 @@ function makeArmy() {
 }
 
 let army = makeArmy();
+//nfe 
+function nfe_makeCounter() {
+
+  function counter() {
+    return counter.count++;
+  }
+
+  counter.set = function (newValue) {
+    counter.count = newValue;
+  }
+  counter.decrease = function () {
+    return counter.count--;
+  }
+  counter.count = 0;
+  return counter;
+}
+let nfe_counter = nfe_makeCounter();
+
+function nfe_sum(add = 0) {
+  nfe_sum.sum = nfe_sum.sum||0;
+  nfe_sum.sum += add;
+  nfe_sum.reset = function(){
+    nfe_sum.sum = 0;
+    return "обнуление!"
+  }
+  function plus (n){
+    return nfe_sum(n);
+  }
+  plus.toString = function (){
+    return nfe_sum.sum;
+  }
+  return plus;
+}
