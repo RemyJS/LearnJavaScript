@@ -123,3 +123,28 @@ function nfe_sum(add = 0) {
   }
   return plus;
 }
+
+// https://learn.javascript.ru/task/output-numbers-100ms
+function si_printNumbers(from,to){
+  let timerid = setInterval(() => {
+    from += 1;
+    console.log(from); 
+    if(from == to){
+      clearInterval(timerid);
+    }
+  },1000);
+ return `считаю от ${from} до ${to} через setInterval`;
+}
+function st_printNumbers(from,to){
+  let timerid = setTimeout(function tick(){
+    from += 1;
+    console.log(from);
+    if(from < to){
+      timerid = setTimeout(tick,1000);
+    }else{
+      clearTimeout(timerid);
+      console.log(`все, вроде посчитал, можно и раслабиться`);
+    }
+  },1000);
+  return `считаю от ${from} до ${to} рекурсивно через setTimeOut ;)`;
+}
