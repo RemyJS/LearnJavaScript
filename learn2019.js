@@ -148,3 +148,24 @@ function st_printNumbers(from,to){
   },1000);
   return `считаю от ${from} до ${to} рекурсивно через setTimeOut ;)`;
 }
+// https://learn.javascript.ru/task/spy-decorator
+function spy_decorator(func) {
+  let cache = [];
+  
+  function f () {
+    cache.push([...arguments]);
+    let res = func.apply(this,arguments);
+    return res;
+  }
+  f.calls = cache;
+  return f;
+}
+//https://learn.javascript.ru/task/delay
+function delay_decorator (func,ms){
+  return function(){
+    let self = this;
+    setTimeout(function(){
+      return func.apply(self,arguments);
+    },ms,...arguments);
+  }
+}
