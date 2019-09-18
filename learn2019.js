@@ -169,3 +169,23 @@ function delay_decorator (func,ms){
     },ms,...arguments);
   }
 }
+// https://learn.javascript.ru/call-apply-decorators#dekorator-debounce
+function debounce_decorator(func,ms){
+  let self = this;
+  let isWorking = false; 
+  return function(){
+    if(!isWorking){
+      isWorking = true;
+      setTimeout(function(){
+        isWorking = false;
+        return func.apply(self,arguments);
+      },ms,...arguments);
+    }
+  }
+}
+let fdd = debounce_decorator(alert,1500);
+fdd(1);
+fdd(2);
+
+setTimeout( () => fdd(3), 100); // проигнорирован (прошло только 100 мс)
+setTimeout( () => fdd(4), 2100); // выполняется
