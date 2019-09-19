@@ -183,9 +183,77 @@ function debounce_decorator(func,ms){
     }
   }
 }
-let fdd = debounce_decorator(alert,1500);
-fdd(1);
-fdd(2);
+// let fdd = debounce_decorator(alert,1500);
+// fdd(1);
+// fdd(2);
 
-setTimeout( () => fdd(3), 100); // проигнорирован (прошло только 100 мс)
-setTimeout( () => fdd(4), 2100); // выполняется
+// setTimeout( () => fdd(3), 100); // проигнорирован (прошло только 100 мс)
+// setTimeout( () => fdd(4), 2100); // выполняется
+//https://learn.javascript.ru/call-apply-decorators#tormozyaschiy-throttling-dekorator
+function throttle_dec(func,ms){
+  let self = this;
+  let free = true;
+  let stack = [];
+  let timerId;
+  return function(){
+    if(free){
+      free = false;
+      return func.apply(self,arguments);
+    }else{
+      clearTimeout(timerId);
+      stack.push(func);
+      timerId = setTimeout(function(){
+        func = stack.pop();
+        free = true;
+        return func.apply(self,arguments);
+      },ms,...arguments);
+
+    }
+  }
+}
+
+function func_throttle(a){
+  console.log(a);
+}
+//пока не решена! 19,09,19
+// let ft1000 = throttle_dec(func_throttle,1000);
+
+// ft1000(1);
+// ft1000(2);
+// ft1000(3);
+
+function askPassword_bind(ok, fail) {
+  let password = prompt("Password?", '');
+  if (password == "rockstar") ok();
+  else fail();
+}
+
+let user_bind1 = {
+  name: 'Вася',
+
+  loginOk() {
+    alert(`${this.name} logged in`);
+  },
+
+  loginFail() {
+    alert(`${this.name} failed to log in`);
+  },
+
+};
+
+// askPassword_bind( user.loginOk.bind(user_bind1), user.loginFail.bind(user_bind1) );
+
+function askPassword_bind2(ok, fail) {
+  let password = prompt("Password?", '');
+  if (password == "Connor") ok();
+  else fail();
+}
+
+let user_bind2 = {
+  name: 'John',
+
+  login(result) {
+    alert( this.name + (result ? ' Come with me if you wanna live' : ' Get out!') );
+  }
+};
+askPassword_bind2(user_bind2.login.bind(user_bind2,true),()=> user_bind2.login(false));
