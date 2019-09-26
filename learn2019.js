@@ -256,4 +256,57 @@ let user_bind2 = {
     alert( this.name + (result ? ' Come with me if you wanna live' : ' Get out!') );
   }
 };
-askPassword_bind2(user_bind2.login.bind(user_bind2,true),()=> user_bind2.login(false));
+//askPassword_bind2(user_bind2.login.bind(user_bind2,true),()=> user_bind2.login(false));
+let head_prot1 = {
+  glasses: 1
+};
+
+let table_prot1 = {
+  pen: 3,
+  __proto__: head_prot1
+};
+
+let bed_prot1 = {
+  sheet: 1,
+  pillow: 2,
+  __proto__: table_prot1
+};
+
+let pockets_prot1 = {
+  money: 2000,
+  __proto__: bed_prot1
+};
+
+let hamster_prot1 = {
+  //stomach: [],
+
+  eat(food) {
+    this.stomach =[];
+    this.stomach.push(food);
+  }
+};
+// https://learn.javascript.ru/native-prototypes#dobavit-funktsiyam-metod-f-defer-ms
+function funcForDefer1(){
+  console.log('hello');
+};
+
+Function.prototype.defer1 = function (ms){
+   setTimeout(this,ms);
+   return `${this.name} сработает через ${ms}`;
+};
+
+//https://learn.javascript.ru/native-prototypes#dobavte-funktsiyam-dekoriruyuschiy-metod-defer
+
+function sumFordef (a,b){
+  alert(a+b);
+  return a + b;
+}
+
+Function.prototype.defer2 = function (ms){
+  let self = this;
+  return function(){
+     let arg = Array.from(arguments).join(', ');
+     setTimeout(self,ms,...arguments);
+     return `${self.name} сработает через ${ms} с аргументами: ${arg}`
+  }
+}
