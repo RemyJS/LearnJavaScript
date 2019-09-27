@@ -310,3 +310,32 @@ Function.prototype.defer2 = function (ms){
      return `${self.name} сработает через ${ms} с аргументами: ${arg}`
   }
 }
+// 
+// let dictionary = Object.create(null,{
+//   toString: {enumerable:false,
+//     get: function(){
+//       return Object.keys(this).join(', ');
+//     }
+//   }
+// });
+let dictionaryMeth= Object.create(null);
+
+// ваш код, который добавляет метод dictionary.toString
+dictionaryMeth.toString = function (){
+  return Object.keys(this).join(', ');
+}
+Object.defineProperty(dictionaryMeth,'toString',{
+  enumerable:false
+});
+
+// добавляем немного данных
+dictionaryMeth.apple = "Apple";
+dictionaryMeth.__proto__ = "test"; // здесь __proto__ -- это обычный ключ
+
+// только apple и __proto__ выведены в цикле
+// for(let key in dictionary) {
+//   console.log(key); // "apple", затем "__proto__"
+// }
+
+// ваш метод toString в действии
+//alert(dictionary); // "apple,__proto__"
