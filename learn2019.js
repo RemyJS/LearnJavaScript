@@ -109,77 +109,77 @@ function nfe_makeCounter() {
 let nfe_counter = nfe_makeCounter();
 
 function nfe_sum(add = 0) {
-  nfe_sum.sum = nfe_sum.sum||0;
+  nfe_sum.sum = nfe_sum.sum || 0;
   nfe_sum.sum += add;
-  nfe_sum.reset = function(){
+  nfe_sum.reset = function () {
     nfe_sum.sum = 0;
     return "обнуление!"
   }
-  function plus (n){
+  function plus(n) {
     return nfe_sum(n);
   }
-  plus.toString = function (){
+  plus.toString = function () {
     return nfe_sum.sum;
   }
   return plus;
 }
 
 // https://learn.javascript.ru/task/output-numbers-100ms
-function si_printNumbers(from,to){
+function si_printNumbers(from, to) {
   let timerid = setInterval(() => {
     from += 1;
-    console.log(from); 
-    if(from == to){
+    console.log(from);
+    if (from == to) {
       clearInterval(timerid);
     }
-  },1000);
- return `считаю от ${from} до ${to} через setInterval`;
+  }, 1000);
+  return `считаю от ${from} до ${to} через setInterval`;
 }
-function st_printNumbers(from,to){
-  let timerid = setTimeout(function tick(){
+function st_printNumbers(from, to) {
+  let timerid = setTimeout(function tick() {
     from += 1;
     console.log(from);
-    if(from < to){
-      timerid = setTimeout(tick,1000);
-    }else{
+    if (from < to) {
+      timerid = setTimeout(tick, 1000);
+    } else {
       clearTimeout(timerid);
       console.log(`все, вроде посчитал, можно и раслабиться`);
     }
-  },1000);
+  }, 1000);
   return `считаю от ${from} до ${to} рекурсивно через setTimeOut ;)`;
 }
 // https://learn.javascript.ru/task/spy-decorator
 function spy_decorator(func) {
   let cache = [];
-  
-  function f () {
+
+  function f() {
     cache.push([...arguments]);
-    let res = func.apply(this,arguments);
+    let res = func.apply(this, arguments);
     return res;
   }
   f.calls = cache;
   return f;
 }
 //https://learn.javascript.ru/task/delay
-function delay_decorator (func,ms){
-  return function(){
+function delay_decorator(func, ms) {
+  return function () {
     let self = this;
-    setTimeout(function(){
-      return func.apply(self,arguments);
-    },ms,...arguments);
+    setTimeout(function () {
+      return func.apply(self, arguments);
+    }, ms, ...arguments);
   }
 }
 // https://learn.javascript.ru/call-apply-decorators#dekorator-debounce
-function debounce_decorator(func,ms){
+function debounce_decorator(func, ms) {
   let self = this;
-  let isWorking = false; 
-  return function(){
-    if(!isWorking){
+  let isWorking = false;
+  return function () {
+    if (!isWorking) {
       isWorking = true;
-      setTimeout(function(){
+      setTimeout(function () {
         isWorking = false;
-        return func.apply(self,arguments);
-      },ms,...arguments);
+        return func.apply(self, arguments);
+      }, ms, ...arguments);
     }
   }
 }
@@ -190,29 +190,29 @@ function debounce_decorator(func,ms){
 // setTimeout( () => fdd(3), 100); // проигнорирован (прошло только 100 мс)
 // setTimeout( () => fdd(4), 2100); // выполняется
 //https://learn.javascript.ru/call-apply-decorators#tormozyaschiy-throttling-dekorator
-function throttle_dec(func,ms){
+function throttle_dec(func, ms) {
   let self = this;
   let free = true;
   let stack = [];
   let timerId;
-  return function(){
-    if(free){
+  return function () {
+    if (free) {
       free = false;
-      return func.apply(self,arguments);
-    }else{
+      return func.apply(self, arguments);
+    } else {
       clearTimeout(timerId);
       stack.push(func);
-      timerId = setTimeout(function(){
+      timerId = setTimeout(function () {
         func = stack.pop();
         free = true;
-        return func.apply(self,arguments);
-      },ms,...arguments);
+        return func.apply(self, arguments);
+      }, ms, ...arguments);
 
     }
   }
 }
 
-function func_throttle(a){
+function func_throttle(a) {
   console.log(a);
 }
 //пока не решена! 19,09,19
@@ -253,7 +253,7 @@ let user_bind2 = {
   name: 'John',
 
   login(result) {
-    alert( this.name + (result ? ' Come with me if you wanna live' : ' Get out!') );
+    alert(this.name + (result ? ' Come with me if you wanna live' : ' Get out!'));
   }
 };
 //askPassword_bind2(user_bind2.login.bind(user_bind2,true),()=> user_bind2.login(false));
@@ -281,33 +281,33 @@ let hamster_prot1 = {
   //stomach: [],
 
   eat(food) {
-    this.stomach =[];
+    this.stomach = [];
     this.stomach.push(food);
   }
 };
 // https://learn.javascript.ru/native-prototypes#dobavit-funktsiyam-metod-f-defer-ms
-function funcForDefer1(){
+function funcForDefer1() {
   console.log('hello');
 };
 
-Function.prototype.defer1 = function (ms){
-   setTimeout(this,ms);
-   return `${this.name} сработает через ${ms}`;
+Function.prototype.defer1 = function (ms) {
+  setTimeout(this, ms);
+  return `${this.name} сработает через ${ms}`;
 };
 
 //https://learn.javascript.ru/native-prototypes#dobavte-funktsiyam-dekoriruyuschiy-metod-defer
 
-function sumFordef (a,b){
-  alert(a+b);
+function sumFordef(a, b) {
+  alert(a + b);
   return a + b;
 }
 
-Function.prototype.defer2 = function (ms){
+Function.prototype.defer2 = function (ms) {
   let self = this;
-  return function(){
-     let arg = Array.from(arguments).join(', ');
-     setTimeout(self,ms,...arguments);
-     return `${self.name} сработает через ${ms} с аргументами: ${arg}`
+  return function () {
+    let arg = Array.from(arguments).join(', ');
+    setTimeout(self, ms, ...arguments);
+    return `${self.name} сработает через ${ms} с аргументами: ${arg}`
   }
 }
 // 
@@ -318,14 +318,14 @@ Function.prototype.defer2 = function (ms){
 //     }
 //   }
 // });
-let dictionaryMeth= Object.create(null);
+let dictionaryMeth = Object.create(null);
 
 // ваш код, который добавляет метод dictionary.toString
-dictionaryMeth.toString = function (){
+dictionaryMeth.toString = function () {
   return Object.keys(this).join(', ');
 }
-Object.defineProperty(dictionaryMeth,'toString',{
-  enumerable:false
+Object.defineProperty(dictionaryMeth, 'toString', {
+  enumerable: false
 });
 
 // добавляем немного данных
@@ -339,3 +339,81 @@ dictionaryMeth.__proto__ = "test"; // здесь __proto__ -- это обычн�
 
 // ваш метод toString в действии
 //alert(dictionary); // "apple,__proto__"
+
+// https://learn.javascript.ru/class-inheritance#oshibka-sozdaniya-ekzemplyara-klassa
+class ClockClass {
+  timer;
+  constructor(obj) {
+    this.template = obj.template;
+  }
+  render() {
+    let date = new Date();
+
+    let hours = date.getHours();
+    if (hours < 10) hours = '0' + hours;
+
+    let mins = date.getMinutes();
+    if (mins < 10) mins = '0' + mins;
+
+    let secs = date.getSeconds();
+    if (secs < 10) secs = '0' + secs;
+
+    let output = this.template
+      .replace('h', hours)
+      .replace('m', mins)
+      .replace('s', secs);
+
+    console.log(output);
+  }
+  start() {
+    this.render();
+    this.timer = setInterval(()=>(this.render.call(this)), 1000);
+  }
+  stop() {
+    clearInterval(this.timer);
+    return `игра окончена`;
+  }
+};
+
+let clockClass1 = new ClockClass({template:'h:m:s'});
+clockClass1.start();
+
+setTimeout(()=> {
+  console.log(`остановим clockClass1`);
+  clockClass1.stop.call(clockClass1) 
+},1000);
+
+class ExtendedClockInh extends ClockClass{
+   constructor(obj){
+     super(obj);
+     this.precision = obj.precision || 1000;
+   }
+   start(){
+     console.log(`${this.__proto__.constructor.name} часы с задержкой ${this.precision} запущен!`)
+     this.timer = setInterval( ()=>(this.render.call(this)),this.precision );
+   }
+}
+// https://learn.javascript.ru/class-inheritance#uluchshennye-chasy
+let extClock1 = new ExtendedClockInh({
+  template: 'h:m:s',
+  precision: 3000
+});
+
+extClock1.start();
+setTimeout(() => {
+  console.log("остановим extClock1");
+  extClock1.stop.call(extClock1);
+},5000);
+// https://learn.javascript.ru/class-inheritance#klass-rasshiryaet-obekt
+/*
+class Rabbit extends Object {
+  constructor(name) {
+    super();
+    this.name = name;
+  }
+}
+
+let rabbit = new Rabbit("Кроль");
+
+alert( rabbit.hasOwnProperty('name') );
+*/ 
