@@ -367,7 +367,7 @@ class ClockClass {
   }
   start() {
     this.render();
-    this.timer = setInterval(()=>(this.render.call(this)), 1000);
+    this.timer = setInterval(() => (this.render.call(this)), 1000);
   }
   stop() {
     clearInterval(this.timer);
@@ -375,23 +375,23 @@ class ClockClass {
   }
 };
 
-let clockClass1 = new ClockClass({template:'h:m:s'});
+let clockClass1 = new ClockClass({ template: 'h:m:s' });
 clockClass1.start();
 
-setTimeout(()=> {
+setTimeout(() => {
   console.log(`остановим clockClass1`);
-  clockClass1.stop.call(clockClass1) 
-},1000);
+  clockClass1.stop.call(clockClass1)
+}, 1000);
 
-class ExtendedClockInh extends ClockClass{
-   constructor(obj){
-     super(obj);
-     this.precision = obj.precision || 1000;
-   }
-   start(){
-     console.log(`${this.__proto__.constructor.name} часы с задержкой ${this.precision} запущен!`)
-     this.timer = setInterval( ()=>(this.render.call(this)),this.precision );
-   }
+class ExtendedClockInh extends ClockClass {
+  constructor(obj) {
+    super(obj);
+    this.precision = obj.precision || 1000;
+  }
+  start() {
+    console.log(`${this.__proto__.constructor.name} часы с задержкой ${this.precision} запущен!`)
+    this.timer = setInterval(() => (this.render.call(this)), this.precision);
+  }
 }
 // https://learn.javascript.ru/class-inheritance#uluchshennye-chasy
 let extClock1 = new ExtendedClockInh({
@@ -403,7 +403,7 @@ extClock1.start();
 setTimeout(() => {
   console.log("остановим extClock1");
   extClock1.stop.call(extClock1);
-},5000);
+}, 5000);
 // https://learn.javascript.ru/class-inheritance#klass-rasshiryaet-obekt
 /*
 class Rabbit extends Object {
@@ -416,4 +416,57 @@ class Rabbit extends Object {
 let rabbit = new Rabbit("Кроль");
 
 alert( rabbit.hasOwnProperty('name') );
-*/ 
+*/
+
+function showCircle(cx, cy, radius) {
+  //alert(cx+""+ cy+""+ radius);
+  return new Promise(function (resolve, reject) {
+    let block = document.querySelector('.circle_prom');
+    let toggle = block.classList.toggle(".circle_on_prom");
+    if (!toggle) {
+      radius = 0;
+      let msg = block.firstElementChild;
+      if(msg != null){
+        msg.remove();
+      }
+      
+      block.style.width = radius * 2 + "px";
+      block.style.height = radius * 2 + "px";
+
+    } else {
+
+      block.style.left = cx + 'px';
+      block.style.top = cy + 'px';
+      setTimeout(function(){
+        block.style.width = radius * 2 + "px";
+        block.style.height = radius * 2 + "px";
+        
+        block.addEventListener('transitionend', function () {
+          resolve(block);
+        });
+      },0);
+    }
+
+  });
+
+}
+buttonShowCircle.onclick = function () {
+  showCircle(150, 320, 100).then(add => {
+    let div = document.createElement("div");
+    div.classList.add('msg_japan');
+    div.append("Hello, world!");
+    let msg = add.firstElementChild;
+    if( msg == null && add.style.width != "0px"){
+      add.append(div);
+    }else{
+      if( msg != null ) msg.remove();
+    }
+  });
+}
+function delay_promise (ms){
+  return new Promise((resolve,reject) =>{
+    setTimeout(resolve,ms);
+  });
+
+};
+delay_promise(3000).then(() => console.log('delay_promise выполнился через 3 секунды'));

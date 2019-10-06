@@ -17,3 +17,24 @@ header{
 #jsr{
   margin-left: 60px;
 }
+.circle_prom {
+  transition-property: width, height, margin-left, margin-top;
+  transition-duration: 2s;
+  position: fixed;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: red;
+  border-radius: 50%;
+
+}
+
+.circle_on_prom {
+  width: 0;
+  height: 0;
+}
+.msg_japan {
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  line-height: 200px;
+}
