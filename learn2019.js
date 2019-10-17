@@ -426,10 +426,10 @@ function showCircle(cx, cy, radius) {
     if (!toggle) {
       radius = 0;
       let msg = block.firstElementChild;
-      if(msg != null){
+      if (msg != null) {
         msg.remove();
       }
-      
+
       block.style.width = radius * 2 + "px";
       block.style.height = radius * 2 + "px";
 
@@ -437,14 +437,14 @@ function showCircle(cx, cy, radius) {
 
       block.style.left = cx + 'px';
       block.style.top = cy + 'px';
-      setTimeout(function(){
+      setTimeout(function () {
         block.style.width = radius * 2 + "px";
         block.style.height = radius * 2 + "px";
-        
+
         block.addEventListener('transitionend', function () {
           resolve(block);
         });
-      },0);
+      }, 0);
     }
 
   });
@@ -456,17 +456,41 @@ buttonShowCircle.onclick = function () {
     div.classList.add('msg_japan');
     div.append("Hello, world!");
     let msg = add.firstElementChild;
-    if( msg == null && add.style.width != "0px"){
+    if (msg == null && add.style.width != "0px") {
       add.append(div);
-    }else{
-      if( msg != null ) msg.remove();
+    } else {
+      if (msg != null) msg.remove();
     }
   });
 }
-function delay_promise (ms){
-  return new Promise((resolve,reject) =>{
-    setTimeout(resolve,ms);
+function delay_promise(ms) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, ms);
   });
 
 };
 delay_promise(3000).then(() => console.log('delay_promise выполнился через 3 секунды'));
+//https://learn.javascript.ru/async-await#perepishite-ispolzuya-async-await
+async function loadJson_asaw(url) {
+  // return fetch(url)
+  //   .then(response => {
+  //     if (response.status == 200) {
+  //       return response.json();
+  //     } else {
+  //       throw new Error(response.status);
+  //     }
+  //   })
+  let response = await fetch(url);
+  try {
+    if(response.status == 200){
+      return await response.json();
+    }
+  } catch{
+    throw new Error(response.status);
+  }
+
+
+}
+
+loadJson_asaw('no-such-user.json') // (3)
+  .catch(alert); // Error: 404
