@@ -38,3 +38,9 @@ header{
   text-align: center;
   line-height: 200px;
 }
+.promise-avatar-example {
+  border-radius: 50%;
+  position: fixed;
+  left: 40%;
+  top: 30%;
+}

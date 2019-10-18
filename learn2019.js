@@ -482,7 +482,7 @@ async function loadJson_asaw(url) {
   //   })
   let response = await fetch(url);
   try {
-    if(response.status == 200){
+    if (response.status == 200) {
       return await response.json();
     }
   } catch{
@@ -494,3 +494,77 @@ async function loadJson_asaw(url) {
 
 loadJson_asaw('no-such-user.json') // (3)
   .catch(alert); // Error: 404
+
+class HttpError extends Error {
+  constructor(response) {
+    super(`${response.status} for ${response.url}`);
+    this.name = 'HttpError';
+    this.response = response;
+  }
+}
+
+
+
+// Запрашивать логин, пока github не вернёт существующего пользователя.
+async function demoGithubUser() {
+  async function loadJson(url) {
+    let response = await fetch(url);
+    if (response.status == 200) {
+      return response.json();
+    } else {
+      throw new HttpError(response);
+    }
+  };
+
+  let user;
+  let flag = false;
+  while (true) {
+    try {
+      let name = prompt("Введите логин?", "remyJS");
+      user = await loadJson(`https://api.github.com/users/${name}`);
+      if(name != null )flag = true;
+      break;
+    } catch (err) {
+      if (err instanceof HttpError && err.response.status == 404) {
+        alert("Такого пользователя не существует, пожалуйста, повторите ввод.");
+      } else {
+        throw err;
+      }
+    }
+  };
+  if(flag){
+    alert(`Полное имя: ${user.name}.`);
+    let img = document.createElement('img');
+    img.src = user.avatar_url;
+    img.className = "promise-avatar-example";
+    document.body.append(img);
+  
+    // ждём 3 секунды и затем скрываем аватар
+    await new Promise((resolve, reject) => setTimeout(resolve, 3000));
+  
+    img.remove();
+  }
+
+  return user;
+}
+
+//demoGithubUser();
+
+async function wait_aa() {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  return 10;
+}
+
+function f_wait_aa() {
+  // ...что здесь написать?
+  // чтобы вызвать wait() и дождаться результата "10" от async–функции
+  // не забывайте, здесь нельзя использовать "await"
+  let wait;
+  (async function () {
+    wait = await wait_aa();
+    alert(wait);
+    
+  })();
+  
+};
