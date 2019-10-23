@@ -492,8 +492,8 @@ async function loadJson_asaw(url) {
 
 }
 
-loadJson_asaw('no-such-user.json') // (3)
-  .catch(alert); // Error: 404
+// loadJson_asaw('no-such-user.json') // (3)
+//   .catch(alert); // Error: 404
 
 class HttpError extends Error {
   constructor(response) {
@@ -568,3 +568,12 @@ function f_wait_aa() {
   })();
   
 };
+function* pseudoRandom (){
+  let x = 1;
+  do{
+    x = x  * 16807 % 2147483647;
+    yield x;
+  }while(true);  
+ 
+};
+//let generatorPR = pseudoRandom(1);
