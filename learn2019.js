@@ -577,3 +577,61 @@ function* pseudoRandom (){
  
 };
 //let generatorPR = pseudoRandom(1);
+let userProxy = {
+  name: "John"
+};
+
+function wrapProxy(target) {
+  return new Proxy(target, {
+      /* ваш код */
+      get(target, prop, receiver) {
+        let t = target[prop]
+        if( t == undefined){
+           throw new Error("Такого свойства нет");
+        }else{
+          return Reflect.get(target, prop, receiver);
+        }
+      }
+  });
+}
+
+userProxy = wrapProxy(userProxy);
+
+// alert(userProxy.name); // John
+// alert(userProxy.age); // Ошибка: такого свойства не существует
+let arrayProxy = [1, 2, 3];
+
+arrayProxy = new Proxy(arrayProxy, {
+  /* ваш код */
+  get(target, prop, receiver){
+    if( +prop < 0){
+      let i = target.length + (+prop);
+      return Reflect.get(target, i, receiver);
+    }else{
+     // return target[prop];
+      return Reflect.get(target, prop, receiver);
+    }
+  }
+});
+
+// alert( arrayProxy[-1] ); // 3
+// alert( arrayProxy[-2] ); // 2
+
+function makeObservable(target) {
+  /* ваш код */
+  return new Proxy( target,{
+    set(target, prop, val, receiver ){
+      return Reflect.set(target, prop, val, receiver);
+    }
+  });
+}
+
+let userP2 = {};
+userP2 = makeObservable(userP2);
+
+// userP2.observe((key, value) => {
+//   alert(`SET ${key}=${value}`);
+// });
+
+// userP2.name = "John Proxy 2";
+//пока не смог решить
