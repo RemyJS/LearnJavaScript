@@ -635,3 +635,8 @@ userP2 = makeObservable(userP2);
 
 // userP2.name = "John Proxy 2";
 //пока не смог решить
+
+function evalCallculator(){
+   let str = prompt("Расчитать","2+2*3");
+   alert( eval(str) );
+}
