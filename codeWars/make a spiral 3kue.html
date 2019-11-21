@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <a href="Make a spiral">https://www.codewars.com/kata/make-a-spiral/javascript</a>
+  <pre>
+      Your task, is to create a NxN spiral with a given size.
+
+      For example, spiral with size 5 should look like this:
+      
+      00000
+      ....0
+      000.0
+      0...0
+      00000
+      and with the size 10:
+      
+      0000000000
+      .........0
+      00000000.0
+      0......0.0
+      0.0000.0.0
+      0.0..0.0.0
+      0.0....0.0
+      0.000000.0
+      0........0
+      0000000000
+      Return value should contain array of arrays, of 0 and 1, for example for given size 5 result should be:
+      
+      [[1,1,1,1,1],[0,0,0,0,1],[1,1,1,0,1],[1,0,0,0,1],[1,1,1,1,1]]
+      Because of the edge-cases for tiny spirals, the size will be at least 5.
+      
+      General rule-of-a-thumb is, that the snake made with '1' cannot touch to itself.
+  </pre>
+</body>
+<script>
+  let spiralize = function (size) {
+    // insert code here
+    let arr = [];
+    for (let i = 0; i < size; i++) {
+      let a2 = [];
+      for (let j = 0; j < size; j++) {
+        a2[j] = 1;
+      }
+      arr[i] = a2;
+    }
+
+    let ls = []; //ls - lengthes;
+    // ls - length of each road from zeros, how many steps need to take
+    let val = size - 1;
+    ls[0] = val;
+    val--;
+    while (val > 1) {
+      ls.push(val);
+      if (val - 2 < 0) break;
+      ls.push(val);
+      val -= 2;
+    }
+    //movement on the matrix
+    function ver(len) {// vertical down
+      for (let i = 0; i < len; i++) {
+        arr[xi + i][yj] = 0;
+      }
+      xi += (len - 1);
+    }
+    function verUp(len) {//vertical up
+      len--;
+      for (let i = len; i > 0; i--) {
+        arr[xi - i][yj] = 0;
+      }
+      xi -= (len);
+    }
+    function hor(len) { // horizontal right
+      for (let i = 0; i < len; i++) {
+        arr[xi][yj + i] = 0;
+      }
+      yj += (len - 1);
+    }
+    function horLeft(len) {// horizontal left 
+      len--;
+      for (let i = len; i > 0; i--) {
+        arr[xi][yj - i] = 0;
+      }
+      yj -= (len);
+    }
+    let xi = 1; // start points 
+    let yj = 0;
+    let isHor = true;// turn horizontal or vertical
+    let isRight = true;// left or right
+    let isDown = true;// down or up
+    for (let i = 0; i < ls.length; i++) {
+      let len = ls[i];
+      if (isHor) {
+        if (isRight) {
+          hor(len);
+        } else {
+          horLeft(len);
+        }
+        isRight = !isRight;
+      } else {
+        if (isDown) {
+          ver(len);
+        } else {
+          verUp(len);
+        }
+        isDown = !isDown;
+      }
+      isHor = !isHor;
+    }
+    return arr;
+  }
+  //let r1 = spiralize(5); // 4,3,3
+  // 8,7,7,5,5,3,3
+  let r2 = spiralize(8);//
+  //10 9,8,8,6,6,4,4,2
+  console.log(r2);
+
+</script>
+
+
+</html>
