@@ -640,3 +640,12 @@ function evalCallculator(){
    let str = prompt("Расчитать","2+2*3");
    alert( eval(str) );
 }
+//intl
+let animalsIntl = ["тигр", "ёж", "енот", "ехидна", "АИСТ", "ЯК"];
+
+// ... ваш код ...
+let collator_case = new Intl.Collator(undefined, {
+  sensitivity: "case"
+});
+
+let anIntl = animalsIntl.sort(collator_case.compare);
