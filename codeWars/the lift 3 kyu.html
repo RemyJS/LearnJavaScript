@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    body{
+      background-color: dimgrey;
+      font-size: 20px;
+      color: floralwhite;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h4><a href="https://www.codewars.com/kata/the-lift/javascript">The Lift</a></h4>
+
+    <div>
+      очень интересная задача, алгоритм лифта.
+      в целом пытался написать давольно таки прозрачную логику. Лифт ездит от нижнего до верхнего этажа
+      и после спускается вниз, до тех пор пока есть еще пассажиры.
+      функция возвращает массив stops.
+      <ul>
+        <li>Лифт всегда едит до последнего этажа или до нулевого этажа</li>
+        <li>Загружаются только попутные пассажиры.</li>
+        <li>Если лифт дважды подряд делает остановку на одном этаже то записывается в массив только одна остановка</li>
+      </ul>
+      в принципе все остальное согласно условию задачи.
+      <hr>
+      <img src="../image/lift.jpg" alt="Бэдконина)">
+      
+      <img src="../image/lift2.jpg" alt="vernik">
+      <hr>
+    </div>
+  </div>
+</body>
+<script>
+  let theLift = function (queues, capacity) {
+    // Your code here!
+    let lift = {
+      capacity: capacity,
+      pass: [],
+      level: 0,
+      up: true
+    };
+
+    let stops = [0];
+
+    function q() {
+      for (let i = 0; i < queues.length; i++) {
+        if (queues[i].length) return true;
+      }
+      return false;
+    }
+
+    while (q()) {
+      if (lift.up) {//lift moves up
+
+        for (lift.level; lift.level < queues.length; lift.level++) {
+
+          let stop = NaN;// stop on the level
+
+          if (lift.pass.length) {//get off passangers on the level
+
+            for (let i = 0; i < lift.pass.length; i++) {
+              if (lift.level == lift.pass[i]) {
+                stop = lift.level;
+                lift.pass.splice(i, 1);
+                i--;
+              }
+            }
+
+          }//end get off
+
+          if (queues[lift.level].length) {//load passangers 
+            for (let i = 0; i < queues[lift.level].length; i++) {
+              if (queues[lift.level][i] > lift.level) {
+                stop = lift.level;//stop on the level
+                if (lift.pass.length < lift.capacity) {//loads if it can
+
+                  let plvl = queues[lift.level][i];
+                  queues[lift.level].splice(i, 1);
+                  i--;
+                  lift.pass.push(plvl);
+                }
+              }
+            }
+
+          }//end load passangers
+
+          if (stops[stops.length - 1] == stop) stops.pop();
+          if (!isNaN(stop)) stops.push(stop);
+        };//end for lift.level
+        lift.up = false;// lift on the top floor
+      } else {// lift moves down
+
+        lift.level--;
+
+        for (lift.level; lift.level > -1; lift.level--) {
+
+          let stop = NaN;
+          if (lift.pass.length) {//get off passangers on the level
+            for (let i = 0; i < lift.pass.length; i++) {
+              if (lift.level == lift.pass[i]) {
+                stop = lift.level;
+                lift.pass.splice(i, 1);
+                i--;
+              }
+            }
+
+          }//end get off
+
+          if (queues[lift.level].length) {//load passangers 
+
+            for (let i = 0; i < queues[lift.level].length; i++) {
+              if (queues[lift.level][i] < lift.level) {
+                stop = lift.level;
+                if (lift.pass.length < lift.capacity) {
+                  let plvl = queues[lift.level][i];
+                  queues[lift.level].splice(i, 1);
+                  i--;
+                  lift.pass.push(plvl);
+                }
+              }
+            }
+
+          }//end load passangers
+          if (stops[stops.length - 1] == stop) stops.pop();
+          if (!isNaN(stop)) stops.push(stop);
+        }
+        lift.up = true;// lift on the ground
+      }
+      if (lift.level < 0) lift.level = 0;
+
+    }
+
+    if (stops[stops.length - 1] != 0) stops.push(0);
+    return stops;
+  }
+  var queues = [
+    [],//g
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0]
+  ];
+  var result = theLift(queues, 5);
+  console.log(result);
+</script>
+
+
+</html>
