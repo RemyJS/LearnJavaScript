@@ -19,10 +19,9 @@
 }
 .field{
   width: 450px;
-  
+  height: 300px;
   border: 10px groove black;
   background-color: #00FF00;
-  position: relative;
   overflow: hidden;
 }
 .note {
@@ -51,4 +50,8 @@
   line-height: .1em;
   margin-right: .25em;
   vertical-align: -.4em;
+}
+.greenArrows{
+  cursor: pointer;
+  color: green;
 }

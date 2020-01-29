@@ -141,6 +141,7 @@ let field1 = document.querySelector(".field");
 
 function ballGoToCenterField() {
   let field = document.querySelector(".field");
+  field.style.position = "relative";
   let ballSize = ball2.offsetHeight / 2;
   let top = field.clientHeight / 2;
   ball2.style.top = (top - ballSize) + "px";
@@ -224,3 +225,69 @@ showNote(bqtask, "bottom", "note below");
 showNote(bqtask, "top-in", "note top-in");
 showNote(bqtask, "right-in", "note at the right-in");
 showNote(bqtask, "bottom-in", "note below-in");
+
+let field2 = fieldT2.querySelector(".field");
+field2.style.cursor = "pointer";
+
+field2.addEventListener("click", {
+  handleEvent(event) {
+    let ballSize = ball3.offsetWidth / 2;
+    
+    let x = event.clientX + pageXOffset - ballSize;
+    let y = event.clientY + pageYOffset - ballSize;
+  //  console.log(x,y);
+    let left = field2.offsetLeft + field2.clientLeft;
+    if( x < left ) x = left;
+
+    let top = field2.offsetTop + field2.clientTop;
+    if (y < top) y = top;
+
+    let right = field2.offsetLeft + field2.clientWidth - ballSize - field2.clientLeft;
+    if( x > right) x = right;
+
+    let bottom = field2.offsetTop + field2.clientHeight - field2.clientTop - ballSize;
+    if ( y > bottom) y = bottom;
+
+    ball3.style.transition = "all 1s";
+    ball3.style.position = "absolute";
+    ball3.style.left = x + "px";
+    ball3.style.top = y + "px";
+  }
+});
+
+function showSweet(){
+  let ul = slidingMenu.getElementsByTagName("ul");
+  ul[0].hidden = false;
+  arrowShow.hidden = true;
+  arrowHide.hidden = false;
+};
+function hideSweet(){
+  let ul = slidingMenu.getElementsByTagName("ul");
+  ul[0].hidden = true;
+  arrowShow.hidden = false;
+  arrowHide.hidden = true;
+}
+hideSweet();
+arrowShow.addEventListener("click",showSweet);
+arrowHide.addEventListener("click",hideSweet);
+
+function hideMessageAboutAnimal(){
+  function hidePane(){
+
+  }
+  let panes = hideAnimals.querySelectorAll(".pane");
+  for(let i = 0; i < panes.length; i++){
+    let button = document.createElement("button");
+    button.innerText = '[x]';
+    button.className = "remove-button";
+    panes[i].prepend(button);
+    button.addEventListener("click",{
+      handleEvent(event){
+        let click = event.currentTarget;
+        click.parentNode.hidden = true
+      }
+    });
+  }
+
+}
+hideMessageAboutAnimal();
