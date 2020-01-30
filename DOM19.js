@@ -232,21 +232,21 @@ field2.style.cursor = "pointer";
 field2.addEventListener("click", {
   handleEvent(event) {
     let ballSize = ball3.offsetWidth / 2;
-    
+
     let x = event.clientX + pageXOffset - ballSize;
     let y = event.clientY + pageYOffset - ballSize;
-  //  console.log(x,y);
+    //  console.log(x,y);
     let left = field2.offsetLeft + field2.clientLeft;
-    if( x < left ) x = left;
+    if (x < left) x = left;
 
     let top = field2.offsetTop + field2.clientTop;
     if (y < top) y = top;
 
     let right = field2.offsetLeft + field2.clientWidth - ballSize - field2.clientLeft;
-    if( x > right) x = right;
+    if (x > right) x = right;
 
     let bottom = field2.offsetTop + field2.clientHeight - field2.clientTop - ballSize;
-    if ( y > bottom) y = bottom;
+    if (y > bottom) y = bottom;
 
     ball3.style.transition = "all 1s";
     ball3.style.position = "absolute";
@@ -255,34 +255,34 @@ field2.addEventListener("click", {
   }
 });
 
-function showSweet(){
+function showSweet() {
   let ul = slidingMenu.getElementsByTagName("ul");
   ul[0].hidden = false;
   arrowShow.hidden = true;
   arrowHide.hidden = false;
 };
-function hideSweet(){
+function hideSweet() {
   let ul = slidingMenu.getElementsByTagName("ul");
   ul[0].hidden = true;
   arrowShow.hidden = false;
   arrowHide.hidden = true;
 }
 hideSweet();
-arrowShow.addEventListener("click",showSweet);
-arrowHide.addEventListener("click",hideSweet);
+arrowShow.addEventListener("click", showSweet);
+arrowHide.addEventListener("click", hideSweet);
 
-function hideMessageAboutAnimal(){
-  function hidePane(){
+function hideMessageAboutAnimal() {
+  function hidePane() {
 
   }
   let panes = hideAnimals.querySelectorAll(".pane");
-  for(let i = 0; i < panes.length; i++){
+  for (let i = 0; i < panes.length; i++) {
     let button = document.createElement("button");
     button.innerText = '[x]';
     button.className = "remove-button";
     panes[i].prepend(button);
-    button.addEventListener("click",{
-      handleEvent(event){
+    button.addEventListener("click", {
+      handleEvent(event) {
         let click = event.currentTarget;
         click.parentNode.hidden = true
       }
@@ -291,3 +291,63 @@ function hideMessageAboutAnimal(){
 
 }
 hideMessageAboutAnimal();
+
+hideAnimalsDeligate.addEventListener("click", function (event) {
+  let button = event.target.closest(".remove-button");
+  if (!button) return;
+  button.parentNode.hidden = true;
+});
+
+let tree3 = treeDelegate.querySelector(".tree3");
+function spanTree(tree) {
+  let arrli = tree.getElementsByTagName("li");
+  for (let i = 0; i < arrli.length; i++) {
+    let span = document.createElement("span");
+    arrli[i].prepend(span);
+    span.append(span.nextSibling);
+  }
+}
+spanTree(tree3);
+
+treeDelegate.addEventListener("click", function (event) {
+  let li = event.target.closest('li');
+  //console.log(li.children);
+  if (li.childElementCount > 1) {
+    //	 console.log(li.children[1]);
+    li.children[1].classList.toggle('hide');
+    //li.children[1].hidden = !li.children[1].hidden;
+  }
+});
+
+delegateSortTable.addEventListener("click",function(event){
+  let th = event.target.closest("th");
+  if(!th)return;
+  let type = th.dataset.type;
+  let tbody = this.querySelector("tbody");
+  let trows = tbody.children;
+ // console.log(trows);
+  
+  function bublesort(trows,type){
+    let t;
+    if(type == "string"){
+      t = 0;
+    }else{
+      t = 1;
+    };
+    let val;
+    for(let i = 0; i < trows.length; i++){
+     // console.log(trows[i].children[t]);
+      for(let j = 0; j < trows.length - 1; j++){
+        if(t){
+          val = +trows[j].children[t].textContent;
+        }else{
+          val = trows[j].children[t].textContent;
+        }
+        if(val > trows[j + 1].children[t].textContent){
+          trows[j + 1].after(trows[j]);
+        }  
+      }
+    }
+  };
+  bublesort(trows,type);
+});

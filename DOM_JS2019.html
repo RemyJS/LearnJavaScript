@@ -97,45 +97,7 @@
     <div id="calendar1" class="calendarJS">
 
     </div>
-    <div id="sort-table-task">
-      <table id="sortTable" class="sortingTable">
-        <tr>
-          <th>Имя</th>
-          <th>Фамилия</th>
-          <th>Возраст</th>
-        </tr>
-        <tr>
-          <td>John</td>
-          <td>Smith</td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td>Pete</td>
-          <td>Brown</td>
-          <td>15</td>
-        </tr>
-        <tr>
-          <td>Ann</td>
-          <td>Lee</td>
-          <td>5</td>
-        </tr>
-        <tr>
-          <td>Cris</td>
-          <td>Redfield</td>
-          <td>39</td>
-        </tr>
-        <tr>
-          <td>Ada</td>
-          <td>Wong</td>
-          <td>29</td>
-        </tr>
-        <tr>
-          <td>Albert</td>
-          <td>Wesker</td>
-          <td>45</td>
-        </tr>
-      </table>
-    </div>
+
   </div>
   <div>
     <div class="field">
@@ -216,7 +178,114 @@
       </div>
     </div>
   </div>
+  <div id="hideAnimalsDeligate">
+    <div>
+      <div class="pane">
+        <button class="remove-button">[x]</button>
+        <h3>Лошадь</h3>
+        <p>Домашняя лошадь - животное семейства непарнокопытных, одомашненный и единственный сохранившийся подвид дикой лошади, вымершей в дикой природе, за исключением небольшой популяции лошади Пржевальского.</p>
+        
+      </div>
+      <div class="pane">
+        <button class="remove-button">[x]</button>
+        <h3>Осёл</h3>
+        <p>Домашний осёл или ишак — одомашненный подвид дикого осла, сыгравший важную историческую роль в развитии хозяйства и культуры человека. Все одомашненные ослы относятся к африканским ослам.</p>
+       
+      </div>
+      <div class="pane">
+        <button class="remove-button">[x]</button>
+        <h3>Кошка</h3>
+        <p>Кошка, или домашняя кошка (лат. Félis silvéstris cátus), — домашнее животное, одно из наиболее популярных (наряду с собакой) "животных-компаньонов". С точки зрения научной систематики, домашняя кошка — млекопитающее семейства кошачьих отряда хищных. Ранее домашнюю кошку нередко рассматривали как отдельный биологический вид.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="treeDelegate">
+    <ul class="tree3">
+      <li>Животные
+        <ul>
+          <li>Млекопитающие
+            <ul>
+              <li>Коровы</li>
+              <li>Ослы</li>
+              <li>Собаки</li>
+              <li>Тигры</li>
+            </ul>
+          </li>
+          <li>Другие
+            <ul>
+              <li>Змеи</li>
+              <li>Птицы</li>
+              <li>Ящерицы</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Рыбы
+        <ul>
+          <li>Аквариумные
+            <ul>
+              <li>Гуппи</li>
+              <li>Скалярии</li>
+            </ul>
+          </li>
+          <li>Морские
+            <ul>
+              <li>Морская форель</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+
 </div>
+<!-- delegate -->
+<div>
+  <table id="delegateSortTable" class="sortingTable">
+    <thead>
+      <tr>
+        <th data-type="string">Имя</th>
+        <th data-type="number">Возраст</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John Smith</td>
+      
+        <td>10</td>
+      </tr>
+      <tr>
+        <td>Pete Brown</td>
+        
+        <td>15</td>
+      </tr>
+      <tr>
+        <td>Hanna Lee</td>
+        
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>Cris Redfield</td>
+        
+        <td>39</td>
+      </tr>
+      <tr>
+        <td>Zada Wong</td>
+        
+        <td>29</td>
+      </tr>
+      <tr>
+        <td>Albert Wesker</td>
+        
+        <td>45</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 </body>
 <script src="DOM19.js"></script>
 

@@ -2,18 +2,7 @@
   color:#cf3939;
   margin: 0 2px;
 }
-.sortingTable{
-  border: 3px solid #9d9d9d;
-  border-spacing: 0px 2px;
-  border-radius: 12px;
-  background-color: #fff9cced;
-  padding: 0 10px;
-}
-.sortingTable td {
-  padding: 2px 5px;
-  text-align: center;
-  border-bottom: 1px solid #9d9d9d;
-}
+
 #ball2{
   position: absolute;
 }
@@ -54,4 +43,23 @@
 .greenArrows{
   cursor: pointer;
   color: green;
+}
+.sortingTable{
+  border: 3px solid #9d9d9d;
+  border-spacing: 0px 2px;
+  border-radius: 12px;
+  background-color:#ededff;
+  padding: 0 10px;
+}
+.sortingTable td {
+  padding: 2px 5px;
+  text-align: center;
+  border-bottom: 1px solid #9d9d9d;
+}
+.sortingTable th {
+  cursor: pointer;
+}
+.sortingTable th:hover {
+  background: #660404ed;
+  color: #ccc;
 }

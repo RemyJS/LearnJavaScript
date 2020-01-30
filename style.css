@@ -63,8 +63,7 @@ footer {
   border-collapse: collapse;
 }
 
-.calendarJS td,
-th {
+.calendarJS td {
   border: 1px solid black;
   padding: 3px;
   height: 25px;
