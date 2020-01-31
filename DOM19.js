@@ -325,7 +325,7 @@ delegateSortTable.addEventListener("click",function(event){
   let type = th.dataset.type;
   let tbody = this.querySelector("tbody");
   let trows = tbody.children;
- // console.log(trows);
+ //  console.log(trows);
   
   function bublesort(trows,type){
     let t;
@@ -350,4 +350,19 @@ delegateSortTable.addEventListener("click",function(event){
     }
   };
   bublesort(trows,type);
+});
+/*
+  contents.addEventListener("click",function(event){
+    let target = event.target;
+    if(!target.closest("a"))return;
+    let left = confirm("Покинуть?");
+    if(!left)event.preventDefault();
+  });
+*/ 
+galeryDelegation.addEventListener("click",function(event){
+  let a = event.target.closest("a");
+  if(!a)return;
+  largeImg.src = a.href;
+  largeImg.alt = a.title;
+  event.preventDefault();
 });
