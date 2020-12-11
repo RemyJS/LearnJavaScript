@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+</head>
+<style>
+  html {
+    height: 100%;
+  }
+  body {
+    height: 100%;
+    background: url(/image/orzel.jpg) 50% no-repeat;
+    background-position: bottom;
+  }
+  #calculator {
+    font: italic normal normal 16px/normal "Comic Sans MS", cursive, sans-serif;
+    display: flex;
+    flex-direction: column;
+    margin: 0 15%;
+    padding-top: 2%;
+  }
+
+  .header {
+    text-align: center;
+  }
+
+</style>
+<link rel="stylesheet" href="https://bootswatch.com/4/journal/bootstrap.min.css">
+<body>
+  <div id="calculator">
+    <h1 class="header"><a href="https://ru.wikipedia.org/wiki/%D0%9E%D0%B1%D1%80%D0%B0%D1%82%D0%BD%D0%B0%D1%8F_%D0%BF%D0%BE%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F_%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D1%8C">
+      Обратная польская запись
+    </a></h1>
+    
+    <div class="form-group">
+      <form id="form">
+        <label class="col-form-label col-form-label-lg" for="entredValue">Ввод</label>
+        <input class="form-control form-control-lg" type="text" placeholder="Напр. 2 + 2 * 4 - ( - 1 + 4)" id="entredValue"  onkeyup="this.value = this.value.replace(/[^\d\s\.\+\*\/\-]/g,'');">
+      </form>
+    </div>
+    <div class="form-group">
+      <label class="col-form-label" for="outputRPN">Обратная польская запись</label>
+      <input type="text" class="form-control" placeholder="Обратная польская запись" id="outputRPN" readonly="">
+    </div>
+    <div class="form-group">
+      <label class="col-form-label" for="resualt">Результат</label>
+      <input type="text" class="form-control" placeholder="Результат" id="resualt" readonly="">
+    </div>
+    <div class="form-group">
+      <label class="col-form-label" for="warnings">Предупреждение</label>
+      <input type="text" class="form-control"  id="warnings" readonly="">
+    </div>
+    <button id="btnRes" type="button" class="btn btn-primary btn-lg">Расчет</button>
+  </div>
+</body>
+
+<script>
+
+  const Calculator = function () {
+    // do code here
+    // remake my first course work in university 
+    // i had the same task on delphi 
+    // i called her poland calulator 
+    const MathSymbols = new Set("+").add("-").add("*").add("/").add("(").add(")");
+
+    const Arithmetic = {
+      "+": 1,
+      "-": 1,
+      "*": 2,
+      "/": 2,
+      "(": 0
+    }
+
+    let numbers = [];
+    let opers = [];
+
+    function negativeNumber(str) {
+      if (str[0] == '-') str = '0' + str;
+      str = str.split('');
+      for (let i = 0; i < str.length; i++) {
+        if ((str[i] == '(') && (str[i + 1] == '-')) {
+          str.splice(i + 1, 0, '0');
+        }
+      };
+      return str.join('');
+    };
+
+    function createRpn(str) {
+      let split = false;
+      let rpn = '';
+      for (let i = 0; i < str.length; i++) {
+
+        if (!MathSymbols.has(str[i])) {// if it is number, not Math symbol!
+          if (split && (rpn.length != 0)) rpn += ' '; //  add space, creates a number from digits   
+          rpn += str[i]; // add digits to string
+          split = false; // end enter of number
+
+        } else {
+          split = true; // split on numbers
+
+          if (str[i] == "(") { // delete parentheses 
+            opers.push(str[i]); // add new operand 
+          } else if (str[i] == ")") {
+
+            while (opers[opers.length - 1] != '(') {
+              if (rpn.length == 0) {
+                rpn += opers.pop(); // add all operands in stack
+              } else {
+                rpn += ' ' + opers.pop();
+              }
+            }// end while
+            opers.pop();// drop "("
+            //end parentheses 
+          } else if (MathSymbols.has(str[i])) {// comparing priorities
+
+            if (!opers.length) {// opers is empty 
+              opers.push(str[i]);
+            } else if (Arithmetic[[str[i]]] > Arithmetic[opers[opers.length - 1]]) {
+              // if currient priority higher than
+              // priority symblol on the top of the stack         
+              opers.push(str[i]);
+            } else {
+              rpn += " " + opers.pop();
+              while (Arithmetic[opers[opers.length - 1]] >= Arithmetic[[str[i]]]) {
+                rpn += " " + opers.pop();
+                //while symbols on the top of the stack higher than
+                //currient symbol str[i]
+                //add in rpn string
+              }
+              opers.push(str[i]);// add new symbol on the top of the stack
+            }
+
+          }// end comparing priorities
+        }
+      };
+      while (opers.length) rpn += ' ' + opers.pop();
+      //console.log(rpn);
+      outputRPN.value = rpn;
+      return rpn;
+    }
+    function operation(x) {
+      let r2 = numbers.pop();
+      let r1 = numbers.pop();
+      // console.log(`${r1} ${x} ${r2}`)
+      let res;
+      switch (x) {
+        case '+':
+          res = r1 + r2;
+          break;
+        case '-':
+          res = r1 - r2;
+          break;
+        case '*':
+          res = r1 * r2;
+          break
+        case '/':
+          if (r2 == 0) {
+            warnings.value = `деление на 0 запрещено`;
+            setTimeout(() => {
+              warnings.value = "";
+            }, 2000);
+          }
+          res = r1 / r2;
+          break;
+      }
+      numbers.push(res);
+    }
+    function calculate(str) {
+      let arr = str.split(' ');// create array from RPZ string 
+      for (let i = 0; i < arr.length; i++) {
+        if (isNaN(arr[i])) {
+          operation(arr[i]);// do arithmetic operation
+        } else {
+          numbers.push(+arr[i]);// add number to stack
+        }
+      }
+      return numbers.pop();// last number in stack is resualt
+    };
+    this.evaluate = string => {
+      string = string.replace(/\s/g, '');
+      string = negativeNumber(string);
+      string = createRpn(string);
+      return calculate(string);
+    }
+  };
+
+
+  let pcalc = new Calculator();
+
+  btnRes.onclick = function () {
+    resualt.value = pcalc.evaluate(entredValue.value);
+  };
+
+  form.onsubmit = function (event) {
+    event.preventDefault();
+    resualt.value = pcalc.evaluate(entredValue.value);
+  }
+</script>
+<script src="./index2.js"></script>
+</html>
